@@ -4,8 +4,7 @@ import 'package:page_transition/page_transition.dart';
 import 'home_page.dart';
 
 class SplashScreen extends StatefulWidget {
-  static const _animation = 'assets/animation/Future_Insight.json';
-
+  static const _animation = 'assets/animation/jar-loading.json';
   const SplashScreen({super.key});
 
   @override
@@ -58,7 +57,7 @@ class _SplashScreenState extends State<SplashScreen>
               onLoaded: (composition) {
                 controller.duration = composition.duration;
               },
-              fit: BoxFit.contain,
+              // fit: BoxFit.contain,
               repeat: true,
               alignment: Alignment.center,
             ),
@@ -66,10 +65,10 @@ class _SplashScreenState extends State<SplashScreen>
             SizedBox(
               height: 5.0,
               width: MediaQuery.of(context).size.width *
-                  0.3, // Adjust this value to change the width of the progress bar
+                  0.1, // Adjust this value to change the width of the progress bar
               child: LinearProgressIndicator(
                 value: progress.value,
-                color: Theme.of(context).colorScheme.secondary,
+                color: Theme.of(context).colorScheme.inversePrimary,
               ),
             ),
           ],
