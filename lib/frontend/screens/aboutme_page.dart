@@ -1,0 +1,28 @@
+import 'package:flutter/material.dart';
+import 'package:rafay_portfolio/frontend/compoents/aboutMe.dart';
+import 'package:rafay_portfolio/frontend/compoents/footer.dart';
+import 'package:rafay_portfolio/frontend/compoents/my_drawer.dart';
+
+class AboutMePage extends StatefulWidget {
+  const AboutMePage({super.key});
+
+  @override
+  State<AboutMePage> createState() => _AboutMeState();
+}
+
+class _AboutMeState extends State<AboutMePage> {
+  @override
+  Widget build(BuildContext context) {
+    return const Scaffold(
+      body: Column(
+        children: <Widget>[
+          MyNavBar(),
+          Expanded(
+            child: AboutMe(),
+          ),
+          Footer(),
+        ],
+      ),
+    );
+  }
+}
