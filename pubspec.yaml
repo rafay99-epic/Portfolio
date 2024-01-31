@@ -29,7 +29,7 @@ flutter:
   uses-material-design: true
   assets:
         - assets/animation/
-        - assets/image/author.jpg
+        - assets/image/
 
 # Flutter Fonts 
   # fonts:
