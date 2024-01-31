@@ -3,13 +3,18 @@ import 'package:flutter/material.dart';
 
 import 'package:rafay_portfolio/frontend/compoents/NavbarItem.dart';
 
-class DesktopNavBar extends StatelessWidget {
+class DesktopNavBar extends StatefulWidget {
   const DesktopNavBar({super.key});
 
   @override
+  State<DesktopNavBar> createState() => _DesktopNavBarState();
+}
+
+class _DesktopNavBarState extends State<DesktopNavBar> {
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(top: 25.0),
+      padding: const EdgeInsets.only(top: 15.0),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
@@ -28,17 +33,22 @@ class DesktopNavBar extends StatelessWidget {
             style: TextStyle(
               color: Theme.of(context).colorScheme.primary,
               fontSize: 20.0,
-              // fontWeight: FontWeight.bold,
             ),
           ),
-          const Padding(
-            padding: EdgeInsets.only(left: 1050.0),
-            child: Row(
+          Padding(
+            padding:
+                EdgeInsets.only(left: MediaQuery.of(context).size.width * 0.5),
+            child: const Row(
               children: [
                 NavBarItem(
                   'Home',
                   icons: Icons.home_rounded,
                   routeName: '/home',
+                ),
+                NavBarItem(
+                  'About Me',
+                  icons: Icons.person_rounded,
+                  routeName: '/blog',
                 ),
                 NavBarItem(
                   'Services',

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/frontend/compoents/landing_page.dart';
 import 'package:rafay_portfolio/frontend/compoents/my_drawer.dart';
-// import the MyNavBar widget
+import 'package:rafay_portfolio/frontend/compoents/footer.dart'; // Import the Footer widget
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -19,9 +19,10 @@ class _HomePageState extends State<HomePage> {
           MyNavBar(),
           Expanded(
             child: LandingPage(),
-          )
+          ),
+          Footer(),
         ],
-      ), // add the MyNavBar widget to the body of the Scaffold
+      ),
     );
   }
 }
