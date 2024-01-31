@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/frontend/screens/NotFound_page.dart';
+import 'package:rafay_portfolio/frontend/screens/aboutme.dart';
 import 'package:rafay_portfolio/frontend/screens/blog.dart';
 import 'frontend/screens/Resume_page.dart';
 import 'frontend/screens/contentMe_page.dart';
@@ -71,6 +72,7 @@ class MyApp extends StatelessWidget {
         '/contact': (context) => const ContactMePage(),
         '/blog': (context) => const BlogPage(),
         '/404': (context) => const NotFoundPage(),
+        '/aboutme': (context) => const AboutMe(),
       },
       onUnknownRoute: (settings) {
         // Return the 'NotFoundPage' for all unknown routes.

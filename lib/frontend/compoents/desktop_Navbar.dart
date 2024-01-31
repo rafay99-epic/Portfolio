@@ -48,7 +48,7 @@ class _DesktopNavBarState extends State<DesktopNavBar> {
                 NavBarItem(
                   'About Me',
                   icons: Icons.person_rounded,
-                  routeName: '/blog',
+                  routeName: '/aboutme',
                 ),
                 NavBarItem(
                   'Services',

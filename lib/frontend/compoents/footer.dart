@@ -19,19 +19,19 @@ class Footer extends StatelessWidget {
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
-            const Icon(
+            Icon(
               Icons.favorite,
-              color: Colors.red,
+              color: Theme.of(context).colorScheme.inversePrimary,
             ),
             Text(
-              ' by',
+              ' by ',
               style: TextStyle(
                 fontSize: 12.0,
                 color: Theme.of(context).colorScheme.primary,
               ),
             ),
             Text(
-              ' Abdul Rafay',
+              'Abdul Rafay',
               style: TextStyle(
                 fontSize: 13.0,
                 color: Theme.of(context).colorScheme.primary,
