@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
 class AboutMe extends StatefulWidget {
@@ -16,7 +17,7 @@ class _AboutMeState extends State<AboutMe> {
         {bool underline = false, bool bold = false}) {
       return Text(
         text,
-        style: TextStyle(
+        style: GoogleFonts.roboto(
           fontSize: fontSize,
           color: Theme.of(context).colorScheme.primary,
           fontWeight: bold ? FontWeight.bold : FontWeight.normal,

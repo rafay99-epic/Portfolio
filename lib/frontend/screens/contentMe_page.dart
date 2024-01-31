@@ -2,9 +2,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/frontend/compoents/FeatureNotAvailableButton.dart';
+import 'package:rafay_portfolio/frontend/compoents/MyNavBar.dart';
 import 'package:rafay_portfolio/frontend/compoents/buildTextField.dart';
-
-import 'package:rafay_portfolio/frontend/compoents/my_drawer.dart';
 
 class ContactMePage extends StatefulWidget {
   const ContactMePage({super.key});
@@ -21,10 +20,10 @@ class _ContactMePageState extends State<ContactMePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: MyNavBar(),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         children: <Widget>[
-          const MyNavBar(),
           Expanded(
             child: Container(
               margin: const EdgeInsets.all(5.0),

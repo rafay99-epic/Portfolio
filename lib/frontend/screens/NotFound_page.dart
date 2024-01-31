@@ -1,7 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rafay_portfolio/frontend/compoents/my_drawer.dart';
+import 'package:rafay_portfolio/frontend/compoents/MyNavBar.dart';
 
 class NotFoundPage extends StatefulWidget {
   const NotFoundPage({super.key});
@@ -14,10 +14,10 @@ class _NotFoundPageState extends State<NotFoundPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: const MyNavBar(),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
         children: <Widget>[
-          const MyNavBar(),
           Expanded(
             child: Container(
               margin: const EdgeInsets.all(5.0),

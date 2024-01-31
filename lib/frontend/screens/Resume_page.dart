@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:rafay_portfolio/frontend/compoents/MyNavBar.dart';
 
 class ResumePage extends StatelessWidget {
   const ResumePage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return Scaffold(
+      appBar: const MyNavBar(),
+      backgroundColor: Theme.of(context).colorScheme.background,
+    );
   }
 }

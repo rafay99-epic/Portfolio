@@ -1,6 +1,7 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
@@ -17,7 +18,7 @@ class _LandingPageState extends State<LandingPage> {
       softWrap: true,
       maxLines: 1,
       textAlign: TextAlign.left,
-      style: TextStyle(
+      style: GoogleFonts.roboto(
         fontSize: size,
         color: Theme.of(context).colorScheme.primary,
         fontWeight: FontWeight.bold,
