@@ -31,42 +31,10 @@ class MyApp extends StatelessWidget {
         '/blog': (context) => const BlogPage(),
         '/404': (context) => const NotFoundPage(),
       },
+      onUnknownRoute: (settings) {
+        // Return the 'NotFoundPage' for all unknown routes.
+        return MaterialPageRoute(builder: (context) => const NotFoundPage());
+      },
     );
   }
 }
-
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       debugShowCheckedModeBanner: false,
-//       theme: lightMode,
-//       initialRoute: '/',
-//       onGenerateRoute: (RouteSettings settings) {
-//         switch (settings.name) {
-//           case '/':
-//             return MaterialPageRoute(
-//                 builder: (context) => const SplashScreen());
-//           case '/home':
-//             return MaterialPageRoute(builder: (context) => const HomePage());
-//           case '/services':
-//             return MaterialPageRoute(
-//                 builder: (context) => const ServicesPage());
-//           case '/resume':
-//             return MaterialPageRoute(builder: (context) => const ResumePage());
-//           case '/contact':
-//             return MaterialPageRoute(
-//                 builder: (context) => const ContactMePage());
-//           case '/blog':
-//             return MaterialPageRoute(builder: (context) => const BlogPage());
-//           default:
-//             return MaterialPageRoute(
-//                 builder: (context) =>
-//                     const NotFoundPage()); // Return a page for not found routes
-//         }
-//       },
-//     );
-//   }
-// }

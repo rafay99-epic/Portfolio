@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/frontend/compoents/FeatureNotAvailableButton.dart';
+import 'package:rafay_portfolio/frontend/compoents/buildTextField.dart';
 
 import 'package:rafay_portfolio/frontend/compoents/my_drawer.dart';
 
@@ -15,27 +16,6 @@ class ContactMePage extends StatefulWidget {
 final nameController = TextEditingController();
 final emailController = TextEditingController();
 final messageController = TextEditingController();
-
-Widget buildTextField(String labelText,
-    {int maxLines = 1,
-    required String hintText,
-    required IconData prefixIcon,
-    required TextEditingController controller}) {
-  return Padding(
-    padding: const EdgeInsets.only(left: 15.0),
-    child: TextFormField(
-      maxLines: maxLines,
-      decoration: InputDecoration(
-        labelText: labelText,
-        hintText: hintText,
-        prefixIcon: Icon(prefixIcon),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(10.0),
-        ),
-      ),
-    ),
-  );
-}
 
 class _ContactMePageState extends State<ContactMePage> {
   @override
@@ -79,22 +59,22 @@ class _ContactMePageState extends State<ContactMePage> {
                             ),
                           ),
                           const SizedBox(height: 15),
-                          buildTextField(
-                            'Name',
+                          CustomTextField(
+                            labelText: 'Name',
                             controller: nameController,
                             hintText: 'Enter your name',
                             prefixIcon: Icons.person,
                           ),
                           const SizedBox(height: 15),
-                          buildTextField(
-                            'Email',
+                          CustomTextField(
+                            labelText: 'Email',
                             hintText: 'Enter your email',
                             prefixIcon: Icons.email,
                             controller: emailController,
                           ),
                           const SizedBox(height: 15),
-                          buildTextField(
-                            'Message',
+                          CustomTextField(
+                            labelText: 'Message',
                             controller: messageController,
                             maxLines: 5,
                             hintText: 'Enter your message',
