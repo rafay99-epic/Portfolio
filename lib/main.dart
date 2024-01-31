@@ -57,27 +57,30 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       theme: lightMode,
-      home: const SplashScreen(),
-      initialRoute: '/',
+      onGenerateInitialRoutes: (String initialRoute) {
+        return [
+          MaterialPageRoute(
+            builder: (context) {
+              return initialRoute == '/'
+                  ? const SplashScreen()
+                  : const NotFoundPage();
+            },
+          ),
+        ];
+      },
       routes: {
         '/home': (context) => const HomePage(),
         '/services': (context) => const ServicesPage(),
         '/resume': (context) => const ResumePage(),
         '/contact': (context) => const ContactMePage(),
         '/blog': (context) => const BlogPage(),
-        '/404': (context) => const NotFoundPage(),
-        '/aboutme': (context) => const AboutMePage(),
-      },
-      onUnknownRoute: (settings) {
-        // Return the 'NotFoundPage' for all unknown routes.
-        return MaterialPageRoute(builder: (context) => const NotFoundPage());
       },
     );
   }
 }
+
