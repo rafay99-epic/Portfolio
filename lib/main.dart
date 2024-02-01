@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/frontend/screens/NotFound_page.dart';
 import 'package:rafay_portfolio/frontend/screens/aboutme_page.dart';
-import 'package:rafay_portfolio/frontend/screens/blog.dart';
+import 'package:rafay_portfolio/frontend/screens/blog_page.dart';
 import 'frontend/screens/Resume_page.dart';
 import 'frontend/screens/contentMe_page.dart';
 import 'frontend/screens/splash_page.dart';

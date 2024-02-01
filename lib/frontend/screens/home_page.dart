@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/frontend/compoents/MyNavBar.dart';
-
 import 'package:rafay_portfolio/frontend/compoents/landing_page.dart';
-
 import 'package:rafay_portfolio/frontend/compoents/footer.dart'; // Import the Footer widget
 
 class HomePage extends StatefulWidget {
