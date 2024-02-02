@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
+
 import 'home_page.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -57,15 +58,12 @@ class _SplashScreenState extends State<SplashScreen>
               onLoaded: (composition) {
                 controller.duration = composition.duration;
               },
-              // fit: BoxFit.contain,
               repeat: true,
               alignment: Alignment.center,
             ),
-            // const SizedBox(height: 20),
             SizedBox(
               height: 5.0,
-              width: MediaQuery.of(context).size.width *
-                  0.1, // Adjust this value to change the width of the progress bar
+              width: MediaQuery.of(context).size.width * 0.1,
               child: LinearProgressIndicator(
                 value: progress.value,
                 color: Theme.of(context).colorScheme.inversePrimary,

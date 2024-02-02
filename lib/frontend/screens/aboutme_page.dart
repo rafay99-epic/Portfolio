@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-import 'package:rafay_portfolio/frontend/compoents/MyNavBar.dart';
-import 'package:rafay_portfolio/frontend/compoents/aboutMe.dart';
-import 'package:rafay_portfolio/frontend/compoents/footer.dart';
+import 'package:rafay_portfolio/frontend/widgets/aboutMe.dart';
 
 class AboutMePage extends StatefulWidget {
   const AboutMePage({super.key});
@@ -15,13 +12,11 @@ class _AboutMeState extends State<AboutMePage> {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      appBar: MyNavBar(),
       body: Column(
         children: <Widget>[
           Expanded(
             child: AboutMe(),
           ),
-          Footer(),
         ],
       ),
     );

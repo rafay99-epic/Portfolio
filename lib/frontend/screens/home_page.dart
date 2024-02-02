@@ -1,14 +1,13 @@
-import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter/material.dart';
-import 'package:rafay_portfolio/frontend/compoents/MyNavBar.dart';
-import 'package:rafay_portfolio/frontend/compoents/landing_page.dart';
-import 'package:rafay_portfolio/frontend/compoents/footer.dart';
+import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
+import 'package:iconly/iconly.dart';
+
+import 'package:rafay_portfolio/frontend/widgets/landing_page.dart';
 import 'package:rafay_portfolio/frontend/screens/Resume_page.dart';
 import 'package:rafay_portfolio/frontend/screens/aboutme_page.dart';
-import 'package:rafay_portfolio/frontend/screens/blog.dart';
+import 'package:rafay_portfolio/frontend/screens/blog_page.dart';
 import 'package:rafay_portfolio/frontend/screens/contentMe_page.dart';
 import 'package:rafay_portfolio/frontend/screens/service_page.dart';
-import 'package:iconly/iconly.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -38,7 +37,6 @@ class _HomePageState extends State<HomePage> {
           Expanded(
             child: _pages[_currentIndex],
           ),
-          const Footer(),
         ],
       ),
       bottomNavigationBar: Padding(

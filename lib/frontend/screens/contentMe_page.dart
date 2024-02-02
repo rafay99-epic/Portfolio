@@ -1,7 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:rafay_portfolio/frontend/compoents/ContactMe.dart';
-import 'package:rafay_portfolio/frontend/compoents/MyNavBar.dart';
+import 'package:rafay_portfolio/frontend/widgets/ContactMe.dart';
 
 class ContactMePage extends StatefulWidget {
   const ContactMePage({super.key});
@@ -18,8 +17,8 @@ class _ContactMePageState extends State<ContactMePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: const MyNavBar(),
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: const ContactMe());
+      backgroundColor: Theme.of(context).colorScheme.background,
+      body: const ContactMe(),
+    );
   }
 }
