@@ -19,7 +19,9 @@ dependencies:
   url_launcher: ^6.2.4
   font_awesome_flutter: ^10.7.0
   adaptive_navbar: ^0.0.3
-
+  crystal_navigation_bar: ^1.0.0
+  iconly: ^1.0.1
+  
 dev_dependencies:
   flutter_test:
     sdk: flutter
