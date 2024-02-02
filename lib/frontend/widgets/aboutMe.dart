@@ -13,18 +13,37 @@ class _AboutMeState extends State<AboutMe> {
   @override
   Widget build(BuildContext context) {
     //text Style Code
-    Widget styledText(String text, double fontSize,
-        {bool underline = false, bool bold = false}) {
-      return Text(
-        text,
-        style: GoogleFonts.roboto(
-          fontSize: fontSize,
-          color: Theme.of(context).colorScheme.primary,
-          fontWeight: bold ? FontWeight.bold : FontWeight.normal,
-          letterSpacing: 1.0,
-          height: 1.5,
-          decoration:
-              underline ? TextDecoration.underline : TextDecoration.none,
+    Widget styledText(
+      String text,
+      double fontSize, {
+      List<String> boldWords = const [],
+      bool underline = false,
+      bool bold = false,
+    }) {
+      List<String> words = text.split(' ');
+      return RichText(
+        text: TextSpan(
+          children: words.map((word) {
+            if (boldWords.contains(word)) {
+              return TextSpan(
+                text: '$word ',
+                style: TextStyle(
+                  decoration: underline ? TextDecoration.underline : null,
+                  fontWeight: FontWeight.bold,
+                  fontSize: fontSize,
+                ),
+              );
+            } else {
+              return TextSpan(
+                text: '$word ',
+                style: TextStyle(
+                  decoration: underline ? TextDecoration.underline : null,
+                  fontWeight: bold ? FontWeight.bold : FontWeight.normal,
+                  fontSize: fontSize,
+                ),
+              );
+            }
+          }).toList(),
         ),
       );
     }
@@ -60,8 +79,7 @@ class _AboutMeState extends State<AboutMe> {
                     styledText(
                       "I'm a Full Stack Flutter Developer with a year's experience, transitioning from Machine Learning to crafting intuitive web experiences. Currently freelancing on platforms like Upwork, I deliver solutions that exceed client expectations",
                       18.0,
-                      underline: false,
-                      bold: false,
+                      boldWords: ['Full', 'Stack', 'Flutter', 'Developer'],
                     ),
                     const SizedBox(
                       height: 25.0,
@@ -71,15 +89,18 @@ class _AboutMeState extends State<AboutMe> {
                       18.0,
                       underline: false,
                       bold: false,
+                      boldWords: [],
                     ),
                     const SizedBox(
                       height: 25.0,
                     ),
                     styledText(
-                        "In my free time, I'm passionate about continuous learning. Thriving on the tech industry's dynamic challenges, I expand my skill set, always seeking growth. Let's collaborate and create something extraordinary!",
-                        18.0,
-                        underline: false,
-                        bold: false),
+                      "In my free time, I'm passionate about continuous learning. Thriving on the tech industry's dynamic challenges, I expand my skill set, always seeking growth. Let's collaborate and create something extraordinary!",
+                      18.0,
+                      underline: false,
+                      bold: false,
+                      boldWords: [],
+                    ),
                   ],
                 ),
               ),
