@@ -87,18 +87,35 @@ class _LandingPageState extends State<LandingPage> {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    TextButton(
+                    //!Old Hire Me
+                    // TextButton(
+                    //   onPressed: () {
+                    //     Navigator.pushNamed(context, '/contact');
+                    //   },
+                    //   style: TextButton.styleFrom(
+                    //     backgroundColor:
+                    //         Theme.of(context).colorScheme.inversePrimary,
+                    //     shape: RoundedRectangleBorder(
+                    //       borderRadius: BorderRadius.circular(0.0),
+                    //     ),
+                    //   ),
+                    //   child: const Text("Hire ME"),
+                    // ),
+                    //!New Hire Me
+                    TextButton.icon(
                       onPressed: () {
                         Navigator.pushNamed(context, '/contact');
                       },
                       style: TextButton.styleFrom(
-                        backgroundColor:
-                            Theme.of(context).colorScheme.inversePrimary,
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(0.0),
+                        foregroundColor: Colors.deepOrange,
+                        textStyle: const TextStyle(
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
                         ),
+                        padding: const EdgeInsets.all(20.0),
                       ),
-                      child: const Text("Hire ME"),
+                      label: const Text("Hire Me!"),
+                      icon: const Icon(Icons.send_rounded),
                     ),
                   ],
                 ),
