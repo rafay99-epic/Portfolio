@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+
 import 'package:rafay_portfolio/frontend/widgets/FeatureNotAvailableButton.dart';
+import 'package:rafay_portfolio/frontend/widgets/animatedtext.dart';
 import 'package:rafay_portfolio/frontend/widgets/buildTextField.dart';
+import 'package:rafay_portfolio/frontend/widgets/textstyle.dart';
 
 class ContactMe extends StatefulWidget {
   const ContactMe({Key? key}) : super(key: key);
@@ -33,24 +36,18 @@ class _ContactMeState extends State<ContactMe> {
                       mainAxisAlignment: MainAxisAlignment.center,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Text(
-                          "Contact Me",
-                          style: TextStyle(
-                            fontSize: 70.0,
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        const AnimatedTextBuilder(
+                          text: "Contact Me",
+                          size: 70.0,
                         ),
                         const SizedBox(
                           height: 15.0,
                         ),
-                        Text(
-                          "I'm available for freelance work. Feel free to reach out!",
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: Theme.of(context).colorScheme.primary,
-                            fontWeight: FontWeight.bold,
-                          ),
+                        const StyledText(
+                          text:
+                              "I'm available for freelance work. Feel free to reach out!",
+                          fontSize: 20.0,
+                          bold: true,
                         ),
                         const SizedBox(height: 15),
                         CustomTextField(
@@ -77,7 +74,7 @@ class _ContactMeState extends State<ContactMe> {
                         const SizedBox(
                           height: 20.0,
                         ),
-                        TextButton(
+                        TextButton.icon(
                           onPressed: () {
                             //firebase store data
                             showDialog(
@@ -90,19 +87,14 @@ class _ContactMeState extends State<ContactMe> {
                           style: TextButton.styleFrom(
                             backgroundColor:
                                 Theme.of(context).colorScheme.inversePrimary,
-                            padding: const EdgeInsets.all(15.0),
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30.0),
-                            ),
-                          ),
-                          child: Text(
-                            "Send Message",
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: Theme.of(context).colorScheme.primary,
+                            textStyle: const TextStyle(
+                              fontSize: 20,
                               fontWeight: FontWeight.bold,
                             ),
+                            padding: const EdgeInsets.all(20.0),
                           ),
+                          label: const Text("Submit Message"),
+                          icon: const Icon(Icons.send_rounded),
                         ),
                       ],
                     ),

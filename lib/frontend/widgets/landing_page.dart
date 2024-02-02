@@ -3,6 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rafay_portfolio/frontend/widgets/SocialMediaIcon.dart';
+import 'package:rafay_portfolio/frontend/widgets/animatedtext.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 
 class LandingPage extends StatefulWidget {
@@ -12,40 +14,6 @@ class LandingPage extends StatefulWidget {
 }
 
 class _LandingPageState extends State<LandingPage> {
-  //aNIMATED TEXT KIT
-  Widget buildAnimatedText(String text, double size) {
-    return DefaultTextStyle(
-      softWrap: true,
-      maxLines: 1,
-      textAlign: TextAlign.left,
-      style: GoogleFonts.roboto(
-        fontSize: size,
-        color: Theme.of(context).colorScheme.primary,
-        fontWeight: FontWeight.bold,
-      ),
-      child: AnimatedTextKit(
-        animatedTexts: [
-          TypewriterAnimatedText(text),
-        ],
-      ),
-    );
-  }
-
-  //icons Button for Social Media
-  IconButton socialMediaButton(IconData icon, String url) {
-    return IconButton(
-      color: Theme.of(context).colorScheme.primary,
-      icon: FaIcon(icon),
-      onPressed: () async {
-        if (await canLaunchUrlString(url)) {
-          await launchUrlString(url);
-        } else {
-          throw 'Could not launch $url';
-        }
-      },
-    );
-  }
-
   //main Widget
   @override
   Widget build(BuildContext context) {
@@ -64,50 +32,55 @@ class _LandingPageState extends State<LandingPage> {
                   mainAxisAlignment: MainAxisAlignment.center,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    buildAnimatedText("Hi There !", 70.0),
-                    buildAnimatedText("I'm Abdul Rafay", 70.0),
-                    buildAnimatedText(
-                        "Flutter Developer & Software Engineer", 20.0),
+                    const AnimatedTextBuilder(
+                      text: "Hi There !",
+                      size: 70.0,
+                    ),
+                    const AnimatedTextBuilder(
+                      text: "I'm Abdul Rafay",
+                      size: 70.0,
+                    ),
+                    const AnimatedTextBuilder(
+                      text: "Flutter Developer & Software Engineer",
+                      size: 20.0,
+                    ),
                     const SizedBox(
                       height: 15.0,
                     ),
-                    Row(
+                    const Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        socialMediaButton(FontAwesomeIcons.linkedin,
-                            'https://www.linkedin.com/in/abdul-rafay1999/'),
-                        socialMediaButton(FontAwesomeIcons.instagram,
-                            'https://www.instagram.com/abdul_rafay99/'),
-                        socialMediaButton(FontAwesomeIcons.twitter,
-                            'https://twitter.com/future_insight9'),
-                        socialMediaButton(FontAwesomeIcons.upwork,
-                            'https://www.upwork.com/freelancers/~018c78c37a53bf3cac'),
+                        SocialMediaButton(
+                          icon: FontAwesomeIcons.linkedin,
+                          url: 'https://www.linkedin.com/in/abdul-rafay1999/',
+                        ),
+                        SocialMediaButton(
+                          icon: FontAwesomeIcons.instagram,
+                          url: 'https://www.instagram.com/abdul_rafay99/',
+                        ),
+                        SocialMediaButton(
+                          icon: FontAwesomeIcons.twitter,
+                          url: 'https://twitter.com/future_insight9',
+                        ),
+                        SocialMediaButton(
+                          icon: FontAwesomeIcons.upwork,
+                          url:
+                              'https://www.upwork.com/freelancers/~018c78c37a53bf3cac',
+                        ),
                       ],
                     ),
                     const SizedBox(
                       height: 15.0,
                     ),
-                    //!Old Hire Me
-                    // TextButton(
-                    //   onPressed: () {
-                    //     Navigator.pushNamed(context, '/contact');
-                    //   },
-                    //   style: TextButton.styleFrom(
-                    //     backgroundColor:
-                    //         Theme.of(context).colorScheme.inversePrimary,
-                    //     shape: RoundedRectangleBorder(
-                    //       borderRadius: BorderRadius.circular(0.0),
-                    //     ),
-                    //   ),
-                    //   child: const Text("Hire ME"),
-                    // ),
-                    //!New Hire Me
                     TextButton.icon(
                       onPressed: () {
                         Navigator.pushNamed(context, '/contact');
                       },
                       style: TextButton.styleFrom(
-                        foregroundColor: Colors.deepOrange,
+                        // ! Old Color
+                        // foregroundColor: Colors.deepOrange,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.inversePrimary,
                         textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

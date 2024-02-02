@@ -7,7 +7,8 @@ class CustomTextField extends StatelessWidget {
   final IconData prefixIcon;
   final TextEditingController controller;
 
-  CustomTextField({
+  const CustomTextField({
+    super.key,
     required this.labelText,
     this.maxLines = 1,
     required this.hintText,
