@@ -5,10 +5,12 @@ import "package:google_fonts/google_fonts.dart";
 class AnimatedTextBuilder extends StatelessWidget {
   final String text;
   final double size;
+  final bool underline;
   const AnimatedTextBuilder({
     super.key,
     required this.text,
     required this.size,
+    this.underline = false,
   });
 
   @override
@@ -21,6 +23,7 @@ class AnimatedTextBuilder extends StatelessWidget {
         fontSize: size,
         color: Theme.of(context).colorScheme.primary,
         fontWeight: FontWeight.bold,
+        decoration: underline ? TextDecoration.underline : null,
       ),
       child: AnimatedTextKit(
         animatedTexts: [

@@ -22,7 +22,7 @@ class SocialMediaButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return IconButton(
-      color: Theme.of(context).colorScheme.primary,
+      color: Theme.of(context).colorScheme.inversePrimary,
       icon: FaIcon(icon),
       onPressed: () async {
         if (await canLaunchUrlString(url)) {

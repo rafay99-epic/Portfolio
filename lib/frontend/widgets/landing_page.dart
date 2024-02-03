@@ -1,11 +1,9 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
+
 import 'package:rafay_portfolio/frontend/widgets/SocialMediaIcon.dart';
 import 'package:rafay_portfolio/frontend/widgets/animatedtext.dart';
-import 'package:url_launcher/url_launcher_string.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});
@@ -79,8 +77,7 @@ class _LandingPageState extends State<LandingPage> {
                       style: TextButton.styleFrom(
                         // ! Old Color
                         // foregroundColor: Colors.deepOrange,
-                        foregroundColor:
-                            Theme.of(context).colorScheme.inversePrimary,
+                        foregroundColor: Theme.of(context).colorScheme.primary,
                         textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,

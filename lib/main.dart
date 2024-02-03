@@ -7,7 +7,7 @@ import 'frontend/screens/contentMe_page.dart';
 import 'frontend/screens/splash_page.dart';
 import 'frontend/theme/light.dart';
 import 'frontend/screens/home_page.dart';
-import 'frontend/screens/service_page.dart';
+import 'frontend/screens/ProjectGalley_Page.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 void main() {
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
       },
       routes: {
         '/home': (context) => const HomePage(),
-        '/services': (context) => const ServicesPage(),
+        '/projects': (context) => const ProjectGalleryPage(),
         '/resume': (context) => const ResumePage(),
         '/contact': (context) => const ContactMePage(),
         '/blog': (context) => const BlogPage(),

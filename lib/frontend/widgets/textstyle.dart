@@ -7,6 +7,7 @@ class StyledText extends StatelessWidget {
   final List<String> boldWords;
   final bool underline;
   final bool bold;
+  final TextAlign textAlign;
 
   const StyledText({
     super.key,
@@ -15,12 +16,14 @@ class StyledText extends StatelessWidget {
     this.boldWords = const [],
     this.underline = false,
     this.bold = false,
+    this.textAlign = TextAlign.left,
   });
 
   @override
   Widget build(BuildContext context) {
     List<String> words = text.split(' ');
     return RichText(
+      textAlign: textAlign, // Update this line
       text: TextSpan(
         children: words.map((word) {
           if (boldWords.contains(word)) {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 
 import 'package:rafay_portfolio/frontend/widgets/landing_page.dart';
@@ -7,7 +8,7 @@ import 'package:rafay_portfolio/frontend/screens/Resume_page.dart';
 import 'package:rafay_portfolio/frontend/screens/aboutme_page.dart';
 import 'package:rafay_portfolio/frontend/screens/blog_page.dart';
 import 'package:rafay_portfolio/frontend/screens/contentMe_page.dart';
-import 'package:rafay_portfolio/frontend/screens/service_page.dart';
+import 'package:rafay_portfolio/frontend/screens/ProjectGalley_Page.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -21,11 +22,11 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = [
     const LandingPage(),
-    const ServicesPage(),
     const ResumePage(),
-    const ContactMePage(),
-    const BlogPage(),
+    const ProjectGalleryPage(),
     const AboutMePage(),
+    const BlogPage(),
+    const ContactMePage(),
   ];
 
   @override
@@ -49,29 +50,35 @@ class _HomePageState extends State<HomePage> {
           backgroundColor: Colors.black.withOpacity(0.1),
           marginR: const EdgeInsets.symmetric(horizontal: 500, vertical: 20),
           items: [
+            //!home Page OR landing
             CrystalNavigationBarItem(
               icon: IconlyBold.home,
               unselectedColor: Colors.blue.shade200,
             ),
-            CrystalNavigationBarItem(
-              icon: IconlyBold.activity,
-              unselectedColor: Colors.red.shade400,
-            ),
+            // !esumePage
             CrystalNavigationBarItem(
               icon: IconlyBold.document,
-              unselectedColor: Colors.black,
+              unselectedColor: Theme.of(context).colorScheme.inversePrimary,
             ),
+            // ! Project Gallery Page
             CrystalNavigationBarItem(
-              icon: IconlyBold.message,
-              unselectedColor: Colors.cyan.shade400,
+              icon: FontAwesomeIcons.codePullRequest,
+              unselectedColor: Colors.green.shade400,
             ),
-            CrystalNavigationBarItem(
-              icon: IconlyBold.bag_2,
-              unselectedColor: Colors.brown,
-            ),
+            // !About ME Page
             CrystalNavigationBarItem(
               icon: IconlyBold.user_2,
               unselectedColor: Colors.redAccent,
+            ),
+            // ! Blog Page
+            CrystalNavigationBarItem(
+              icon: FontAwesomeIcons.rss,
+              unselectedColor: Colors.brown,
+            ),
+            // ! Contact Me Page
+            CrystalNavigationBarItem(
+              icon: IconlyBold.message,
+              unselectedColor: Colors.cyan.shade400,
             ),
           ],
         ),

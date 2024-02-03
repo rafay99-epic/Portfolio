@@ -9,10 +9,6 @@ class ContactMePage extends StatefulWidget {
   State<ContactMePage> createState() => _ContactMePageState();
 }
 
-final nameController = TextEditingController();
-final emailController = TextEditingController();
-final messageController = TextEditingController();
-
 class _ContactMePageState extends State<ContactMePage> {
   @override
   Widget build(BuildContext context) {
