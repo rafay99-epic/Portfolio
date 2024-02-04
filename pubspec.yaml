@@ -20,6 +20,7 @@ dependencies:
   crystal_navigation_bar: ^1.0.0
   iconly: ^1.0.1
   card_actions: ^0.0.1
+  web_smooth_scroll: ^1.1.0
   
 dev_dependencies:
   flutter_test:
