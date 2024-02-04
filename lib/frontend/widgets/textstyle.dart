@@ -8,6 +8,7 @@ class StyledText extends StatelessWidget {
   final bool underline;
   final bool bold;
   final TextAlign textAlign;
+  final Color color;
 
   const StyledText({
     super.key,
@@ -17,6 +18,7 @@ class StyledText extends StatelessWidget {
     this.underline = false,
     this.bold = false,
     this.textAlign = TextAlign.left,
+    this.color = Colors.black,
   });
 
   @override
@@ -33,6 +35,7 @@ class StyledText extends StatelessWidget {
                 decoration: underline ? TextDecoration.underline : null,
                 fontWeight: FontWeight.bold,
                 fontSize: fontSize,
+                color: color,
               ),
             );
           } else {
@@ -42,6 +45,7 @@ class StyledText extends StatelessWidget {
                 decoration: underline ? TextDecoration.underline : null,
                 fontWeight: bold ? FontWeight.bold : FontWeight.normal,
                 fontSize: fontSize,
+                color: color,
               ),
             );
           }
