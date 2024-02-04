@@ -14,6 +14,7 @@ class ProjectGallery extends StatefulWidget {
 }
 
 class _ProjectGalleryState extends State<ProjectGallery> {
+  //Scroll Controller
   late ScrollController _scrollController;
 
   @override
@@ -28,6 +29,7 @@ class _ProjectGalleryState extends State<ProjectGallery> {
     super.dispose();
   }
 
+  // Scroll Down
   void _smoothScrollDown() {
     _scrollController.animateTo(
       _scrollController.offset +
@@ -37,6 +39,7 @@ class _ProjectGalleryState extends State<ProjectGallery> {
     );
   }
 
+  //Scroll Top
   void _smoothScrollToTop() {
     _scrollController.animateTo(
       0,
@@ -65,8 +68,8 @@ class _ProjectGalleryState extends State<ProjectGallery> {
             Expanded(
               child: Container(
                 margin: const EdgeInsets.symmetric(
-                  horizontal: 80.0,
-                  vertical: 50.0,
+                  horizontal: 60.0,
+                  vertical: 30.0,
                 ),
                 child: GridView.count(
                   controller: _scrollController,

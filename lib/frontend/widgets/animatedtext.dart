@@ -31,6 +31,5 @@ class AnimatedTextBuilder extends StatelessWidget {
         ],
       ),
     );
-    ;
   }
 }
