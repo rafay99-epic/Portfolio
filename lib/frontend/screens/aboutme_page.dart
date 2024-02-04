@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rafay_portfolio/frontend/widgets/aboutMe.dart';
+import 'package:rafay_portfolio/frontend/views/aboutMe.dart';
 
 class AboutMePage extends StatefulWidget {
   const AboutMePage({super.key});

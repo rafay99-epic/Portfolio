@@ -1,6 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:rafay_portfolio/frontend/widgets/resume.dart';
+import 'package:rafay_portfolio/frontend/views/resume.dart';
 
 class ResumePage extends StatelessWidget {
   const ResumePage({super.key});

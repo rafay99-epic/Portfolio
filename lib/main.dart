@@ -1,14 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:rafay_portfolio/frontend/screens/NotFound_page.dart';
-import 'package:rafay_portfolio/frontend/screens/aboutme_page.dart';
-import 'package:rafay_portfolio/frontend/screens/blog_page.dart';
-import 'frontend/screens/Resume_page.dart';
-import 'frontend/screens/contentMe_page.dart';
-import 'frontend/screens/splash_page.dart';
-import 'frontend/theme/light.dart';
-import 'frontend/screens/home_page.dart';
-import 'frontend/screens/ProjectGalley_Page.dart';
 import 'package:url_strategy/url_strategy.dart';
+
+import 'package:rafay_portfolio/constants/routes/routes.dart';
+import 'package:rafay_portfolio/frontend/screens/NotFound_page.dart';
+import 'frontend/screens/splash_page.dart';
+import 'constants/theme/light.dart';
 
 void main() {
   setPathUrlStrategy();
@@ -34,14 +30,16 @@ class MyApp extends StatelessWidget {
           ),
         ];
       },
-      routes: {
-        '/home': (context) => const HomePage(),
-        '/projects': (context) => const ProjectGalleryPage(),
-        '/resume': (context) => const ResumePage(),
-        '/contact': (context) => const ContactMePage(),
-        '/blog': (context) => const BlogPage(),
-        '/aboutme': (context) => const AboutMePage(),
-      },
+      routes: appRoutes,
+      // routes: {
+      //   '/home': (context) => const HomePage(),
+      //   '/projects': (context) => const ProjectGalleryPage(),
+      //   '/resume': (context) => const ResumePage(),
+      //   '/contact': (context) => const ContactMePage(),
+      //   '/blog': (context) => const BlogPage(),
+      //   '/aboutme': (context) => const AboutMePage(),
+      //   '/404': (context) => const NotFoundPage(),
+      // },
     );
   }
 }

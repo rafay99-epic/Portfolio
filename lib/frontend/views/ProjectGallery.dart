@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/frontend/widgets/ProjectCards.dart';
 import 'package:rafay_portfolio/frontend/widgets/animatedtext.dart';
 
-class ProjectGallery extends StatelessWidget {
+class ProjectGallery extends StatefulWidget {
   const ProjectGallery({super.key});
 
+  @override
+  State<ProjectGallery> createState() => _ProjectGalleryState();
+}
+
+class _ProjectGalleryState extends State<ProjectGallery> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

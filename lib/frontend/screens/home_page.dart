@@ -3,7 +3,7 @@ import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 
-import 'package:rafay_portfolio/frontend/widgets/landing_page.dart';
+import 'package:rafay_portfolio/frontend/views/landing_page.dart';
 import 'package:rafay_portfolio/frontend/screens/Resume_page.dart';
 import 'package:rafay_portfolio/frontend/screens/aboutme_page.dart';
 import 'package:rafay_portfolio/frontend/screens/blog_page.dart';
