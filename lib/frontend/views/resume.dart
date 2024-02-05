@@ -93,10 +93,17 @@ class _ResumeState extends State<Resume> {
                       ],
                     ),
                     ExperienceCard(
-                      companyName: "Swam technology",
+                      companyName: "Swam Technology",
                       position: "Machine Learning Engineer",
                       employmentTime: "Sep,2022 - Dec, 2023",
-                      toolsUsed: [],
+                      toolsUsed: [
+                        "Python",
+                        "Flusk",
+                        "SQL Lite",
+                        "MongoDB",
+                        "Git",
+                        "TensorFlow",
+                      ],
                       jobRole: [
                         "Expert in software design and machine learning model development",
                         "Specialized in text analysis for abusive language detection",
@@ -108,7 +115,14 @@ class _ResumeState extends State<Resume> {
                       companyName: "Swam Technology",
                       position: "Full Stack App Developer",
                       employmentTime: "Sep,2022 - Dec, 2023",
-                      toolsUsed: [],
+                      toolsUsed: [
+                        "HTML5",
+                        "JavaScript",
+                        "React",
+                        "NodeJs",
+                        "MongoDB",
+                        "Firebase",
+                      ],
                       jobRole: [
                         "Incorporated design principles to enhance navigation and readability.",
                         "Implemented user-friendly CMS for law firm.",
@@ -120,7 +134,13 @@ class _ResumeState extends State<Resume> {
                       companyName: "Innovation Tech",
                       position: "Intern",
                       employmentTime: "2021",
-                      toolsUsed: [],
+                      toolsUsed: [
+                        "Java",
+                        "XML",
+                        "Figma",
+                        "Firebase",
+                        "SQL Lite"
+                      ],
                       jobRole: [
                         "Code review and testing responsibilities.",
                         "Design of multiple user interfaces.",
