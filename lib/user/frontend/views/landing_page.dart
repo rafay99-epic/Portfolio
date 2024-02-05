@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
-import 'package:rafay_portfolio/frontend/widgets/SocialMediaIcon.dart';
-import 'package:rafay_portfolio/frontend/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/SocialMediaIcon.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({super.key});

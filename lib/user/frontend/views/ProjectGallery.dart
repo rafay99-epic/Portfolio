@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-import 'package:rafay_portfolio/frontend/widgets/ProjectCards.dart';
-import 'package:rafay_portfolio/frontend/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/ProjectCards.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 
 class ProjectGallery extends StatefulWidget {
   const ProjectGallery({

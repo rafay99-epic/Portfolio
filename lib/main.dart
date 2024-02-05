@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/loginPage.dart';
 import 'package:url_strategy/url_strategy.dart';
 
 import 'package:rafay_portfolio/constants/routes/routes.dart';
-import 'package:rafay_portfolio/frontend/screens/NotFound_page.dart';
-import 'frontend/screens/splash_page.dart';
+import 'package:rafay_portfolio/user/frontend/screens/NotFound_page.dart';
+import 'user/frontend/screens/splash_page.dart';
 import 'constants/theme/light.dart';
 
 void main() {
@@ -23,9 +24,14 @@ class MyApp extends StatelessWidget {
         return [
           MaterialPageRoute(
             builder: (context) {
+              // return initialRoute == '/'
+              //     ? const SplashScreen()
+              //     : const NotFoundPage();
               return initialRoute == '/'
                   ? const SplashScreen()
-                  : const NotFoundPage();
+                  : initialRoute == '/admin'
+                      ? const LoginAdmin()
+                      : const NotFoundPage();
             },
           ),
         ];

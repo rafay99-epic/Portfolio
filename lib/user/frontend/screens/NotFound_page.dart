@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 
-import 'package:rafay_portfolio/frontend/views/page404.dart';
+import 'package:rafay_portfolio/user/frontend/views/page404.dart';
 
 class NotFoundPage extends StatefulWidget {
   const NotFoundPage({super.key});

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 // import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rafay_portfolio/frontend/widgets/animatedtext.dart';
-import 'package:rafay_portfolio/frontend/widgets/textstyle.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 
 class AboutMe extends StatefulWidget {
   const AboutMe({super.key});

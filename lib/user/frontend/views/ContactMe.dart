@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import 'package:rafay_portfolio/frontend/widgets/FeatureNotAvailableButton.dart';
-import 'package:rafay_portfolio/frontend/widgets/animatedtext.dart';
-import 'package:rafay_portfolio/frontend/widgets/buildTextField.dart';
-import 'package:rafay_portfolio/frontend/widgets/textstyle.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/FeatureNotAvailableButton.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/buildTextField.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 
 class ContactMe extends StatefulWidget {
   const ContactMe({Key? key}) : super(key: key);

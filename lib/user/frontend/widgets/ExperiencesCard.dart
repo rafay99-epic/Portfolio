@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rafay_portfolio/frontend/widgets/textstyle.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 
 class ExperienceCard extends StatefulWidget {
   final String companyName;

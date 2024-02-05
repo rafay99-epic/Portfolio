@@ -1,6 +1,6 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
-import 'package:rafay_portfolio/frontend/views/ContactMe.dart';
+import 'package:rafay_portfolio/user/frontend/views/ContactMe.dart';
 
 class ContactMePage extends StatefulWidget {
   const ContactMePage({super.key});

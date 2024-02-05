@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rafay_portfolio/frontend/widgets/ExperiencesCard.dart';
-import 'package:rafay_portfolio/frontend/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/ExperiencesCard.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 
 class Resume extends StatefulWidget {
   const Resume({super.key});
