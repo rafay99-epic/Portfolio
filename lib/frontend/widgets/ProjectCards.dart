@@ -73,10 +73,16 @@ class _ProjectCardState extends State<ProjectCard> {
                               SocialMediaButton(
                                 icon: FontAwesomeIcons.link,
                                 url: widget.deploedlink,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary,
                               ),
                               SocialMediaButton(
                                 icon: FontAwesomeIcons.github,
                                 url: widget.githublink,
+                                color: Theme.of(context)
+                                    .colorScheme
+                                    .inversePrimary,
                               ),
                             ],
                           ),

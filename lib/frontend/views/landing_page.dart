@@ -45,25 +45,29 @@ class _LandingPageState extends State<LandingPage> {
                     const SizedBox(
                       height: 15.0,
                     ),
-                    const Row(
+                    Row(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
                         SocialMediaButton(
                           icon: FontAwesomeIcons.linkedin,
                           url: 'https://www.linkedin.com/in/abdul-rafay1999/',
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                         SocialMediaButton(
                           icon: FontAwesomeIcons.instagram,
                           url: 'https://www.instagram.com/abdul_rafay99/',
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                         SocialMediaButton(
                           icon: FontAwesomeIcons.twitter,
                           url: 'https://twitter.com/future_insight9',
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                         SocialMediaButton(
                           icon: FontAwesomeIcons.upwork,
                           url:
                               'https://www.upwork.com/freelancers/~018c78c37a53bf3cac',
+                          color: Theme.of(context).colorScheme.primary,
                         ),
                       ],
                     ),
@@ -77,7 +81,8 @@ class _LandingPageState extends State<LandingPage> {
                       style: TextButton.styleFrom(
                         // ! Old Color
                         // foregroundColor: Colors.deepOrange,
-                        foregroundColor: Theme.of(context).colorScheme.primary,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.inversePrimary,
                         textStyle: const TextStyle(
                           fontSize: 20,
                           fontWeight: FontWeight.bold,
