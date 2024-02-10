@@ -22,6 +22,8 @@ dependencies:
   card_actions: ^0.0.1
   web_smooth_scroll: ^1.1.0
   flutter_svg: ^2.0.9
+  firebase_core: ^2.25.4
+  firebase_auth: ^4.17.4
   
 dev_dependencies:
   flutter_test:

@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class FeatureNotAvailableButton extends StatefulWidget {
-  const FeatureNotAvailableButton({super.key});
+  const FeatureNotAvailableButton({
+    super.key,
+    required this.titleBox,
+    required this.description,
+  });
+  final String titleBox;
+  final String description;
 
   @override
   State<FeatureNotAvailableButton> createState() =>
@@ -23,8 +29,8 @@ class _FeatureNotAvailableButtonState extends State<FeatureNotAvailableButton> {
   Widget build(BuildContext context) {
     return AlertDialog(
       backgroundColor: Theme.of(context).colorScheme.background,
-      title: buildStyledText('Feature Not Available'),
-      content: buildStyledText('Sorry, this feature is not available yet.'),
+      title: buildStyledText(widget.titleBox),
+      content: buildStyledText(widget.description),
       actions: [
         TextButton(
           child: buildStyledText('OK'),

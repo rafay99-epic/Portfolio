@@ -80,7 +80,11 @@ class _ContactMeState extends State<ContactMe> {
                             showDialog(
                               context: context,
                               builder: (BuildContext context) {
-                                return const FeatureNotAvailableButton();
+                                return const FeatureNotAvailableButton(
+                                  titleBox: 'Feature Alert',
+                                  description:
+                                      "Feature is not available at the moment",
+                                );
                               },
                             );
                           },

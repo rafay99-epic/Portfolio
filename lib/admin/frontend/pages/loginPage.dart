@@ -13,7 +13,7 @@ class _LoginAdminState extends State<LoginAdmin> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: const AdminLogin(),
+      body: AdminLogin(),
     );
   }
 }
