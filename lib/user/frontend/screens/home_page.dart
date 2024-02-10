@@ -31,6 +31,9 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile =
+        MediaQuery.of(context).size.width < 600; // Adjust the value as needed
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Column(
@@ -48,14 +51,17 @@ class _HomePageState extends State<HomePage> {
           indicatorColor: Colors.white,
           unselectedItemColor: Colors.white70,
           backgroundColor: Colors.black.withOpacity(0.1),
-          marginR: const EdgeInsets.symmetric(horizontal: 500, vertical: 20),
+          // marginR: const EdgeInsets.symmetric(horizontal: 500, vertical: 20),
+          marginR: isMobile
+              ? const EdgeInsets.symmetric(horizontal: 20, vertical: 20)
+              : const EdgeInsets.symmetric(horizontal: 500, vertical: 20),
           items: [
             //!home Page OR landing
             CrystalNavigationBarItem(
               icon: IconlyBold.home,
               unselectedColor: Colors.blue.shade200,
             ),
-            // !esumePage
+            // !ResumePage
             CrystalNavigationBarItem(
               icon: IconlyBold.document,
               unselectedColor: Theme.of(context).colorScheme.inversePrimary,

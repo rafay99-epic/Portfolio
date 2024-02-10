@@ -1,6 +1,6 @@
+// ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:rafay_portfolio/user/frontend/widgets/ProjectCards.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 
@@ -50,6 +50,15 @@ class _ProjectGalleryState extends State<ProjectGallery> {
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile =
+        MediaQuery.of(context).size.width < 600; // Adjust the value as needed
+    int crossAxisCount = isMobile ? 1 : 3;
+    // double childAspectRatio = isMobile ? 1.0 : 2.3;
+    double childAspectRatio = isMobile ? 2 : 2.3; // Adjust this value as needed
+    EdgeInsets margin = isMobile
+        ? const EdgeInsets.all(5.0)
+        : const EdgeInsets.symmetric(horizontal: 60.0, vertical: 30.0);
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       body: Container(
@@ -57,24 +66,25 @@ class _ProjectGalleryState extends State<ProjectGallery> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            const Padding(
-              padding: EdgeInsets.only(top: 25, bottom: 30, left: 30),
+            Padding(
+              padding: EdgeInsets.only(
+                top: isMobile ? 50.0 : 25.0,
+                bottom: 30,
+                left: 30,
+              ),
               child: AnimatedTextBuilder(
                 text: "Some Things I've Build",
-                size: 55.0,
+                size: isMobile ? 40.0 : 72.0,
                 underline: true,
               ),
             ),
             Expanded(
               child: Container(
-                margin: const EdgeInsets.symmetric(
-                  horizontal: 60.0,
-                  vertical: 30.0,
-                ),
+                margin: margin,
                 child: GridView.count(
                   controller: _scrollController,
-                  crossAxisCount: 3,
-                  childAspectRatio: 2.3,
+                  crossAxisCount: crossAxisCount,
+                  childAspectRatio: childAspectRatio,
                   mainAxisSpacing: 15.0,
                   crossAxisSpacing: 15.0,
                   children: const <Widget>[
@@ -177,36 +187,38 @@ class _ProjectGalleryState extends State<ProjectGallery> {
           ],
         ),
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            focusColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.background,
-            onPressed: _smoothScrollToTop,
-            heroTag: "btn1",
-            enableFeedback: true,
-            child: const Icon(
-              FontAwesomeIcons.arrowUp,
+      floatingActionButton: isMobile
+          ? null
+          : Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                FloatingActionButton(
+                  backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                  focusColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.background,
+                  onPressed: _smoothScrollToTop,
+                  heroTag: "btn1",
+                  enableFeedback: true,
+                  child: const Icon(
+                    FontAwesomeIcons.arrowUp,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                FloatingActionButton(
+                  backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                  focusColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.background,
+                  onPressed: _smoothScrollDown,
+                  enableFeedback: true,
+                  heroTag: "btn2",
+                  child: const Icon(
+                    FontAwesomeIcons.arrowDown,
+                  ),
+                ),
+              ],
             ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          FloatingActionButton(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            focusColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.background,
-            onPressed: _smoothScrollDown,
-            enableFeedback: true,
-            heroTag: "btn2",
-            child: const Icon(
-              FontAwesomeIcons.arrowDown,
-            ),
-          ),
-        ],
-      ),
     );
   }
 }

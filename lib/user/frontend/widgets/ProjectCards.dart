@@ -30,12 +30,24 @@ class ProjectCard extends StatefulWidget {
   State<ProjectCard> createState() => _ProjectCardState();
 }
 
-//  hower Effect is working
 class _ProjectCardState extends State<ProjectCard> {
   bool _isHovering = false;
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile =
+        MediaQuery.of(context).size.width < 600; // Adjust the value as needed
+
+    double headingFontSize =
+        isMobile ? widget.HeadingFontSize * 0.8 : widget.HeadingFontSize;
+    double descriptionFontSize = isMobile
+        ? widget.DescriptionFontSize * 0.8
+        : widget.DescriptionFontSize;
+    EdgeInsets padding = isMobile
+        ? const EdgeInsets.all(5.0)
+        : const EdgeInsets.only(right: 10.0, top: 5.0, bottom: 5.0, left: 10.0);
+    double spaceHeight = isMobile ? 10.0 : 25.0;
+
     return MouseRegion(
       onHover: (event) => setState(() => _isHovering = true),
       onExit: (event) => setState(() => _isHovering = false),
@@ -45,139 +57,74 @@ class _ProjectCardState extends State<ProjectCard> {
           borderRadius: BorderRadius.circular(15.0),
         ),
         elevation: _isHovering ? 10 : 5,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.only(
-                  right: 10.0,
-                  top: 5.0,
-                  bottom: 5.0,
-                  left: 10.0,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Row(
+        child: Padding(
+          padding: padding,
+          child: Column(
+            mainAxisSize: MainAxisSize.min, // Make the height dynamic
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: <Widget>[
+              Row(
+                children: <Widget>[
+                  Icon(
+                    FontAwesomeIcons.folder,
+                    color: Theme.of(context).colorScheme.inversePrimary,
+                    size: 30,
+                  ),
+                  Expanded(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.end,
                       children: <Widget>[
-                        Icon(
-                          FontAwesomeIcons.folder,
+                        SocialMediaButton(
+                          icon: FontAwesomeIcons.link,
+                          url: widget.deploedlink,
                           color: Theme.of(context).colorScheme.inversePrimary,
-                          size: 30,
                         ),
-                        Expanded(
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: <Widget>[
-                              SocialMediaButton(
-                                icon: FontAwesomeIcons.link,
-                                url: widget.deploedlink,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .inversePrimary,
-                              ),
-                              SocialMediaButton(
-                                icon: FontAwesomeIcons.github,
-                                url: widget.githublink,
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .inversePrimary,
-                              ),
-                            ],
-                          ),
+                        SocialMediaButton(
+                          icon: FontAwesomeIcons.github,
+                          url: widget.githublink,
+                          color: Theme.of(context).colorScheme.inversePrimary,
                         ),
                       ],
                     ),
-                    const SizedBox(
-                      height: 25,
-                    ),
-                    StyledText(
-                      text: widget.text,
-                      fontSize: widget.HeadingFontSize,
-                      bold: true,
-                      textAlign: TextAlign.justify,
-                    ),
-                    const SizedBox(height: 10),
-                    StyledText(
-                      text: widget.description,
-                      fontSize: widget.DescriptionFontSize,
-                      textAlign: TextAlign.justify,
-                    ),
-                    const SizedBox(height: 20),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: widget.technologyNames
-                          .expand((name) => [
-                                Text(
-                                  name,
-                                  style: GoogleFonts.roboto(
-                                    fontSize: 16,
-                                  ),
-                                ),
-                                const SizedBox(
-                                  width: 15,
-                                ), // Add space between each string
-                              ])
-                          .toList(),
-                    ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ),
-          ],
+              SizedBox(
+                height: spaceHeight,
+              ),
+              StyledText(
+                text: widget.text,
+                fontSize: headingFontSize,
+                bold: true,
+                textAlign: TextAlign.justify,
+              ),
+              const SizedBox(height: 10),
+              StyledText(
+                text: widget.description,
+                fontSize: descriptionFontSize,
+                textAlign: TextAlign.justify,
+              ),
+              const SizedBox(height: 10),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: widget.technologyNames
+                    .expand((name) => [
+                          Text(
+                            name,
+                            style: GoogleFonts.roboto(
+                              fontSize: 16,
+                            ),
+                          ),
+                          const SizedBox(
+                            width: 15,
+                          ), // Add space between each string
+                        ])
+                    .toList(),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-//Orginal Code
-
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Card(
-  //     shape: RoundedRectangleBorder(
-  //       borderRadius: BorderRadius.circular(15.0),
-  //     ),
-  //     elevation: 5,
-  //     child: Column(
-  //       children: <Widget>[
-  //         Expanded(
-  //           flex: 1,
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(15.0),
-  //             child: Image.asset(widget.assetImage, fit: BoxFit.cover),
-  //           ),
-  //         ),
-  //         Expanded(
-  //           flex: 2,
-  //           child: Padding(
-  //             padding: const EdgeInsets.all(15.0),
-  //             child: Column(
-  //               crossAxisAlignment: CrossAxisAlignment.start,
-  //               mainAxisAlignment: MainAxisAlignment.center,
-  //               children: <Widget>[
-  //                 Text(
-  //                   widget.text,
-  //                   style: TextStyle(
-  //                     fontSize: widget.HeadingFontSize,
-  //                     fontWeight: FontWeight.bold,
-  //                   ),
-  //                 ),
-  //                 const SizedBox(height: 10),
-  //                 Text(
-  //                   widget.description,
-  //                   style: TextStyle(
-  //                     fontSize: widget.DescriptionFontSize,
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //           ),
-  //         ),
-  //       ],
-  //     ),
-  //   );
-  // }
-// }
