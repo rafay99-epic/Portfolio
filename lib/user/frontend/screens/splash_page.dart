@@ -47,6 +47,7 @@ class _SplashScreenState extends State<SplashScreen>
 
   @override
   Widget build(BuildContext context) {
+    bool isMobile = MediaQuery.of(context).size.width < 600;
     return Scaffold(
       body: Center(
         child: Column(
@@ -60,10 +61,15 @@ class _SplashScreenState extends State<SplashScreen>
               },
               repeat: true,
               alignment: Alignment.center,
+              width: isMobile
+                  ? MediaQuery.of(context).size.width * 0.8
+                  : null, // 80% of screen width for mobile
             ),
             SizedBox(
-              height: 5.0,
-              width: MediaQuery.of(context).size.width * 0.1,
+              height: 4.0,
+              width: isMobile
+                  ? MediaQuery.of(context).size.width * 0.8
+                  : MediaQuery.of(context).size.width * 0.1,
               child: LinearProgressIndicator(
                 value: progress.value,
                 color: Theme.of(context).colorScheme.inversePrimary,

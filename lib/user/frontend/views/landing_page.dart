@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rafay_portfolio/user/frontend/screens/contentMe_page.dart';
 
 import 'package:rafay_portfolio/user/frontend/widgets/SocialMediaIcon.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({super.key});
+  const LandingPage({Key? key}) : super(key: key);
+
   @override
   State<LandingPage> createState() => _LandingPageState();
 }
@@ -44,18 +44,22 @@ class _LandingPageState extends State<LandingPage> {
     return [
       Expanded(
         child: Padding(
-          padding: EdgeInsets.only(left: isMobile ? 15.0 : 55.0),
+          padding: EdgeInsets.only(
+            left: isMobile ? 15.0 : 55.0,
+            top: isMobile ? 50.0 : 0,
+          ),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
-            crossAxisAlignment: CrossAxisAlignment.start,
+            crossAxisAlignment:
+                isMobile ? CrossAxisAlignment.center : CrossAxisAlignment.start,
             children: [
-              const AnimatedTextBuilder(
+              AnimatedTextBuilder(
                 text: "Hi There !",
-                size: 70.0,
+                size: isMobile ? 45.0 : 72.0,
               ),
-              const AnimatedTextBuilder(
+              AnimatedTextBuilder(
                 text: "I'm Abdul Rafay",
-                size: 70.0,
+                size: isMobile ? 45.0 : 72.0,
               ),
               const AnimatedTextBuilder(
                 text: "Flutter Developer & Software Engineer",
@@ -110,6 +114,10 @@ class _LandingPageState extends State<LandingPage> {
                 label: const Text("Hire Me!"),
                 icon: const Icon(Icons.send_rounded),
               ),
+              if (isMobile) // Show this only on mobile
+                Lottie.asset(
+                  'assets/animation/rafay_animation.json',
+                ),
             ],
           ),
         ),

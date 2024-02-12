@@ -17,7 +17,7 @@ class AnimatedTextBuilder extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTextStyle(
       softWrap: true,
-      maxLines: 1,
+      maxLines: 2,
       textAlign: TextAlign.left,
       style: GoogleFonts.roboto(
         fontSize: size,
@@ -26,6 +26,9 @@ class AnimatedTextBuilder extends StatelessWidget {
         decoration: underline ? TextDecoration.underline : null,
       ),
       child: AnimatedTextKit(
+        repeatForever: false,
+        stopPauseOnTap: true,
+        totalRepeatCount: 1,
         animatedTexts: [
           TypewriterAnimatedText(text),
         ],

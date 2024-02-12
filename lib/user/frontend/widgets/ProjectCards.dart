@@ -1,4 +1,4 @@
-// ignore_for_file: non_constant_identifier_names
+// ignore_for_file: non_constant_identifier_names, file_names
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -35,8 +35,7 @@ class _ProjectCardState extends State<ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile =
-        MediaQuery.of(context).size.width < 600; // Adjust the value as needed
+    bool isMobile = MediaQuery.of(context).size.width < 600;
 
     double headingFontSize =
         isMobile ? widget.HeadingFontSize * 0.8 : widget.HeadingFontSize;
@@ -60,7 +59,7 @@ class _ProjectCardState extends State<ProjectCard> {
         child: Padding(
           padding: padding,
           child: Column(
-            mainAxisSize: MainAxisSize.min, // Make the height dynamic
+            mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[
               Row(
@@ -117,7 +116,7 @@ class _ProjectCardState extends State<ProjectCard> {
                           ),
                           const SizedBox(
                             width: 15,
-                          ), // Add space between each string
+                          ),
                         ])
                     .toList(),
               ),

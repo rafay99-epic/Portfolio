@@ -152,8 +152,7 @@ class _AboutMeState extends State<AboutMe> {
       if (isMobile)
         const CircleAvatar(
           radius: 100,
-          backgroundImage: AssetImage(
-              'assets/image/author.jpg'), // replace with your image asset
+          backgroundImage: AssetImage('assets/image/author.jpg'),
         ),
       Flexible(
         fit: FlexFit.tight,
