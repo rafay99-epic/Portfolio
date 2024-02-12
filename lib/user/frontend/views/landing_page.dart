@@ -16,8 +16,7 @@ class _LandingPageState extends State<LandingPage> {
   //main Widget
   @override
   Widget build(BuildContext context) {
-    bool isMobile =
-        MediaQuery.of(context).size.width < 600; // Adjust the value as needed
+    bool isMobile = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,

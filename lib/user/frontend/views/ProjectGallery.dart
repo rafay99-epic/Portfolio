@@ -4,6 +4,16 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/ProjectCards.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 
+class ScreenType {
+  final double width;
+
+  ScreenType(this.width);
+
+  bool get isMobile => width < 600;
+  bool get isTablet => width >= 600 && width < 1200;
+  bool get isDesktop => width >= 1200;
+}
+
 class ProjectGallery extends StatefulWidget {
   const ProjectGallery({
     super.key,
@@ -50,14 +60,17 @@ class _ProjectGalleryState extends State<ProjectGallery> {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile =
-        MediaQuery.of(context).size.width < 600; // Adjust the value as needed
-    int crossAxisCount = isMobile ? 1 : 3;
-    // double childAspectRatio = isMobile ? 1.0 : 2.3;
-    double childAspectRatio = isMobile ? 2 : 2.3; // Adjust this value as needed
-    EdgeInsets margin = isMobile
+    ScreenType screenType = ScreenType(MediaQuery.of(context).size.width);
+
+    int crossAxisCount =
+        screenType.isMobile ? 1 : (screenType.isTablet ? 2 : 3);
+    double childAspectRatio =
+        screenType.isMobile ? 2 : (screenType.isTablet ? 2.1 : 2.3);
+    EdgeInsets margin = screenType.isMobile
         ? const EdgeInsets.all(5.0)
-        : const EdgeInsets.symmetric(horizontal: 60.0, vertical: 30.0);
+        : (screenType.isTablet
+            ? const EdgeInsets.symmetric(horizontal: 30.0, vertical: 15.0)
+            : const EdgeInsets.symmetric(horizontal: 60.0, vertical: 30.0));
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -68,13 +81,13 @@ class _ProjectGalleryState extends State<ProjectGallery> {
           children: <Widget>[
             Padding(
               padding: EdgeInsets.only(
-                top: isMobile ? 50.0 : 25.0,
+                top: screenType.isMobile ? 50.0 : 25.0,
                 bottom: 30,
                 left: 30,
               ),
               child: AnimatedTextBuilder(
                 text: "Some Things I've Build",
-                size: isMobile ? 40.0 : 72.0,
+                size: screenType.isMobile ? 40.0 : 72.0,
                 underline: true,
               ),
             ),
@@ -187,7 +200,7 @@ class _ProjectGalleryState extends State<ProjectGallery> {
           ],
         ),
       ),
-      floatingActionButton: isMobile
+      floatingActionButton: screenType.isMobile
           ? null
           : Column(
               mainAxisAlignment: MainAxisAlignment.end,

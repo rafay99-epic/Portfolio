@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/SocialMediaIcon.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 
@@ -35,17 +36,18 @@ class _ProjectCardState extends State<ProjectCard> {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile = MediaQuery.of(context).size.width < 600;
+    ScreenType screenType = ScreenType(MediaQuery.of(context).size.width);
 
-    double headingFontSize =
-        isMobile ? widget.HeadingFontSize * 0.8 : widget.HeadingFontSize;
-    double descriptionFontSize = isMobile
+    double headingFontSize = screenType.isMobile
+        ? widget.HeadingFontSize * 0.8
+        : widget.HeadingFontSize;
+    double descriptionFontSize = screenType.isMobile
         ? widget.DescriptionFontSize * 0.8
         : widget.DescriptionFontSize;
-    EdgeInsets padding = isMobile
+    EdgeInsets padding = screenType.isMobile
         ? const EdgeInsets.all(5.0)
         : const EdgeInsets.only(right: 10.0, top: 5.0, bottom: 5.0, left: 10.0);
-    double spaceHeight = isMobile ? 10.0 : 25.0;
+    double spaceHeight = screenType.isMobile ? 10.0 : 25.0;
 
     return MouseRegion(
       onHover: (event) => setState(() => _isHovering = true),
