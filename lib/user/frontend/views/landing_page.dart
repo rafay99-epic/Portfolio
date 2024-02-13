@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rafay_portfolio/user/frontend/screens/contentMe_page.dart';
 
 import 'package:rafay_portfolio/user/frontend/widgets/SocialMediaIcon.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
@@ -36,6 +37,21 @@ class _LandingPageState extends State<LandingPage> {
                 children: _buildChildren(context, isMobile),
               ),
       ),
+      floatingActionButton: isMobile
+          ? FloatingActionButton(
+              onPressed: () {
+                Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                    builder: (context) => const ContactMePage(),
+                  ),
+                );
+              },
+              backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+              child: const Icon(FontAwesomeIcons.message),
+            )
+          : null,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
     );
   }
 
@@ -96,23 +112,25 @@ class _LandingPageState extends State<LandingPage> {
               const SizedBox(
                 height: 15.0,
               ),
-              TextButton.icon(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/contact');
-                },
-                style: TextButton.styleFrom(
-                  // ! Old Color
-                  // foregroundColor: Colors.deepOrange,
-                  foregroundColor: Theme.of(context).colorScheme.inversePrimary,
-                  textStyle: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.bold,
+              if (!isMobile)
+                TextButton.icon(
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/contact');
+                  },
+                  style: TextButton.styleFrom(
+                    // ! Old Color
+                    // foregroundColor: Colors.deepOrange,
+                    foregroundColor:
+                        Theme.of(context).colorScheme.inversePrimary,
+                    textStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    padding: const EdgeInsets.all(20.0),
                   ),
-                  padding: const EdgeInsets.all(20.0),
+                  label: const Text("Hire Me!"),
+                  icon: const Icon(Icons.send_rounded),
                 ),
-                label: const Text("Hire Me!"),
-                icon: const Icon(Icons.send_rounded),
-              ),
               if (isMobile) // Show this only on mobile
                 Lottie.asset(
                   'assets/animation/rafay_animation.json',
