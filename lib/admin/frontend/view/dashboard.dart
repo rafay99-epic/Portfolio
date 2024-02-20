@@ -29,7 +29,8 @@ class Dashboard extends StatelessWidget {
                       child: const Text('Yes'),
                       onPressed: () async {
                         Navigator.of(context).pop(); // Close the dialog box
-                        await _authService.signOut();
+                        await _authService
+                            .signOut(); //logouting out from firebase
                         // ignore: use_build_context_synchronously
                         Navigator.of(context).pushReplacementNamed(
                             '/admin'); // Redirect to the login page

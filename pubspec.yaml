@@ -24,6 +24,7 @@ dependencies:
   flutter_svg: ^2.0.9
   firebase_core: ^2.25.4
   firebase_auth: ^4.17.4
+  flutter_launcher_icons: ^0.13.1
   
 dev_dependencies:
   flutter_test:
@@ -36,6 +37,12 @@ flutter:
   assets:
         - assets/animation/
         - assets/image/
+
+# App Icons for application
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "assets/image/logo.png"
 
 # Flutter Fonts 
   # fonts:
