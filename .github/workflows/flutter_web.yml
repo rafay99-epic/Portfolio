@@ -1,0 +1,36 @@
+name: Flutter Web Deploy
+
+on:
+  push:
+    branches:
+      - main  # Adjust the branch name if needed
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v2
+
+      - name: Set up Flutter
+        uses: subosito/flutter-action@v2
+        with:
+          channel: stable
+
+      - name: Install Dependencies
+        run: flutter pub get
+
+      - name: Build Flutter Web
+        run: flutter build web
+
+             
+      - name: Create Deployed Branch
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+
+          git checkout -b flutter-web-deployed
+          git add -f build/
+          git commit -m "Deploy Flutter Web"
+          git push origin HEAD:refs/heads/flutter-web-deployed
