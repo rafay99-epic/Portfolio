@@ -64,8 +64,8 @@ jobs:
         with:
           channel: stable
       
-      # - name: Installing nodeJs
-      #   run: sudo apt-get install nodejs npm  # installing nodejs
+      - name: Installing nodeJs
+        run: sudo apt-get install nodejs npm  # installing nodejs
       
       - name: Flutter Install Project Dependencies
         run: flutter pub get
