@@ -71,7 +71,7 @@ jobs:
         run: flutter pub get
             
       - name: Build Flutter web Project # building website
-        run: flutter build web --web-renderer canvaskit --release
+        run: flutter build web --release
       
       - name: Flutter Web Push Code   
         uses: s0/git-publish-subdir-action@develop
