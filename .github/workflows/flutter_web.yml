@@ -1,42 +1,80 @@
-name: Flutter Web Deploy
+# name: Flutter Web Deploy
 
+# on:
+#   push:
+#     branches:
+#       - main  # Adjust the branch name if needed
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+
+#     steps:
+#       - name: Checkout Repository
+#         uses: actions/checkout@v2
+
+#       - name: Setup Node.js
+#         uses: actions/setup-node@v4
+#         with:
+#           node-version: 20
+
+#       - name: Set up Flutter
+#         uses: subosito/flutter-action@v2
+#         with:
+#           channel: stable
+
+#       - name: Install Dependencies
+#         run: |
+#           flutter pub get
+#           npm install
+
+#       - name: Build Flutter Web
+#         run: flutter build web --web-renderer html 
+
+#       - name: Create Deployed Branch
+#         run: |
+#           git config --global user.email "actions@github.com"
+#           git config --global user.name "GitHub Actions"
+
+#           git checkout -b flutter-web-deployed
+#           git add -f build/
+#           git commit -m "Deploy Flutter Web"
+#           git push origin HEAD:refs/heads/flutter-web-deployed
+
+
+name: Production Build (build) Flutter Web Deploy
 on:
   push:
     branches:
-      - main  # Adjust the branch name if needed
-
+      - main
 jobs:
   build:
     runs-on: ubuntu-latest
 
+    name: Build and Push
     steps:
-      - name: Checkout Repository
+      - name: git-checkout
         uses: actions/checkout@v2
+        
+      # - name: Install Hugo CLI
+      #   run: sudo apt-get install hugo  # installing Hugo 
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: 20
-
-      - name: Set up Flutter
+      - name: Flutter setup
         uses: subosito/flutter-action@v2
         with:
-          channel: stable
-
-      - name: Install Dependencies
-        run: |
-          flutter pub get
-          npm install
-
-      - name: Build Flutter Web
-        run: flutter build web --web-renderer html 
-
-      - name: Create Deployed Branch
-        run: |
-          git config --global user.email "actions@github.com"
-          git config --global user.name "GitHub Actions"
-
-          git checkout -b flutter-web-deployed
-          git add -f build/
-          git commit -m "Deploy Flutter Web"
-          git push origin HEAD:refs/heads/flutter-web-deployed
+          flutter-version: '3.16' # The version of Flutter you want to use
+      
+      - name: Installing nodeJs
+        run: sudo apt-get install nodejs npm  # installing nodejs
+      
+      - name: Build Flutter web Project # building website
+        run: flutter build web --web-renderer html --release
+      
+      - name: Push     # pushes the website to build branch
+        uses: s0/git-publish-subdir-action@develop
+        env:
+          REPO: self
+          BRANCH: build # The branch name where you want to push the assets
+          FOLDER: public/ # The directory where your assets are generated
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # GitHub will automatically add this - you don't need to bother getting a token
+          MESSAGE: "Build: ({sha}) {msg}" # The commit message
