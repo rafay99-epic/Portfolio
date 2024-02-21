@@ -59,21 +59,21 @@ jobs:
       # - name: Install Hugo CLI
       #   run: sudo apt-get install hugo  # installing Hugo 
 
-      - name: Flutter setup
+      - name: Set up Flutter
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: '3.16' # The version of Flutter you want to use
+          channel: stable
       
-      - name: Installing nodeJs
-        run: sudo apt-get install nodejs npm  # installing nodejs
+      # - name: Installing nodeJs
+      #   run: sudo apt-get install nodejs npm  # installing nodejs
       
       - name: Flutter Install Project Dependencies
         run: flutter pub get
             
       - name: Build Flutter web Project # building website
-        run: flutter build web --web-renderer html --release
+        run: flutter build web --web-renderer canvaskit --release
       
-      - name: Push     # pushes the website to build branch
+      - name: Flutter Web Push Code   
         uses: s0/git-publish-subdir-action@develop
         env:
           REPO: self
