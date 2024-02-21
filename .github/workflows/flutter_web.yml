@@ -29,7 +29,7 @@ jobs:
           npm install
 
       - name: Build Flutter Web
-        run: flutter build web
+        run: flutter build web --web-renderer html 
 
       - name: Create Deployed Branch
         run: |
