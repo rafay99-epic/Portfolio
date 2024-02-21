@@ -67,6 +67,9 @@ jobs:
       - name: Installing nodeJs
         run: sudo apt-get install nodejs npm  # installing nodejs
       
+      - name: Install Dependencies
+        run: flutter pub get
+            
       - name: Build Flutter web Project # building website
         run: flutter build web --web-renderer html --release
       
