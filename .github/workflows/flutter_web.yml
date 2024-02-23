@@ -1,4 +1,4 @@
-name: Production Build (build) Flutter Web Deploy
+name: Production Flutter Web Build
 on:
   push:
     branches:

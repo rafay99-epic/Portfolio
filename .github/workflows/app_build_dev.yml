@@ -1,4 +1,4 @@
-name: Flutter Build apk
+name: Testing Flutter Build Android Application
 on:
   push:
     branches:
