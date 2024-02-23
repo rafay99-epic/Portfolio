@@ -32,7 +32,7 @@ Currently crafting the magic for:
 
 ## Project Live: 
 
-Certainly! Your instructions are clear, but we can add some details and improve the formatting for better clarity. Here's an enhanced version:
+Dive into my portfolio website and discover more about my skills, projects, and journey in the world of technology. Explore the showcase at [https://abdulrafay99.netlify.app/](https://abdulrafay99.netlify.app/) and get to know me better through my work and experiences. 🚀🌐
 
 ## Local Installation:
 
