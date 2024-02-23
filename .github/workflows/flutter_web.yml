@@ -20,7 +20,7 @@ jobs:
       - name: Setup NodeJs 
         uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '21'
             
       - name: Set up JDK 15
         uses: actions/setup-java@v1
