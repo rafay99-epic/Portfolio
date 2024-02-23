@@ -2,7 +2,7 @@ name: Flutter Build apk
 on:
   push:
     branches:
-      - main
+      - v1
 jobs:
   build:
     runs-on: ubuntu-latest
