@@ -68,11 +68,19 @@ To run this project locally, follow these steps:
    - This will launch the project in a Chrome browser. You can replace `-d chrome` with the desired device identifier.
 
 By following these steps, you should be able to set up and run the project locally on your machine. If you encounter any issues, refer to the project's documentation or seek help from the Flutter community.
-### 🌟 Author Support:
+
+## 🌟 Author Support:
 
 Big thanks to [Abdul Rafay](github.com/rafay99-epic) for their unwavering dedication and creativity poured into this project. The vision wouldn't be the same without your collaboration!
 
 Hold tight as the portfolio transforms. Expect nothing less than awesomeness!
 
 Thank you for exploring my portfolio and witnessing the evolution! ✨
+
+### Special Thanks
+
+A heartfelt thank you to [@Smalick0478](https://github.com/Smalick0478) for their exceptional contributions to our code development. Your expertise and dedication have elevated the quality of our project, and we appreciate your collaborative spirit.
+
+🚀 Thank you for making a significant impact!
+
 
