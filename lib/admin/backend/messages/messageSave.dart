@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rafay_portfolio/admin/backend/model/contactMe.dart';
+import 'package:rafay_portfolio/admin/backend/model/contactMeModel.dart';
 
 CollectionReference messages =
     FirebaseFirestore.instance.collection('messages');

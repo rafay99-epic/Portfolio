@@ -1,13 +1,13 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:lottie/lottie.dart';
 
-import 'package:rafay_portfolio/admin/backend/messages/message.dart';
-import 'package:rafay_portfolio/admin/backend/model/contactMe.dart';
+import 'package:rafay_portfolio/admin/backend/messages/messageSave.dart';
+import 'package:rafay_portfolio/admin/backend/model/contactMeModel.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/buildTextField.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/dialogbox.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 
 class ContactMe extends StatefulWidget {
@@ -187,64 +187,6 @@ class _ContactMeState extends State<ContactMe> {
           ],
         ),
       ),
-    );
-  }
-
-// Dialog Box
-  void showDialogBox(
-    BuildContext context,
-    IconData icon,
-    Color color,
-    Color textColor,
-    String title,
-    String content,
-    Function onPressed,
-  ) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: Row(
-            children: [
-              Icon(icon, color: color),
-              const SizedBox(width: 10),
-              Text(
-                title,
-                style: TextStyle(
-                  color: textColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 24,
-                ),
-              ),
-            ],
-          ),
-          content: Text(content),
-          actions: <Widget>[
-            SizedBox(
-              width: double.infinity,
-              child: TextButton(
-                style: TextButton.styleFrom(
-                  backgroundColor: color,
-                  textStyle: TextStyle(
-                    fontSize: 22,
-                    fontWeight: FontWeight.bold,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                ),
-                onPressed: onPressed as void Function()?,
-                child: Text(
-                  'OK',
-                  style: GoogleFonts.playfairDisplay(
-                    fontSize: 18,
-                    fontWeight: FontWeight.w400,
-                    color: Theme.of(context).colorScheme.background,
-                  ),
-                ),
-              ),
-            ),
-          ],
-        );
-      },
     );
   }
 }

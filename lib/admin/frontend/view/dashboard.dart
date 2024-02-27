@@ -12,6 +12,16 @@ class Dashboard extends StatelessWidget {
       drawer: const MyDrawerAdmin(),
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.background,
+        title: const Text("Dashboard"),
+      ),
+      body: const Column(
+        children: <Widget>[
+          //Image in the Rown
+
+          // add some space
+
+          //
+        ],
       ),
     );
   }
