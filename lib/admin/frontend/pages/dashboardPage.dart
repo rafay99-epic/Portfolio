@@ -9,7 +9,7 @@ class DashboardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: Dashboard(),
+      body: const Dashboard(),
     );
   }
 }
