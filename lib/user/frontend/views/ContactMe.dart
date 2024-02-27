@@ -25,8 +25,7 @@ final messageController = TextEditingController();
 class _ContactMeState extends State<ContactMe> {
   @override
   Widget build(BuildContext context) {
-    bool isMobile =
-        MediaQuery.of(context).size.width < 600; // Adjust the value as needed
+    bool isMobile = MediaQuery.of(context).size.width < 600;
 
     return Column(
       children: <Widget>[
@@ -128,54 +127,14 @@ class _ContactMeState extends State<ContactMe> {
                 if (nameController.text.isEmpty ||
                     emailController.text.isEmpty ||
                     messageController.text.isEmpty) {
-                  showDialog(
-                    context: context,
-                    builder: (BuildContext context) {
-                      return AlertDialog(
-                        title: Row(
-                          children: [
-                            const Icon(
-                              Icons.error,
-                              color: Colors.red,
-                            ),
-                            const SizedBox(width: 10),
-                            Text(
-                              'Error',
-                              style: TextStyle(
-                                color: Theme.of(context)
-                                    .colorScheme
-                                    .inversePrimary,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 24,
-                              ),
-                            ),
-                          ],
-                        ),
-                        content: const Text(
-                          'Please provide all the information. Thank you!',
-                        ),
-                        actions: <Widget>[
-                          SizedBox(
-                            width: double.infinity,
-                            child: TextButton(
-                              style: TextButton.styleFrom(
-                                backgroundColor: Colors.red,
-                                textStyle: TextStyle(
-                                  fontSize: 20,
-                                  fontWeight: FontWeight.bold,
-                                  color:
-                                      Theme.of(context).colorScheme.background,
-                                ),
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text('OK'),
-                            ),
-                          ),
-                        ],
-                      );
-                    },
+                  showDialogBox(
+                    context,
+                    Icons.error,
+                    Colors.red,
+                    Colors.red,
+                    'Error',
+                    'Please provide all the information. Thank you!',
+                    () => Navigator.of(context).pop(),
                   );
                 } else {
                   if (_formKey.currentState!.validate()) {
@@ -186,114 +145,29 @@ class _ContactMeState extends State<ContactMe> {
                     );
                     try {
                       await saveContactMessage(message);
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Row(
-                              children: [
-                                const Icon(
-                                  Icons.check_circle,
-                                  color: Colors.green,
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  'Success',
-                                  style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .inversePrimary,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            content: Text(
-                              'Message sent. Thank you for contacting me.',
-                              textAlign: TextAlign.center,
-                              style: TextStyle(
-                                color: Theme.of(context).colorScheme.primary,
-                                fontSize: 22,
-                              ),
-                            ),
-                            actions: <Widget>[
-                              SizedBox(
-                                width: double.infinity,
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: Theme.of(context)
-                                        .colorScheme
-                                        .inversePrimary,
-                                    textStyle: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    nameController.clear();
-                                    emailController.clear();
-                                    messageController.clear();
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ),
-                            ],
-                          );
+                      showDialogBox(
+                        context,
+                        Icons.check_circle,
+                        Theme.of(context).colorScheme.inversePrimary,
+                        Theme.of(context).colorScheme.inversePrimary,
+                        'Success',
+                        'Message sent. Thank you for contacting me.',
+                        () {
+                          nameController.clear();
+                          emailController.clear();
+                          messageController.clear();
+                          Navigator.of(context).pop();
                         },
                       );
                     } catch (e) {
-                      showDialog(
-                        context: context,
-                        builder: (BuildContext context) {
-                          return AlertDialog(
-                            title: Row(
-                              children: [
-                                const Icon(
-                                  Icons.error,
-                                  color: Colors.red,
-                                ),
-                                const SizedBox(width: 10),
-                                Text(
-                                  'Error',
-                                  style: TextStyle(
-                                    color: Theme.of(context)
-                                        .colorScheme
-                                        .inversePrimary,
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 24,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            content: Text('Failed to send message: $e'),
-                            actions: <Widget>[
-                              SizedBox(
-                                width: double.infinity,
-                                child: TextButton(
-                                  style: TextButton.styleFrom(
-                                    backgroundColor: Colors.red,
-                                    textStyle: TextStyle(
-                                      fontSize: 20,
-                                      fontWeight: FontWeight.bold,
-                                      color: Theme.of(context)
-                                          .colorScheme
-                                          .background,
-                                    ),
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text('OK'),
-                                ),
-                              ),
-                            ],
-                          );
-                        },
+                      showDialogBox(
+                        context,
+                        Icons.error,
+                        Colors.red,
+                        Colors.red,
+                        'Error',
+                        'Failed to send message: $e',
+                        () => Navigator.of(context).pop(),
                       );
                     }
                   }
@@ -316,6 +190,61 @@ class _ContactMeState extends State<ContactMe> {
     );
   }
 
-  // check for empty fields
-  void checkControllers(BuildContext context) {}
+// Dialog Box
+  void showDialogBox(
+    BuildContext context,
+    IconData icon,
+    Color color,
+    Color textColor,
+    String title,
+    String content,
+    Function onPressed,
+  ) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Row(
+            children: [
+              Icon(icon, color: color),
+              const SizedBox(width: 10),
+              Text(
+                title,
+                style: TextStyle(
+                  color: textColor,
+                  fontWeight: FontWeight.bold,
+                  fontSize: 24,
+                ),
+              ),
+            ],
+          ),
+          content: Text(content),
+          actions: <Widget>[
+            SizedBox(
+              width: double.infinity,
+              child: TextButton(
+                style: TextButton.styleFrom(
+                  backgroundColor: color,
+                  textStyle: TextStyle(
+                    fontSize: 22,
+                    fontWeight: FontWeight.bold,
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+                ),
+                onPressed: onPressed as void Function()?,
+                child: Text(
+                  'OK',
+                  style: GoogleFonts.playfairDisplay(
+                    fontSize: 18,
+                    fontWeight: FontWeight.w400,
+                    color: Theme.of(context).colorScheme.background,
+                  ),
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
 }
