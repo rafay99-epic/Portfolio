@@ -3,10 +3,11 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafay_portfolio/admin/backend/auth/authService.dart';
+
+import 'package:rafay_portfolio/admin/frontend/pages/blog.dart';
 import 'package:rafay_portfolio/admin/frontend/view/ContentMeMessage.dart';
 
 import 'package:rafay_portfolio/admin/frontend/widgets/admin_drawer.dart';
-import 'package:rafay_portfolio/user/frontend/widgets/FeatureNotAvailableButton.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});
@@ -103,9 +104,11 @@ class Dashboard extends StatelessWidget {
                       height: 380,
                       child: GestureDetector(
                         onTap: () {
-                          const FeatureNotAvailableButton(
-                            description: "Feature is not Ready yet",
-                            titleBox: 'Feature Not Ready',
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const BlogPostAdmin(),
+                            ),
                           );
                         },
                         child: Card(
