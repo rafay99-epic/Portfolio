@@ -1,12 +1,11 @@
 // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
+
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafay_portfolio/admin/backend/auth/authService.dart';
-
-import 'package:rafay_portfolio/admin/frontend/pages/blog.dart';
-import 'package:rafay_portfolio/admin/frontend/view/ContentMeMessage.dart';
-
+import 'package:rafay_portfolio/admin/frontend/pages/blogs/blog.dart';
+import 'package:rafay_portfolio/admin/frontend/view/MessageDashboard.dart';
 import 'package:rafay_portfolio/admin/frontend/widgets/admin_drawer.dart';
 
 class Dashboard extends StatelessWidget {
@@ -67,7 +66,7 @@ class Dashboard extends StatelessWidget {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (context) => const ContactMessages(),
+                              builder: (context) => const MessagesDashboard(),
                             ),
                           );
                         },

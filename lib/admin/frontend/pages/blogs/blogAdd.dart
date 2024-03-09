@@ -1,148 +1,3 @@
-// import 'package:flutter/material.dart';
-// import 'package:html_editor_enhanced/html_editor.dart';
-
-// class AddBlogPost extends StatefulWidget {
-//   const AddBlogPost({Key? key}) : super(key: key);
-
-//   @override
-//   State<AddBlogPost> createState() => _AddBlogPostState();
-// }
-
-// class _AddBlogPostState extends State<AddBlogPost> {
-//   HtmlEditorController controller = HtmlEditorController();
-
-//   final _formKey = GlobalKey<FormState>();
-//   String title = '';
-//   String subTitle = '';
-//   String thumbnail = '';
-//   String url = '';
-//   bool isEnabled = false;
-//   List<String> tags = [];
-//   DateTime date = DateTime.now();
-//   String author = '';
-//   DateTime timestamp = DateTime.now();
-//   List<String> contentBlocks = [];
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return Scaffold(
-//       appBar: AppBar(
-//         title: const Text('Add Blog Post'),
-//         backgroundColor: Theme.of(context).colorScheme.background,
-//       ),
-//       body: Form(
-//         key: _formKey,
-//         child: ListView(
-//           padding: const EdgeInsets.all(16.0),
-//           children: <Widget>[
-//             //blog title
-//             TextFormField(
-//               decoration: const InputDecoration(
-//                 labelText: 'Title',
-//                 labelStyle: TextStyle(fontSize: 18),
-//               ),
-//               style: const TextStyle(fontSize: 18),
-//               onChanged: (value) {
-//                 setState(() {
-//                   title = value;
-//                 });
-//               },
-//             ),
-//             const SizedBox(height: 20),
-//             // blog description
-//             TextFormField(
-//               decoration: const InputDecoration(
-//                 labelText: 'Description',
-//                 labelStyle: TextStyle(fontSize: 18),
-//               ),
-//               style: const TextStyle(fontSize: 18),
-//               onChanged: (value) {
-//                 setState(() {
-//                   subTitle = value;
-//                 });
-//               },
-//             ),
-//             const SizedBox(height: 20),
-//             //Upload thumbnail
-//             const Text(
-//               "Update Blog Thumbnail",
-//               style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-//             ),
-//             const SizedBox(height: 10),
-//             ElevatedButton(
-//               onPressed: () {
-//                 // Implement your image picking logic here
-//               },
-//               child: const Text('Upload Thumbnail'),
-//             ),
-//             const SizedBox(height: 20),
-//             //draft blog
-//             CheckboxListTile(
-//               title: const Text(
-//                 'Enabled',
-//                 style: TextStyle(fontSize: 18),
-//               ),
-//               value: isEnabled,
-//               onChanged: (value) {
-//                 setState(() {
-//                   isEnabled = value ?? false;
-//                 });
-//               },
-//             ),
-//             const SizedBox(height: 20),
-//             TextFormField(
-//               decoration: const InputDecoration(
-//                 labelText: 'Tags (comma separated)',
-//                 labelStyle: TextStyle(fontSize: 18),
-//               ),
-//               style: const TextStyle(fontSize: 18),
-//               onChanged: (value) {
-//                 setState(() {
-//                   tags = value.split(',');
-//                 });
-//               },
-//             ),
-//             TextFormField(
-//               decoration: const InputDecoration(
-//                 labelText: 'Author',
-//                 labelStyle: TextStyle(fontSize: 18),
-//               ),
-//               style: const TextStyle(fontSize: 18),
-//               onChanged: (value) {
-//                 setState(() {
-//                   author = value;
-//                 });
-//               },
-//             ),
-
-//             const SizedBox(height: 20),
-//             HtmlEditor(
-//               controller: controller, //required
-//               htmlEditorOptions: const HtmlEditorOptions(
-//                 hint: "Write yoour Blog here...",
-//               ),
-//               otherOptions: const OtherOptions(
-//                 height: 800,
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//       floatingActionButton: FloatingActionButton(
-//           backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-//           foregroundColor: Theme.of(context).colorScheme.background,
-//           onPressed: () {
-//             if (_formKey.currentState!.validate()) {
-//               // Save the blog post
-//             }
-//           },
-//           child: const Icon(
-//             Icons.save,
-//           )),
-//     );
-//   }
-// }
-
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously
 
 import 'dart:io' as io;
@@ -204,18 +59,20 @@ class _AddBlogPostState extends State<AddBlogPost> {
                     'content': await controller.getText(),
                   };
 
-                  // Upload the thumbnail to Firebase Storage
-                  if (_image != null) {
-                    var snapshot = await FirebaseStorage.instance
-                        .ref('thumbnails/${path.basename(_image!.path)}')
-                        .putFile(_image!);
-                    var downloadUrl = await snapshot.ref.getDownloadURL();
+                  //! The File Upload code is not working, Even Possiable that the File is
+                  //! not Uploading OR the URL for the file is not downloading.
+                  // // Upload the thumbnail to Firebase Storage
+                  // if (_image != null) {
+                  //   var snapshot = await FirebaseStorage.instance
+                  //       .ref('thumbnails/${path.basename(_image!.path)}')
+                  //       .putFile(_image!);
+                  //   var downloadUrl = await snapshot.ref.getDownloadURL();
 
-                    // Add the download URL to the blog post
-                    blogPost['thumbnail'] = downloadUrl;
-                  } else {
-                    print('No image selected to upload.');
-                  }
+                  //   // Add the download URL to the blog post
+                  //   blogPost['thumbnail'] = downloadUrl;
+                  // } else {
+                  //   print('No image selected to upload.');
+                  // }
 
                   // Save the blog post to Firestore
                   await FirebaseFirestore.instance
@@ -355,33 +212,6 @@ class _AddBlogPostState extends State<AddBlogPost> {
         foregroundColor: Theme.of(context).colorScheme.background,
         onPressed: () async {
           if (_formKey.currentState!.validate()) {
-            // Save the blog post
-            // var blogPost = {
-            //   'title': titleController.text,
-            //   'subTitle': subTitleController.text,
-            //   'isEnabled': isEnabled,
-            //   'tags': tagsController.text.split(','),
-            //   'author': authorController.text,
-            //   'content': await controller.getText(),
-            // };
-
-            // // Upload the thumbnail to Firebase Storage
-            // if (_image != null) {
-            //   var snapshot = await FirebaseStorage.instance
-            //       .ref('thumbnails/${path.basename(_image!.path)}')
-            //       .putFile(_image!);
-            //   var downloadUrl = await snapshot.ref.getDownloadURL();
-
-            //   // Add the download URL to the blog post
-            //   blogPost['thumbnail'] = downloadUrl;
-            // } else {
-            //   print('No image selected to upload.');
-            // }
-
-            // // Save the blog post to Firestore
-            // await FirebaseFirestore.instance
-            //     .collection('blogPosts')
-            //     .add(blogPost);
             try {
               // Save the blog post
               var blogPost = {
@@ -393,18 +223,25 @@ class _AddBlogPostState extends State<AddBlogPost> {
                 'content': await controller.getText(),
               };
 
-              // Upload the thumbnail to Firebase Storage
-              if (_image != null) {
-                var snapshot = await FirebaseStorage.instance
-                    .ref('thumbnails/${path.basename(_image!.path)}')
-                    .putFile(_image!);
-                var downloadUrl = await snapshot.ref.getDownloadURL();
+              //! The File Upload code is not working, Even Possiable that the File is
+              //! not Uploading OR the URL for the file is not downloading.
 
-                // Add the download URL to the blog post
-                blogPost['thumbnail'] = downloadUrl;
-              } else {
-                print('No image selected to upload.');
-              }
+              // var snapshot = await FirebaseStorage.instance
+              //  .ref('thumbnails/${path.basename(_image!.path)}')
+              //  .putFile(_image!);
+              // var downloadUrl = await snapshot.ref.getDownloadURL();
+              // Upload the thumbnail to Firebase Storage
+              // if (_image != null) {
+              //   var snapshot = await FirebaseStorage.instance
+              //       .ref('thumbnails/${path.basename(_image!.path)}')
+              //       .putFile(_image!);
+              //   var downloadUrl = await snapshot.ref.getDownloadURL();
+
+              //   // Add the download URL to the blog post
+              //   blogPost['thumbnail'] = downloadUrl;
+              // } else {
+              //   print('No image selected to upload.');
+              // }
 
               // Save the blog post to Firestore
               await FirebaseFirestore.instance

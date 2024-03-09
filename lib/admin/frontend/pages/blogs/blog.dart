@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:rafay_portfolio/admin/frontend/pages/blogAdd.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/blogs/blogAdd.dart';
 import 'package:rafay_portfolio/admin/frontend/widgets/admin_drawer.dart';
 
 class BlogPostAdmin extends StatefulWidget {

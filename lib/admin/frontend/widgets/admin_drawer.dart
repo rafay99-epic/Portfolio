@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafay_portfolio/admin/backend/auth/authService.dart';
 import 'package:rafay_portfolio/admin/frontend/pages/dashboardPage.dart';
-import 'package:rafay_portfolio/admin/frontend/view/ContentMeMessage.dart';
+import 'package:rafay_portfolio/admin/frontend/view/MessageDashboard.dart';
 
 class MyDrawerAdmin extends StatefulWidget {
   const MyDrawerAdmin({super.key});
@@ -121,7 +121,7 @@ class _MyDrawerAdminState extends State<MyDrawerAdmin>
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                builder: (context) => const ContactMessages(),
+                                builder: (context) => const MessagesDashboard(),
                               ),
                             ),
                           },
