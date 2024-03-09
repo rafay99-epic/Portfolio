@@ -3,6 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rafay_portfolio/admin/backend/messages/MessageArchieve.dart';
+import 'package:rafay_portfolio/admin/backend/messages/MessagesDelete.dart';
 
 import 'package:rafay_portfolio/admin/frontend/widgets/admin_drawer.dart';
 
@@ -73,10 +75,7 @@ class _InboxMessagesState extends State<InboxMessages> {
                               color: Colors.green,
                             ),
                             onPressed: () async {
-                              await FirebaseFirestore.instance
-                                  .collection('messages')
-                                  .doc(document.id)
-                                  .update({'hideMessage': true});
+                              await hideMessage(document.id);
                             },
                           ),
                           IconButton(
@@ -143,10 +142,7 @@ class _InboxMessagesState extends State<InboxMessages> {
                                             ),
                                           ),
                                           onPressed: () async {
-                                            await FirebaseFirestore.instance
-                                                .collection('messages')
-                                                .doc(document.id)
-                                                .delete();
+                                            await deleteMessage(document.id);
                                             Navigator.pop(context);
                                           },
                                         ),

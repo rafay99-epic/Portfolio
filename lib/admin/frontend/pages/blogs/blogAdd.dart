@@ -9,6 +9,7 @@ import 'package:html_editor_enhanced/html_editor.dart';
 
 import 'package:image_picker/image_picker.dart';
 import 'package:path/path.dart' as path;
+import 'package:rafay_portfolio/admin/backend/blog/blogAdd.dart';
 
 class AddBlogPost extends StatefulWidget {
   const AddBlogPost({Key? key}) : super(key: key);
@@ -50,14 +51,21 @@ class _AddBlogPostState extends State<AddBlogPost> {
               if (_formKey.currentState!.validate()) {
                 try {
                   // Save the blog post
-                  var blogPost = {
-                    'title': titleController.text,
-                    'subTitle': subTitleController.text,
-                    'isEnabled': isEnabled,
-                    'tags': tagsController.text.split(','),
-                    'author': authorController.text,
-                    'content': await controller.getText(),
-                  };
+                  await addBlogPost(
+                    title: titleController.text,
+                    subTitle: subTitleController.text,
+                    isEnabled: isEnabled,
+                    tags: tagsController.text.split(','),
+                    author: authorController.text,
+                    content: await controller.getText(),
+                  );
+
+                  titleController.clear();
+                  subTitleController.clear();
+                  tagsController.clear();
+                  authorController.clear();
+                  isEnabled = false;
+                  controller.clear();
 
                   //! The File Upload code is not working, Even Possiable that the File is
                   //! not Uploading OR the URL for the file is not downloading.
@@ -73,11 +81,6 @@ class _AddBlogPostState extends State<AddBlogPost> {
                   // } else {
                   //   print('No image selected to upload.');
                   // }
-
-                  // Save the blog post to Firestore
-                  await FirebaseFirestore.instance
-                      .collection('blogPosts')
-                      .add(blogPost);
 
                   // Show a dialog saying that the blog is added
                   showDialog(
@@ -214,17 +217,11 @@ class _AddBlogPostState extends State<AddBlogPost> {
           if (_formKey.currentState!.validate()) {
             try {
               // Save the blog post
-              var blogPost = {
-                'title': titleController.text,
-                'subTitle': subTitleController.text,
-                'isEnabled': isEnabled,
-                'tags': tagsController.text.split(','),
-                'author': authorController.text,
-                'content': await controller.getText(),
-              };
 
               //! The File Upload code is not working, Even Possiable that the File is
               //! not Uploading OR the URL for the file is not downloading.
+
+              // ! I moved the save blog into a function and the location is  /lib/admin/backend/blog/blogAdd.dart
 
               // var snapshot = await FirebaseStorage.instance
               //  .ref('thumbnails/${path.basename(_image!.path)}')
@@ -243,10 +240,21 @@ class _AddBlogPostState extends State<AddBlogPost> {
               //   print('No image selected to upload.');
               // }
 
-              // Save the blog post to Firestore
-              await FirebaseFirestore.instance
-                  .collection('blogPosts')
-                  .add(blogPost);
+              await addBlogPost(
+                title: titleController.text,
+                subTitle: subTitleController.text,
+                isEnabled: isEnabled,
+                tags: tagsController.text.split(','),
+                author: authorController.text,
+                content: await controller.getText(),
+              );
+
+              titleController.clear();
+              subTitleController.clear();
+              tagsController.clear();
+              authorController.clear();
+              isEnabled = false;
+              controller.clear();
 
               // Show a dialog saying that the blog is added
               showDialog(

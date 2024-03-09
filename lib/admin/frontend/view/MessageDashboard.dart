@@ -85,7 +85,7 @@ class MessagesDashboard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Image.asset(
-                                "assets/image/contactMe.png",
+                                "assets/image/inboxMessages.png",
                                 width: 300,
                                 height: 300,
                               ),
@@ -129,7 +129,7 @@ class MessagesDashboard extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
                               Image.asset(
-                                "assets/image/blog.png",
+                                "assets/image/archiveMessages.png",
                                 width: 300,
                                 height: 300,
                               ),

@@ -34,16 +34,28 @@ class BlogPosModel {
     };
   }
 
+  // static BlogPosModel fromMap(Map<String, dynamic> map) {
+  //   return BlogPosModel(
+  //     title: map['title'],
+  //     subTitle: map['subTitle'],
+  //     thumbnail: map['thumbnail'],
+  //     url: map['url'],
+  //     isEnabled: map['isEnabled'],
+  //     tags: List<String>.from(map['tags']),
+  //     author: map['author'],
+  //     content: map['content'],
+  //   );
+  // }
   static BlogPosModel fromMap(Map<String, dynamic> map) {
     return BlogPosModel(
-      title: map['title'],
-      subTitle: map['subTitle'],
-      thumbnail: map['thumbnail'],
-      url: map['url'],
-      isEnabled: map['isEnabled'],
-      tags: List<String>.from(map['tags']),
-      author: map['author'],
-      content: map['content'],
+      title: map['title'] ?? '',
+      subTitle: map['subTitle'] ?? '',
+      thumbnail: map['thumbnail'] ?? '',
+      url: map['url'] ?? '',
+      isEnabled: map['isEnabled'] ?? false,
+      tags: List<String>.from(map['tags'] ?? []),
+      author: map['author'] ?? '',
+      content: map['content'] ?? '',
     );
   }
 }

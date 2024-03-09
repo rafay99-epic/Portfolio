@@ -142,11 +142,11 @@ class _MyDrawerAdminState extends State<MyDrawerAdmin>
                             Navigator.pop(context),
 
                             //Opening the Setting Page
-                            //logic for redirect to get content me informatio
+                            // logic for redirect to get content me informatio
                             // Navigator.push(
                             //   context,
                             //   MaterialPageRoute(
-                            //     builder: (context) => const SettingPage(),
+                            //     builder: (context) => const (),
                             //   ),
                             // ),
                           },
