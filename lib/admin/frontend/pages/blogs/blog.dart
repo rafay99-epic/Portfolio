@@ -1,8 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rafay_portfolio/admin/backend/blog/blogSearch.dart';
 import 'package:rafay_portfolio/admin/backend/blog/blogdelete.dart';
-import 'package:rafay_portfolio/admin/backend/model/Blog.dart';
+import 'package:rafay_portfolio/admin/backend/model/BlogModel.dart';
 import 'package:rafay_portfolio/admin/frontend/pages/blogs/blogAdd.dart';
 import 'package:rafay_portfolio/admin/frontend/widgets/admin_drawer.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
@@ -15,13 +16,53 @@ class BlogPostAdmin extends StatefulWidget {
 }
 
 class _BlogPostState extends State<BlogPostAdmin> {
+  final BlogService blogService = BlogService();
+  bool isSearchBarVisible = false;
+
   @override
   Widget build(BuildContext context) {
-    final Stream<QuerySnapshot> _blogStream =
-        FirebaseFirestore.instance.collection('blogPost').snapshots();
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Blog Posts"),
+        title: Row(
+          children: [
+            const Text('Blog Posts'),
+            const Spacer(),
+            AnimatedContainer(
+              width: isSearchBarVisible ? 200 : 0,
+              duration: const Duration(milliseconds: 300),
+              curve: Curves.easeInOut,
+              child: isSearchBarVisible
+                  ? Padding(
+                      padding: const EdgeInsets.only(left: 20.0),
+                      child: TextField(
+                        onChanged: (value) {
+                          setState(() {
+                            blogService.searchQuery = value;
+                          });
+                        },
+                        decoration: InputDecoration(
+                          hintText: 'Search blog posts...',
+                          filled: true,
+                          fillColor: Theme.of(context).colorScheme.background,
+                          border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(30.0),
+                            borderSide: BorderSide.none,
+                          ),
+                        ),
+                      ),
+                    )
+                  : null,
+            ),
+            IconButton(
+              icon: const Icon(Icons.search),
+              onPressed: () {
+                setState(() {
+                  isSearchBarVisible = !isSearchBarVisible;
+                });
+              },
+            ),
+          ],
+        ),
         backgroundColor: Theme.of(context).colorScheme.background,
       ),
       drawer: const MyDrawerAdmin(),
@@ -40,7 +81,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
         child: const Icon(Icons.add),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: FirebaseFirestore.instance.collection('blogPosts').snapshots(),
+        stream: blogService.getBlogPosts(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -51,6 +92,30 @@ class _BlogPostState extends State<BlogPostAdmin> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: Lottie.asset('assets/animation/loader.json'),
+            );
+          }
+
+          if (snapshot.data!.docs.isEmpty) {
+            // Add this condition
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.only(
+                    left: 8.0, right: 8.0, top: 20.0, bottom: 20.0),
+                child: Column(
+                  children: <Widget>[
+                    const SizedBox(height: 10),
+                    Lottie.asset('assets/animation/datanotfound.json'),
+                    const SizedBox(height: 10),
+                    StyledText(
+                      text: "Sorry!! No search results found. ",
+                      fontSize: 20,
+                      color: Theme.of(context).colorScheme.primary,
+                      textAlign: TextAlign.center,
+                      bold: true,
+                    )
+                  ],
+                ),
+              ),
             );
           }
 

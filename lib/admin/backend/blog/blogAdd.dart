@@ -1,5 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rafay_portfolio/admin/backend/model/Blog.dart';
+import 'package:rafay_portfolio/admin/backend/model/BlogModel.dart';
 
 Future<void> addBlogPost({
   required String title,
