@@ -1,15 +1,11 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
 
-import 'dart:io' as io;
-
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
-
-import 'package:image_picker/image_picker.dart';
-import 'package:path/path.dart' as path;
+import 'package:image_picker_web/image_picker_web.dart';
 import 'package:rafay_portfolio/admin/backend/blog/blogAdd.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 
 class AddBlogPost extends StatefulWidget {
   const AddBlogPost({Key? key}) : super(key: key);
@@ -27,7 +23,8 @@ class _AddBlogPostState extends State<AddBlogPost> {
   final tagsController = TextEditingController();
   final authorController = TextEditingController();
   bool isEnabled = false;
-  io.File? _image;
+  // io.File? _image;
+  Uint8List? _image;
 
   @override
   void dispose() {
@@ -42,83 +39,89 @@ class _AddBlogPostState extends State<AddBlogPost> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Add Blog Post'),
+        title: StyledText(
+          text: 'Add Blog Post',
+          fontSize: 22,
+          color: Theme.of(context).colorScheme.primary,
+          textAlign: TextAlign.left,
+        ),
         backgroundColor: Theme.of(context).colorScheme.background,
         actions: <Widget>[
-          IconButton(
-            icon: const Icon(Icons.save),
-            onPressed: () async {
-              if (_formKey.currentState!.validate()) {
-                try {
-                  // Save the blog post
-                  await addBlogPost(
-                    title: titleController.text,
-                    subTitle: subTitleController.text,
-                    isEnabled: isEnabled,
-                    tags: tagsController.text.split(','),
-                    author: authorController.text,
-                    content: await controller.getText(),
-                  );
+          Padding(
+            padding: const EdgeInsets.only(right: 20.0),
+            child: TextButton(
+              style: TextButton.styleFrom(
+                foregroundColor: Theme.of(context).colorScheme.background,
+                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                shape: RoundedRectangleBorder(
+                  // Rounded corners
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                padding: EdgeInsets.symmetric(horizontal: 26, vertical: 16),
+              ),
+              onPressed: () async {
+                if (_formKey.currentState!.validate()) {
+                  try {
+                    if (_image != null) {
+                      await addBlogPost(
+                        title: titleController.text,
+                        subTitle: subTitleController.text,
+                        isEnabled: isEnabled,
+                        tags: tagsController.text.split(','),
+                        author: authorController.text,
+                        content: await controller.getText(),
+                        imageFile: _image!,
+                      );
+                    } else {
+                      print('No image selected.');
+                    }
 
-                  titleController.clear();
-                  subTitleController.clear();
-                  tagsController.clear();
-                  authorController.clear();
-                  isEnabled = false;
-                  controller.clear();
+                    titleController.clear();
+                    subTitleController.clear();
+                    tagsController.clear();
+                    authorController.clear();
+                    isEnabled = false;
+                    controller.clear();
 
-                  //! The File Upload code is not working, Even Possiable that the File is
-                  //! not Uploading OR the URL for the file is not downloading.
-                  // // Upload the thumbnail to Firebase Storage
-                  // if (_image != null) {
-                  //   var snapshot = await FirebaseStorage.instance
-                  //       .ref('thumbnails/${path.basename(_image!.path)}')
-                  //       .putFile(_image!);
-                  //   var downloadUrl = await snapshot.ref.getDownloadURL();
-
-                  //   // Add the download URL to the blog post
-                  //   blogPost['thumbnail'] = downloadUrl;
-                  // } else {
-                  //   print('No image selected to upload.');
-                  // }
-
-                  // Show a dialog saying that the blog is added
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text('Blog Added'),
-                      content:
-                          Text('The blog post has been successfully added.'),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('OK'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    ),
-                  );
-                } catch (e) {
-                  // Show a dialog with the error message
-                  showDialog(
-                    context: context,
-                    builder: (context) => AlertDialog(
-                      title: Text('Error'),
-                      content: Text(e.toString()),
-                      actions: <Widget>[
-                        TextButton(
-                          child: Text('OK'),
-                          onPressed: () {
-                            Navigator.of(context).pop();
-                          },
-                        ),
-                      ],
-                    ),
-                  );
+                    // Show a dialog saying that the blog is added
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('Blog Added'),
+                        content:
+                            Text('The blog post has been successfully added.'),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  } catch (e) {
+                    // Show a dialog with the error message
+                    showDialog(
+                      context: context,
+                      builder: (context) => AlertDialog(
+                        title: Text('Error'),
+                        content: Text(e.toString()),
+                        actions: <Widget>[
+                          TextButton(
+                            child: Text('OK'),
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                          ),
+                        ],
+                      ),
+                    );
+                  }
                 }
-              }
-            },
+              },
+              child: Text('Save Blog Post'),
+            ),
           ),
         ],
       ),
@@ -147,18 +150,17 @@ class _AddBlogPostState extends State<AddBlogPost> {
             const SizedBox(height: 20),
             const Text(
               "Update Blog Thumbnail",
-              style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+              style: TextStyle(
+                fontSize: 18,
+              ),
             ),
             const SizedBox(height: 10),
             ElevatedButton(
               onPressed: () async {
-                final picker = ImagePicker();
-                final pickedFile =
-                    await picker.pickImage(source: ImageSource.gallery);
-
-                if (pickedFile != null) {
+                final imageInfo = await ImagePickerWeb.getImageInfo;
+                if (imageInfo != null) {
                   setState(() {
-                    _image = io.File(pickedFile.path);
+                    _image = imageInfo.data;
                   });
                 } else {
                   print('No image selected.');
@@ -199,100 +201,15 @@ class _AddBlogPostState extends State<AddBlogPost> {
             const SizedBox(height: 20),
             HtmlEditor(
               controller: controller, //required
-              htmlEditorOptions: const HtmlEditorOptions(
+              htmlEditorOptions: HtmlEditorOptions(
                 hint: "Write your Blog here...",
-              ),
-              otherOptions: const OtherOptions(
-                height: 800,
+                autoAdjustHeight: true,
+                spellCheck: true,
+                darkMode: false,
               ),
             ),
-            SizedBox(height: 50),
           ],
         ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        foregroundColor: Theme.of(context).colorScheme.background,
-        onPressed: () async {
-          if (_formKey.currentState!.validate()) {
-            try {
-              // Save the blog post
-
-              //! The File Upload code is not working, Even Possiable that the File is
-              //! not Uploading OR the URL for the file is not downloading.
-
-              // ! I moved the save blog into a function and the location is  /lib/admin/backend/blog/blogAdd.dart
-
-              // var snapshot = await FirebaseStorage.instance
-              //  .ref('thumbnails/${path.basename(_image!.path)}')
-              //  .putFile(_image!);
-              // var downloadUrl = await snapshot.ref.getDownloadURL();
-              // Upload the thumbnail to Firebase Storage
-              // if (_image != null) {
-              //   var snapshot = await FirebaseStorage.instance
-              //       .ref('thumbnails/${path.basename(_image!.path)}')
-              //       .putFile(_image!);
-              //   var downloadUrl = await snapshot.ref.getDownloadURL();
-
-              //   // Add the download URL to the blog post
-              //   blogPost['thumbnail'] = downloadUrl;
-              // } else {
-              //   print('No image selected to upload.');
-              // }
-
-              await addBlogPost(
-                title: titleController.text,
-                subTitle: subTitleController.text,
-                isEnabled: isEnabled,
-                tags: tagsController.text.split(','),
-                author: authorController.text,
-                content: await controller.getText(),
-              );
-
-              titleController.clear();
-              subTitleController.clear();
-              tagsController.clear();
-              authorController.clear();
-              isEnabled = false;
-              controller.clear();
-
-              // Show a dialog saying that the blog is added
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text('Blog Added'),
-                  content: Text('The blog post has been successfully added.'),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text('OK'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              );
-            } catch (e) {
-              // Show a dialog with the error message
-              showDialog(
-                context: context,
-                builder: (context) => AlertDialog(
-                  title: Text('Error'),
-                  content: Text(e.toString()),
-                  actions: <Widget>[
-                    TextButton(
-                      child: Text('OK'),
-                      onPressed: () {
-                        Navigator.of(context).pop();
-                      },
-                    ),
-                  ],
-                ),
-              );
-            }
-          }
-        },
-        child: const Icon(Icons.save),
       ),
     );
   }
