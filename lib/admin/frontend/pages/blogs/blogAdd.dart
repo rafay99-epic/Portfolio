@@ -1,11 +1,11 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
 
-import 'dart:typed_data';
 import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
-import 'package:image_picker_web/image_picker_web.dart';
+
 import 'package:rafay_portfolio/admin/backend/blog/blogAdd.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
+import 'dart:html' as html;
 
 class AddBlogPost extends StatefulWidget {
   const AddBlogPost({Key? key}) : super(key: key);
@@ -15,6 +15,8 @@ class AddBlogPost extends StatefulWidget {
 }
 
 class _AddBlogPostState extends State<AddBlogPost> {
+  html.File? _image;
+
   HtmlEditorController controller = HtmlEditorController();
 
   final _formKey = GlobalKey<FormState>();
@@ -23,8 +25,6 @@ class _AddBlogPostState extends State<AddBlogPost> {
   final tagsController = TextEditingController();
   final authorController = TextEditingController();
   bool isEnabled = false;
-  // io.File? _image;
-  Uint8List? _image;
 
   @override
   void dispose() {
@@ -62,19 +62,15 @@ class _AddBlogPostState extends State<AddBlogPost> {
               onPressed: () async {
                 if (_formKey.currentState!.validate()) {
                   try {
-                    if (_image != null) {
-                      await addBlogPost(
-                        title: titleController.text,
-                        subTitle: subTitleController.text,
-                        isEnabled: isEnabled,
-                        tags: tagsController.text.split(','),
-                        author: authorController.text,
-                        content: await controller.getText(),
-                        imageFile: _image!,
-                      );
-                    } else {
-                      print('No image selected.');
-                    }
+                    await addBlogPost(
+                      title: titleController.text,
+                      subTitle: subTitleController.text,
+                      isEnabled: isEnabled,
+                      tags: tagsController.text.split(','),
+                      author: authorController.text,
+                      content: await controller.getText(),
+                      imageFile: _image!,
+                    );
 
                     titleController.clear();
                     subTitleController.clear();
@@ -156,15 +152,20 @@ class _AddBlogPostState extends State<AddBlogPost> {
             ),
             const SizedBox(height: 10),
             ElevatedButton(
-              onPressed: () async {
-                final imageInfo = await ImagePickerWeb.getImageInfo;
-                if (imageInfo != null) {
-                  setState(() {
-                    _image = imageInfo.data;
-                  });
-                } else {
-                  print('No image selected.');
-                }
+              onPressed: () {
+                html.FileUploadInputElement uploadInput =
+                    html.FileUploadInputElement();
+                uploadInput.click();
+
+                uploadInput.onChange.listen((e) {
+                  final files = uploadInput.files;
+                  if (files!.length == 1) {
+                    final file = files[0];
+                    setState(() {
+                      _image = file;
+                    });
+                  }
+                });
               },
               child: const Text('Upload Thumbnail'),
             ),

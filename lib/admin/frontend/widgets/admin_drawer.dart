@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafay_portfolio/admin/backend/auth/authService.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/blogs/BlogsWork.dart';
 import 'package:rafay_portfolio/admin/frontend/pages/dashboardPage.dart';
 import 'package:rafay_portfolio/admin/frontend/view/MessageDashboard.dart';
 
@@ -143,12 +144,12 @@ class _MyDrawerAdminState extends State<MyDrawerAdmin>
 
                             //Opening the Setting Page
                             // logic for redirect to get content me informatio
-                            // Navigator.push(
-                            //   context,
-                            //   MaterialPageRoute(
-                            //     builder: (context) => const (),
-                            //   ),
-                            // ),
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                builder: (context) => const BlogPostAdmin(),
+                              ),
+                            ),
                           },
                         ),
                       ),

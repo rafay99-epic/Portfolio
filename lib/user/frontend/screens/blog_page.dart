@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:rafay_portfolio/user/frontend/views/displayblogs.dart';
 
 class BlogPage extends StatefulWidget {
   const BlogPage({super.key});
@@ -12,17 +13,7 @@ class _BlogPageState extends State<BlogPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: const Column(
-        children: <Widget>[
-          Expanded(
-            child: Center(
-              child: Text(
-                'Blog Page',
-              ),
-            ),
-          ),
-        ],
-      ),
+      body: const DisplayBlog(),
     );
   }
 }
