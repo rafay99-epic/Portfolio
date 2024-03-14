@@ -5,6 +5,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:rafay_portfolio/admin/backend/blog/blogSearch.dart';
+import 'package:rafay_portfolio/user/frontend/views/readBlogs.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/HoverChip.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
@@ -168,6 +169,12 @@ class _DisplayBlogState extends State<DisplayBlog> {
                         return GestureDetector(
                           onTap: () {
                             // Handle your blog post tap here
+                            Navigator.push(
+                              context,
+                              MaterialPageRoute(
+                                  builder: (context) =>
+                                      ReadMeBlogs(id: doc.id)),
+                            );
                           },
                           child: Card(
                             shape: RoundedRectangleBorder(
