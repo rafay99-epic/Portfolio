@@ -26,37 +26,6 @@ Future<void> main() async {
   runApp(const MyApp());
 }
 
-// class MyApp extends StatelessWidget {
-//   const MyApp({super.key});
-
-//   static FirebaseAnalytics analytics = FirebaseAnalytics.instance;
-//   static FirebaseAnalyticsObserver observer =
-//       FirebaseAnalyticsObserver(analytics: analytics);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return MaterialApp(
-//       navigatorObservers: <NavigatorObserver>[observer],
-//       debugShowCheckedModeBanner: false,
-//       theme: lightMode,
-//       onGenerateInitialRoutes: (String initialRoute) {
-//         return [
-//           MaterialPageRoute(
-//             builder: (context) {
-//               return initialRoute == '/'
-//                   ? const SplashScreen()
-//                   : initialRoute == '/admin'
-//                       ? const AuthGate()
-//                       : const NotFoundPage();
-//             },
-//           ),
-//         ];
-//       },
-//       routes: appRoutes,
-//     );
-//   }
-// }
-
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
