@@ -74,7 +74,7 @@ class MyApp extends StatelessWidget {
       routes: {
         '/': (context) => const SplashScreen(),
         '/admin': (context) => const AuthGate(),
-        ...appRoutes, // Spread operator to include all other routes
+        ...appRoutes,
       },
       onUnknownRoute: (settings) => MaterialPageRoute(
         builder: (context) => const NotFoundPage(),
