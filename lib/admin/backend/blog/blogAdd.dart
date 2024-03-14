@@ -11,12 +11,24 @@ Future<void> addBlogPost({
   required String author,
   required String content,
   required html.File imageFile,
+  required DateTime date,
 }) async {
   final String fileName = 'blogImage_${DateTime.now().millisecondsSinceEpoch}';
   final Reference firebaseStorageRef =
       FirebaseStorage.instance.ref().child('blogImages/$fileName');
 
   final UploadTask uploadTask = firebaseStorageRef.putBlob(imageFile);
+
+  // Listen for changes in the upload task's progress
+  final Stream<TaskSnapshot> stream = uploadTask.snapshotEvents;
+  stream.listen((TaskSnapshot snapshot) {
+    print('Task state: ${snapshot.state}');
+    print(
+        'Progress: ${(snapshot.bytesTransferred / snapshot.totalBytes) * 100} %');
+  }, onError: (e) {
+    print(e);
+  });
+
   final TaskSnapshot taskSnapshot = await uploadTask;
   final String downloadUrl = await taskSnapshot.ref.getDownloadURL();
 
@@ -29,6 +41,7 @@ Future<void> addBlogPost({
     content: content,
     thumbnail: downloadUrl,
     url: '',
+    date: date,
   );
 
   await FirebaseFirestore.instance.collection('blogPosts').add({
@@ -39,5 +52,8 @@ Future<void> addBlogPost({
     'author': blogPost.author,
     'content': blogPost.content,
     'thumbnail': blogPost.thumbnail,
+    'date': date,
   });
+
+  print('Upload complete');
 }

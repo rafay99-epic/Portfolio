@@ -176,103 +176,118 @@ class _DisplayBlogState extends State<DisplayBlog> {
                                   color: Theme.of(context).colorScheme.primary),
                             ),
                             color: Theme.of(context).colorScheme.background,
-                            child: Column(
-                              children: [
-                                SizedBox(
-                                  child: ClipRRect(
-                                    borderRadius: BorderRadius.circular(15.0),
-                                    child: Image.network(
-                                      doc['thumbnail'],
-                                      fit: BoxFit.cover,
-                                      errorBuilder:
-                                          (context, error, stackTrace) {
-                                        return const Text(
-                                            'Error loading image');
-                                      },
+                            child: SingleChildScrollView(
+                              child: Column(
+                                children: [
+                                  SizedBox(
+                                    height: MediaQuery.of(context).size.height *
+                                        0.3,
+                                    width:
+                                        MediaQuery.of(context).size.width * 0.8,
+                                    child: ClipRRect(
+                                      borderRadius: BorderRadius.circular(15.0),
+                                      child: Image.network(
+                                        doc['thumbnail'],
+                                        fit: BoxFit.cover,
+                                        errorBuilder:
+                                            (context, error, stackTrace) {
+                                          return const Text(
+                                              'Error loading image');
+                                        },
+                                      ),
                                     ),
                                   ),
-                                ),
-                                const SizedBox(height: 15),
-                                Container(
-                                  padding: const EdgeInsets.only(
-                                      left: 20.0, right: 20.0),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: <Widget>[
-                                      RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: 'Title: ',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: "roboto",
-                                              ),
+                                  const SizedBox(height: 15),
+                                  Container(
+                                    padding: const EdgeInsets.only(
+                                        left: 20.0, right: 20.0),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: <Widget>[
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: RichText(
+                                            text: TextSpan(
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: 'Title: ',
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: "roboto",
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: doc['title'],
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                    fontFamily: "roboto",
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            TextSpan(
-                                              text: doc['title'],
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                fontFamily: "roboto",
-                                                fontWeight: FontWeight.w400,
-                                              ),
-                                            ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      RichText(
-                                        text: TextSpan(
-                                          children: <TextSpan>[
-                                            TextSpan(
-                                              text: 'Author: ',
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                fontWeight: FontWeight.bold,
-                                                fontFamily: "roboto",
-                                              ),
+                                        const SizedBox(height: 10),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: RichText(
+                                            text: TextSpan(
+                                              children: <TextSpan>[
+                                                TextSpan(
+                                                  text: 'Author: ',
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                    fontWeight: FontWeight.bold,
+                                                    fontFamily: "roboto",
+                                                  ),
+                                                ),
+                                                TextSpan(
+                                                  text: doc['author'],
+                                                  style: TextStyle(
+                                                    fontSize: 17,
+                                                    color: Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                                    fontFamily: "roboto",
+                                                    fontWeight: FontWeight.w400,
+                                                  ),
+                                                ),
+                                              ],
                                             ),
-                                            TextSpan(
-                                              text: doc['author'],
-                                              style: TextStyle(
-                                                fontSize: 17,
-                                                color: Theme.of(context)
-                                                    .colorScheme
-                                                    .primary,
-                                                fontFamily: "roboto",
-                                                fontWeight: FontWeight.w400,
-                                              ),
+                                          ),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Align(
+                                          alignment: Alignment.centerLeft,
+                                          child: Wrap(
+                                            spacing: 8.0,
+                                            runSpacing: 4.0,
+                                            children: List<Widget>.generate(
+                                              doc['tags'].length,
+                                              (int index) {
+                                                return HoverChip(
+                                                    label: doc['tags'][index]);
+                                              },
                                             ),
-                                          ],
+                                          ),
                                         ),
-                                      ),
-                                      const SizedBox(height: 10),
-                                      Wrap(
-                                        spacing: 8.0,
-                                        runSpacing: 4.0,
-                                        children: List<Widget>.generate(
-                                          doc['tags'].length,
-                                          (int index) {
-                                            return HoverChip(
-                                                label: doc['tags'][index]);
-                                          },
-                                        ),
-                                      ),
-                                    ],
+                                      ],
+                                    ),
                                   ),
-                                ),
-                              ],
+                                ],
+                              ),
                             ),
                           ),
                         );

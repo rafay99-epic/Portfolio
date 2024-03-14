@@ -66,23 +66,4 @@ class _CustomTextFieldState extends State<CustomTextField> {
       ),
     );
   }
-  // @override
-  // Widget build(BuildContext context) {
-  //   return Padding(
-  //     padding: const EdgeInsets.only(left: 15.0),
-  //     child: TextFormField(
-  //       controller: widget.controller,
-  //       maxLines: widget.maxLines,
-  //       obscureText: widget.passwordText,
-  //       decoration: InputDecoration(
-  //         labelText: widget.labelText,
-  //         hintText: widget.hintText,
-  //         prefixIcon: Icon(widget.prefixIcon),
-  //         border: OutlineInputBorder(
-  //           borderRadius: BorderRadius.circular(10.0),
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }

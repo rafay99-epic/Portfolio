@@ -1,11 +1,12 @@
-// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print
+// ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, avoid_web_libraries_in_flutter, file_names
 
-import 'package:flutter/material.dart';
-import 'package:html_editor_enhanced/html_editor.dart';
-
-import 'package:rafay_portfolio/admin/backend/blog/blogAdd.dart';
-import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 import 'dart:html' as html;
+import 'package:flutter/material.dart';
+
+import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:rafay_portfolio/admin/backend/blog/blogAdd.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/buildTextField.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 
 class AddBlogPost extends StatefulWidget {
   const AddBlogPost({Key? key}) : super(key: key);
@@ -15,24 +16,35 @@ class AddBlogPost extends StatefulWidget {
 }
 
 class _AddBlogPostState extends State<AddBlogPost> {
-  html.File? _image;
-
-  HtmlEditorController controller = HtmlEditorController();
-
+  //controllers
   final _formKey = GlobalKey<FormState>();
   final titleController = TextEditingController();
   final subTitleController = TextEditingController();
   final tagsController = TextEditingController();
   final authorController = TextEditingController();
+  final dateController = TextEditingController();
+  DateTime selectedDateController = DateTime.now();
+  HtmlEditorController controller = HtmlEditorController();
   bool isEnabled = false;
+  html.File? _image;
 
+  //dispose controllers
   @override
   void dispose() {
     titleController.dispose();
     subTitleController.dispose();
     tagsController.dispose();
     authorController.dispose();
+    dateController.dispose();
+
     super.dispose();
+  }
+
+  //initial some controller
+  @override
+  void initState() {
+    super.initState();
+    dateController.text = "${selectedDateController.toLocal()}".split(' ')[0];
   }
 
   @override
@@ -70,6 +82,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
                       author: authorController.text,
                       content: await controller.getText(),
                       imageFile: _image!,
+                      date: selectedDateController,
                     );
 
                     titleController.clear();
@@ -79,7 +92,6 @@ class _AddBlogPostState extends State<AddBlogPost> {
                     isEnabled = false;
                     controller.clear();
 
-                    // Show a dialog saying that the blog is added
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -97,7 +109,6 @@ class _AddBlogPostState extends State<AddBlogPost> {
                       ),
                     );
                   } catch (e) {
-                    // Show a dialog with the error message
                     showDialog(
                       context: context,
                       builder: (context) => AlertDialog(
@@ -126,22 +137,18 @@ class _AddBlogPostState extends State<AddBlogPost> {
         child: ListView(
           padding: const EdgeInsets.all(16.0),
           children: <Widget>[
-            TextFormField(
+            CustomTextField(
+              labelText: 'Article Title',
+              hintText: 'Enter Article Title',
+              prefixIcon: Icons.title,
               controller: titleController,
-              decoration: const InputDecoration(
-                labelText: 'Title',
-                labelStyle: TextStyle(fontSize: 18),
-              ),
-              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 20),
-            TextFormField(
+            CustomTextField(
+              labelText: 'Article Description',
+              hintText: 'Article Description',
+              prefixIcon: Icons.description,
               controller: subTitleController,
-              decoration: const InputDecoration(
-                labelText: 'Description',
-                labelStyle: TextStyle(fontSize: 18),
-              ),
-              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 20),
             const Text(
@@ -151,57 +158,81 @@ class _AddBlogPostState extends State<AddBlogPost> {
               ),
             ),
             const SizedBox(height: 10),
-            ElevatedButton(
-              onPressed: () {
-                html.FileUploadInputElement uploadInput =
-                    html.FileUploadInputElement();
-                uploadInput.click();
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: ElevatedButton(
+                onPressed: () {
+                  html.FileUploadInputElement uploadInput =
+                      html.FileUploadInputElement();
+                  uploadInput.click();
 
-                uploadInput.onChange.listen((e) {
-                  final files = uploadInput.files;
-                  if (files!.length == 1) {
-                    final file = files[0];
-                    setState(() {
-                      _image = file;
-                    });
-                  }
-                });
-              },
-              child: const Text('Upload Thumbnail'),
-            ),
-            const SizedBox(height: 20),
-            CheckboxListTile(
-              title: const Text(
-                'Enabled',
-                style: TextStyle(fontSize: 18),
+                  uploadInput.onChange.listen((e) {
+                    final files = uploadInput.files;
+                    if (files!.length == 1) {
+                      final file = files[0];
+                      setState(() {
+                        _image = file;
+                      });
+                    }
+                  });
+                },
+                child: const Text('Upload Thumbnail'),
               ),
-              value: isEnabled,
-              onChanged: (value) {
-                setState(() {
-                  isEnabled = value ?? false;
-                });
-              },
             ),
             const SizedBox(height: 20),
-            TextFormField(
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: ElevatedButton(
+                onPressed: () => _selectDate(context),
+                child: Text('Select date'),
+              ),
+            ),
+            const SizedBox(height: 10),
+            Text("Selected date: ${selectedDateController.toLocal()}"
+                .split(' ')[0]),
+            const SizedBox(height: 20),
+            Padding(
+              padding: const EdgeInsets.only(left: 15.0),
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: Colors.black),
+                  borderRadius: BorderRadius.circular(10),
+                ),
+                child: ListTile(
+                  title: const Text(
+                    'Enabled Article ',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  trailing: Checkbox(
+                    value: isEnabled,
+                    onChanged: (value) {
+                      setState(() {
+                        isEnabled = value ?? false;
+                      });
+                    },
+                  ),
+                  subtitle:
+                      isEnabled ? Text('Blog is enabled on website') : null,
+                ),
+              ),
+            ),
+            const SizedBox(height: 20),
+            CustomTextField(
+              labelText: 'Categories (comma separated)',
+              hintText: 'Article Categories',
+              prefixIcon: Icons.category_outlined,
               controller: tagsController,
-              decoration: const InputDecoration(
-                labelText: 'Tags (comma separated)',
-                labelStyle: TextStyle(fontSize: 18),
-              ),
-              style: const TextStyle(fontSize: 18),
             ),
-            TextFormField(
+            const SizedBox(height: 20),
+            CustomTextField(
+              labelText: 'Author Article',
+              hintText: 'Name of the Author Article',
+              prefixIcon: Icons.person_2_outlined,
               controller: authorController,
-              decoration: const InputDecoration(
-                labelText: 'Author',
-                labelStyle: TextStyle(fontSize: 18),
-              ),
-              style: const TextStyle(fontSize: 18),
             ),
             const SizedBox(height: 20),
             HtmlEditor(
-              controller: controller, //required
+              controller: controller,
               htmlEditorOptions: HtmlEditorOptions(
                 hint: "Write your Blog here...",
                 autoAdjustHeight: true,
@@ -213,5 +244,22 @@ class _AddBlogPostState extends State<AddBlogPost> {
         ),
       ),
     );
+  }
+
+  //fetch date
+  Future<void> _selectDate(BuildContext context) async {
+    final DateTime? picked = await showDatePicker(
+      context: context,
+      initialDate: selectedDateController,
+      firstDate: DateTime(2015, 8),
+      lastDate: DateTime(2101),
+    );
+    if (picked != null && picked != selectedDateController) {
+      setState(() {
+        selectedDateController = picked;
+        dateController.text =
+            "${selectedDateController.toLocal()}".split(' ')[0];
+      });
+    }
   }
 }

@@ -1,5 +1,7 @@
 // ignore_for_file: file_names
 
+import 'package:cloud_firestore/cloud_firestore.dart';
+
 class BlogPosModel {
   String title;
   String subTitle;
@@ -9,6 +11,7 @@ class BlogPosModel {
   List<String> tags;
   String author;
   String content;
+  DateTime date;
 
   BlogPosModel({
     required this.title,
@@ -19,6 +22,7 @@ class BlogPosModel {
     required this.tags,
     required this.author,
     required this.content,
+    required this.date,
   });
 
   Map<String, dynamic> toMap() {
@@ -31,21 +35,10 @@ class BlogPosModel {
       'tags': tags,
       'author': author,
       'content': content,
+      'date': date.toIso8601String(),
     };
   }
 
-  // static BlogPosModel fromMap(Map<String, dynamic> map) {
-  //   return BlogPosModel(
-  //     title: map['title'],
-  //     subTitle: map['subTitle'],
-  //     thumbnail: map['thumbnail'],
-  //     url: map['url'],
-  //     isEnabled: map['isEnabled'],
-  //     tags: List<String>.from(map['tags']),
-  //     author: map['author'],
-  //     content: map['content'],
-  //   );
-  // }
   static BlogPosModel fromMap(Map<String, dynamic> map) {
     return BlogPosModel(
       title: map['title'] ?? '',
@@ -56,6 +49,7 @@ class BlogPosModel {
       tags: List<String>.from(map['tags'] ?? []),
       author: map['author'] ?? '',
       content: map['content'] ?? '',
+      date: (map['date'] as Timestamp).toDate(),
     );
   }
 }

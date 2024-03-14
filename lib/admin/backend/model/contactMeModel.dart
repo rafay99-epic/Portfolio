@@ -8,20 +8,18 @@ class ContactMessage {
     required this.name,
     required this.email,
     required this.message,
-    this.hideMessage = false, // Default value is false
+    this.hideMessage = false,
   });
 
-  // Method to make ContactMessage from Map (useful for Firestore)
   factory ContactMessage.fromMap(Map<String, dynamic> map) {
     return ContactMessage(
       name: map['name'],
       email: map['email'],
       message: map['message'],
-      hideMessage: map['hideMessage'] ?? false, // Default value is false
+      hideMessage: map['hideMessage'] ?? false,
     );
   }
 
-  // Method to convert ContactMessage to Map (useful for Firestore)
   Map<String, dynamic> toMap() {
     return {
       'name': name,
