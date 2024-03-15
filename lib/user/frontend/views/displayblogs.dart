@@ -211,7 +211,7 @@ class _DisplayBlogState extends State<DisplayBlog> {
                                         child: ClipRRect(
                                           borderRadius:
                                               BorderRadius.circular(15.0),
-                                          child: Flexible(
+                                          child: SizedBox(
                                             child: Image.network(
                                               doc['thumbnail'],
                                               fit: BoxFit.cover,

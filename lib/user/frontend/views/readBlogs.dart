@@ -8,6 +8,7 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/admin/backend/model/BlogModel.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/HoverChip.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/scrollAnimation.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 import 'package:html/parser.dart' as htmlParser;
 import 'package:html/dom.dart' as dom;
@@ -22,6 +23,26 @@ class ReadMeBlogs extends StatefulWidget {
 }
 
 class _ReadMeBlogsState extends State<ReadMeBlogs> {
+  late ScrollController _scrollController;
+  final ValueNotifier<double> _progress = ValueNotifier(0);
+
+  @override
+  void initState() {
+    super.initState();
+    _scrollController = ScrollController()
+      ..addListener(() {
+        _progress.value = _scrollController.offset /
+            _scrollController.position.maxScrollExtent;
+      });
+  }
+
+  @override
+  void dispose() {
+    _scrollController.dispose();
+    super.dispose();
+  }
+
+  //Fetching Data from Firestore
   Future<BlogPosModel> getBlogPost() async {
     DocumentSnapshot doc = await FirebaseFirestore.instance
         .collection('blogPosts')
@@ -89,6 +110,25 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
     }
 
     return Scaffold(
+      appBar: AppBar(
+        elevation: 0,
+        automaticallyImplyLeading: false,
+        backgroundColor: Theme.of(context).colorScheme.background,
+        bottom: PreferredSize(
+          preferredSize: const Size.fromHeight(2.0),
+          child: ValueListenableBuilder<double>(
+            valueListenable: _progress,
+            builder: (context, value, child) {
+              return LinearProgressIndicator(
+                value: value,
+                backgroundColor: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.inversePrimary,
+                minHeight: 3.0,
+              );
+            },
+          ),
+        ),
+      ),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: FutureBuilder<BlogPosModel>(
         future: getBlogPost(),
@@ -132,6 +172,8 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
             BlogPosModel data = snapshot.data!;
             List<String> tableOfContents = extractHeadings(data.content);
             return SingleChildScrollView(
+              physics: const CustomScrollPhysics(),
+              controller: _scrollController,
               child: Row(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -140,7 +182,7 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
-                        const SizedBox(height: 30),
+                        const SizedBox(height: 10),
                         Padding(
                           padding: const EdgeInsets.only(left: 35, right: 35),
                           child: StyledText(
