@@ -4,6 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_html/flutter_html.dart';
+import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/admin/backend/model/BlogModel.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/HoverChip.dart';
@@ -37,6 +38,54 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
       List<dom.Element> headingElements =
           document.querySelectorAll('h1, h2, h3, h4, h5, h6');
       return headingElements.map((element) => element.text).toList();
+    }
+
+    //widget for determin content and then render the content
+    // Orginal Code
+    Widget renderContent(String content) {
+      RegExp htmlRegex = RegExp(
+        r'(<[a-z1-6]+>)|' + // Start tags
+            r'(</[a-z1-6]+>)|' + // End tags
+            r'(<!--.*?-->)|' + // Comments
+            r'(<[a-z1-6]+/>)|' + // Self-closing tags
+            r'(<[a-z1-6]+ [^>]*>)', // Tags with attributes
+        multiLine: true,
+        caseSensitive: false,
+      );
+
+      RegExp markdownRegex = RegExp(
+        r'(#{1,6}[^\n]+|' + // Headers
+            r'\*{1,2}[^\*]+\*{1,2}|' + // Emphasis and strong emphasis
+            r'\[[^\]]+\]\([^\)]+\)|' + // Links
+            r'!\[[^\]]+\]\([^\)]+\)|' + // Images
+            r'`[^`]+`|' + // Code
+            r'> [^\n]+|' + // Blockquotes
+            r'^\* [^\n]+|' + // Unordered list
+            r'^\d+\. [^\n]+|' + // Ordered list
+            r'^-{3,})', // Horizontal rule
+        multiLine: true,
+      );
+
+      if (htmlRegex.hasMatch(content)) {
+        return Html(
+          data: content,
+          style: {
+            "body": Style(
+              textAlign: TextAlign.justify,
+              fontSize: FontSize(18.0),
+              fontFamily: 'ABeeZee',
+              color: Theme.of(context).colorScheme.primary,
+              backgroundColor: Theme.of(context).colorScheme.background,
+            ),
+          },
+        );
+      } else if (markdownRegex.hasMatch(content)) {
+        return Markdown(
+          data: content,
+        );
+      } else {
+        return Text(content);
+      }
     }
 
     return Scaffold(
@@ -150,22 +199,12 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                           ),
                         ),
                         const SizedBox(height: 20),
+
+                        //Rendering the content
                         Padding(
                           padding:
                               const EdgeInsets.only(left: 35.0, right: 35.0),
-                          child: Html(
-                            data: data.content,
-                            style: {
-                              "body": Style(
-                                textAlign: TextAlign.justify,
-                                fontSize: FontSize(18.0),
-                                fontFamily: 'ABeeZee',
-                                color: Theme.of(context).colorScheme.primary,
-                                backgroundColor:
-                                    Theme.of(context).colorScheme.background,
-                              ),
-                            },
-                          ),
+                          child: renderContent(data.content),
                         ),
                         const SizedBox(height: 20),
                         Padding(
@@ -183,6 +222,7 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                           ),
                         ),
                         const SizedBox(height: 15),
+
                         Align(
                           alignment: Alignment.center,
                           child: Padding(
@@ -193,8 +233,10 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(15.0),
                               child: SizedBox(
-                                height: 500.0,
-                                width: 800.0,
+                                height: MediaQuery.of(context).size.height *
+                                    0.5, // 50% of screen height
+                                width: MediaQuery.of(context).size.width *
+                                    0.8, // 80% of screen width
                                 child: Image.network(
                                   data.thumbnail,
                                   fit: BoxFit.cover,
@@ -212,89 +254,100 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                       ],
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: Column(
-                      children: [
-                        const SizedBox(
-                          height: 150,
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 35, right: 35),
-                          child: StyledText(
-                            text: "Table of Contents",
-                            fontSize: 30,
-                            color: Theme.of(context).colorScheme.primary,
-                            bold: true,
-                            fontFamily: 'ABeeZee',
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        const SizedBox(height: 25),
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children:
-                              tableOfContents.asMap().entries.map((entry) {
-                            int idx = entry.key;
-                            String heading = entry.value;
-                            return Row(
-                              children: <Widget>[
-                                SizedBox(
-                                  width: 50,
-                                  child: Column(
-                                    children: <Widget>[
-                                      SizedBox(
-                                        height: idx == 0 ? 0 : 50,
-                                        child: VerticalDivider(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .outline,
-                                          thickness: 3,
-                                        ),
-                                      ),
-                                      CircleAvatar(
-                                        radius: 10,
-                                        backgroundColor: Theme.of(context)
-                                            .colorScheme
-                                            .primary,
-                                      ),
-                                      SizedBox(
-                                        height:
-                                            idx == tableOfContents.length - 1
-                                                ? 0
-                                                : 50,
-                                        child: VerticalDivider(
-                                          color: Theme.of(context)
-                                              .colorScheme
-                                              .outline,
-                                          thickness: 3,
-                                        ),
-                                      ),
-                                    ],
+                  if (MediaQuery.of(context).size.width > 600)
+                    Expanded(
+                      flex: 1,
+                      child: MediaQuery.of(context).size.width >
+                              600 // Change this value as needed
+                          ? Column(
+                              children: [
+                                const SizedBox(
+                                  height: 150,
+                                ),
+                                Padding(
+                                  padding: const EdgeInsets.only(
+                                      left: 35, right: 35),
+                                  child: StyledText(
+                                    text: "Table of Contents",
+                                    fontSize: 30,
+                                    color:
+                                        Theme.of(context).colorScheme.primary,
+                                    bold: true,
+                                    fontFamily: 'ABeeZee',
+                                    textAlign: TextAlign.center,
                                   ),
                                 ),
-                                Expanded(
-                                  child: ListTile(
-                                    title: StyledText(
-                                      text: heading,
-                                      fontSize: 22,
-                                      fontWeight: FontWeight.w400,
-                                      color:
-                                          Theme.of(context).colorScheme.primary,
-                                      fontFamily: 'ABeeZee',
-                                    ),
-                                    onTap: () {
-                                      // Handle tap
-                                    },
-                                  ),
+                                const SizedBox(height: 25),
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: tableOfContents
+                                      .asMap()
+                                      .entries
+                                      .map((entry) {
+                                    int idx = entry.key;
+                                    String heading = entry.value;
+                                    return Row(
+                                      children: <Widget>[
+                                        SizedBox(
+                                          width: 50,
+                                          child: Column(
+                                            children: <Widget>[
+                                              SizedBox(
+                                                height: idx == 0 ? 0 : 25,
+                                                child: VerticalDivider(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .outline,
+                                                  thickness: 3,
+                                                ),
+                                              ),
+                                              CircleAvatar(
+                                                radius: 10,
+                                                backgroundColor:
+                                                    Theme.of(context)
+                                                        .colorScheme
+                                                        .primary,
+                                              ),
+                                              SizedBox(
+                                                height: idx ==
+                                                        tableOfContents.length -
+                                                            1
+                                                    ? 0
+                                                    : 25,
+                                                child: VerticalDivider(
+                                                  color: Theme.of(context)
+                                                      .colorScheme
+                                                      .outline,
+                                                  thickness: 3,
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ),
+                                        Expanded(
+                                          child: ListTile(
+                                            title: StyledText(
+                                              text: heading,
+                                              fontSize: 22,
+                                              fontWeight: FontWeight.w400,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
+                                              fontFamily: 'ABeeZee',
+                                            ),
+                                            onTap: () {
+                                              // Handle tap
+                                            },
+                                          ),
+                                        ),
+                                      ],
+                                    );
+                                  }).toList(),
                                 ),
                               ],
-                            );
-                          }).toList(),
-                        ),
-                      ],
+                            )
+                          : Container(), // Empty container for mobile view
                     ),
-                  ),
                   const SizedBox(height: 25),
                 ],
               ),

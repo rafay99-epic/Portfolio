@@ -75,7 +75,7 @@ class _ResumeState extends State<Resume> {
                   crossAxisSpacing: 15.0,
                   children: const <Widget>[
                     ExperienceCard(
-                      companyName: 'Daxon Technology',
+                      companyName: 'Daxno Technology',
                       position: 'Mobile Application Developer',
                       employmentTime: 'Feb,05 2024 - Now',
                       toolsUsed: [

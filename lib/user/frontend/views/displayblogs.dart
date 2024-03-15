@@ -74,41 +74,45 @@ class _DisplayBlogState extends State<DisplayBlog> {
                     ),
                   ),
                   const Spacer(),
-                  AnimatedContainer(
-                    width: isSearchBarVisible ? 200 : 0,
-                    duration: const Duration(milliseconds: 300),
-                    curve: Curves.easeInOut,
-                    child: isSearchBarVisible
-                        ? Padding(
-                            padding: const EdgeInsets.only(left: 20.0),
-                            child: TextField(
-                              onChanged: (value) {
-                                setState(() {
-                                  blogService.searchQuery = value;
-                                });
-                              },
-                              decoration: InputDecoration(
-                                hintText: 'Search Articles...',
-                                filled: true,
-                                fillColor:
-                                    Theme.of(context).colorScheme.background,
-                                border: OutlineInputBorder(
-                                  borderRadius: BorderRadius.circular(30.0),
-                                  borderSide: BorderSide.none,
+                  if (MediaQuery.of(context).size.width >
+                      600) // Change this value as needed
+                    AnimatedContainer(
+                      width: isSearchBarVisible ? 200 : 0,
+                      duration: const Duration(milliseconds: 300),
+                      curve: Curves.easeInOut,
+                      child: isSearchBarVisible
+                          ? Padding(
+                              padding: const EdgeInsets.only(left: 20.0),
+                              child: TextField(
+                                onChanged: (value) {
+                                  setState(() {
+                                    blogService.searchQuery = value;
+                                  });
+                                },
+                                decoration: InputDecoration(
+                                  hintText: 'Search Articles...',
+                                  filled: true,
+                                  fillColor:
+                                      Theme.of(context).colorScheme.background,
+                                  border: OutlineInputBorder(
+                                    borderRadius: BorderRadius.circular(30.0),
+                                    borderSide: BorderSide.none,
+                                  ),
                                 ),
                               ),
-                            ),
-                          )
-                        : null,
-                  ),
-                  IconButton(
-                    icon: const Icon(Icons.search),
-                    onPressed: () {
-                      setState(() {
-                        isSearchBarVisible = !isSearchBarVisible;
-                      });
-                    },
-                  ),
+                            )
+                          : null,
+                    ),
+                  if (MediaQuery.of(context).size.width >
+                      600) // Change this value as needed
+                    IconButton(
+                      icon: const Icon(Icons.search),
+                      onPressed: () {
+                        setState(() {
+                          isSearchBarVisible = !isSearchBarVisible;
+                        });
+                      },
+                    ),
                 ],
               ),
             ),
@@ -157,146 +161,169 @@ class _DisplayBlogState extends State<DisplayBlog> {
                       );
                     }
 
-                    return GridView.builder(
-                      gridDelegate:
-                          const SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: 4,
-                        childAspectRatio: 1 / 1,
-                      ),
-                      itemCount: snapshot.data!.docs.length,
-                      itemBuilder: (context, index) {
-                        var doc = snapshot.data!.docs[index];
-                        return GestureDetector(
-                          onTap: () {
-                            // Handle your blog post tap here
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) =>
-                                      ReadMeBlogs(id: doc.id)),
-                            );
-                          },
-                          child: Card(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(15.0),
-                              side: BorderSide(
-                                  color: Theme.of(context).colorScheme.primary),
-                            ),
-                            color: Theme.of(context).colorScheme.background,
-                            child: SingleChildScrollView(
-                              child: Column(
-                                children: [
-                                  SizedBox(
-                                    height: MediaQuery.of(context).size.height *
-                                        0.3,
-                                    width:
-                                        MediaQuery.of(context).size.width * 0.8,
-                                    child: ClipRRect(
-                                      borderRadius: BorderRadius.circular(15.0),
-                                      child: Image.network(
-                                        doc['thumbnail'],
-                                        fit: BoxFit.cover,
-                                        errorBuilder:
-                                            (context, error, stackTrace) {
-                                          return const Text(
-                                              'Error loading image');
-                                        },
-                                      ),
-                                    ),
-                                  ),
-                                  const SizedBox(height: 15),
-                                  Container(
-                                    padding: const EdgeInsets.only(
-                                        left: 20.0, right: 20.0),
-                                    child: Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: RichText(
-                                            text: TextSpan(
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text: 'Title: ',
-                                                  style: TextStyle(
-                                                    fontSize: 17,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: "roboto",
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: doc['title'],
-                                                  style: TextStyle(
-                                                    fontSize: 17,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                                    fontFamily: "roboto",
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: RichText(
-                                            text: TextSpan(
-                                              children: <TextSpan>[
-                                                TextSpan(
-                                                  text: 'Author: ',
-                                                  style: TextStyle(
-                                                    fontSize: 17,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                                    fontWeight: FontWeight.bold,
-                                                    fontFamily: "roboto",
-                                                  ),
-                                                ),
-                                                TextSpan(
-                                                  text: doc['author'],
-                                                  style: TextStyle(
-                                                    fontSize: 17,
-                                                    color: Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                                    fontFamily: "roboto",
-                                                    fontWeight: FontWeight.w400,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                        const SizedBox(height: 10),
-                                        Align(
-                                          alignment: Alignment.centerLeft,
-                                          child: Wrap(
-                                            spacing: 8.0,
-                                            runSpacing: 4.0,
-                                            children: List<Widget>.generate(
-                                              doc['tags'].length,
-                                              (int index) {
-                                                return HoverChip(
-                                                    label: doc['tags'][index]);
+                    return LayoutBuilder(
+                      builder:
+                          (BuildContext context, BoxConstraints constraints) {
+                        // Determine the number of cards in a row based on the screen width
+                        int crossAxisCount;
+                        if (constraints.maxWidth < 600) {
+                          crossAxisCount = 1; // Mobile portrait
+                        } else if (constraints.maxWidth < 900) {
+                          crossAxisCount = 2; // Mobile landscape
+                        } else if (constraints.maxWidth < 1200) {
+                          crossAxisCount = 3; // Tablet portrait and landscape
+                        } else {
+                          crossAxisCount = 4; // Desktop and larger tablets
+                        }
+
+                        return GridView.builder(
+                          gridDelegate:
+                              SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount,
+                            childAspectRatio: 1 / 1,
+                          ),
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            var doc = snapshot.data!.docs[index];
+                            return GestureDetector(
+                              onTap: () {
+                                // Handle your blog post tap here
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                      builder: (context) =>
+                                          ReadMeBlogs(id: doc.id)),
+                                );
+                              },
+                              child: Card(
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(15.0),
+                                  side: BorderSide(
+                                      color: Theme.of(context)
+                                          .colorScheme
+                                          .primary),
+                                ),
+                                color: Theme.of(context).colorScheme.background,
+                                child: SingleChildScrollView(
+                                  child: Column(
+                                    children: [
+                                      SizedBox(
+                                        child: ClipRRect(
+                                          borderRadius:
+                                              BorderRadius.circular(15.0),
+                                          child: Flexible(
+                                            child: Image.network(
+                                              doc['thumbnail'],
+                                              fit: BoxFit.cover,
+                                              errorBuilder:
+                                                  (context, error, stackTrace) {
+                                                return const Text(
+                                                    'Error loading image');
                                               },
                                             ),
                                           ),
                                         ),
-                                      ],
-                                    ),
+                                      ),
+                                      const SizedBox(height: 15),
+                                      Container(
+                                        padding: const EdgeInsets.only(
+                                            left: 20.0, right: 20.0),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: <Widget>[
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                      text: 'Title: ',
+                                                      style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: "roboto",
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text: doc['title'],
+                                                      style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary,
+                                                        fontFamily: "roboto",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: RichText(
+                                                text: TextSpan(
+                                                  children: <TextSpan>[
+                                                    TextSpan(
+                                                      text: 'Author: ',
+                                                      style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary,
+                                                        fontWeight:
+                                                            FontWeight.bold,
+                                                        fontFamily: "roboto",
+                                                      ),
+                                                    ),
+                                                    TextSpan(
+                                                      text: doc['author'],
+                                                      style: TextStyle(
+                                                        fontSize: 17,
+                                                        color: Theme.of(context)
+                                                            .colorScheme
+                                                            .primary,
+                                                        fontFamily: "roboto",
+                                                        fontWeight:
+                                                            FontWeight.w400,
+                                                      ),
+                                                    ),
+                                                  ],
+                                                ),
+                                              ),
+                                            ),
+                                            const SizedBox(height: 10),
+                                            Align(
+                                              alignment: Alignment.centerLeft,
+                                              child: Wrap(
+                                                spacing: 8.0,
+                                                runSpacing: 4.0,
+                                                children: List<Widget>.generate(
+                                                  doc['tags'].length,
+                                                  (int index) {
+                                                    return HoverChip(
+                                                        label: doc['tags']
+                                                            [index]);
+                                                  },
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
                                   ),
-                                ],
+                                ),
                               ),
-                            ),
-                          ),
+                            );
+                          },
                         );
                       },
                     );
@@ -307,36 +334,38 @@ class _DisplayBlogState extends State<DisplayBlog> {
           ],
         ),
       ),
-      floatingActionButton: Column(
-        mainAxisAlignment: MainAxisAlignment.end,
-        children: <Widget>[
-          FloatingActionButton(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            focusColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.background,
-            onPressed: _smoothScrollToTop,
-            heroTag: "btn1",
-            enableFeedback: true,
-            child: const Icon(
-              FontAwesomeIcons.arrowUp,
-            ),
-          ),
-          const SizedBox(
-            height: 20,
-          ),
-          FloatingActionButton(
-            backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-            focusColor: Theme.of(context).colorScheme.primary,
-            foregroundColor: Theme.of(context).colorScheme.background,
-            onPressed: _smoothScrollDown,
-            enableFeedback: true,
-            heroTag: "btn2",
-            child: const Icon(
-              FontAwesomeIcons.arrowDown,
-            ),
-          ),
-        ],
-      ),
+      floatingActionButton: MediaQuery.of(context).size.width > 600
+          ? Column(
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                FloatingActionButton(
+                  backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                  focusColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.background,
+                  onPressed: _smoothScrollToTop,
+                  heroTag: "btn1",
+                  enableFeedback: true,
+                  child: const Icon(
+                    FontAwesomeIcons.arrowUp,
+                  ),
+                ),
+                const SizedBox(
+                  height: 20,
+                ),
+                FloatingActionButton(
+                  backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                  focusColor: Theme.of(context).colorScheme.primary,
+                  foregroundColor: Theme.of(context).colorScheme.background,
+                  onPressed: _smoothScrollDown,
+                  enableFeedback: true,
+                  heroTag: "btn2",
+                  child: const Icon(
+                    FontAwesomeIcons.arrowDown,
+                  ),
+                ),
+              ],
+            )
+          : null,
     );
   }
 }

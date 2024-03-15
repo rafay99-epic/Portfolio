@@ -26,6 +26,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
   final dateController = TextEditingController();
   DateTime selectedDateController = DateTime.now();
   HtmlEditorController controller = HtmlEditorController();
+
   bool isEnabled = false;
   html.File? _image;
   final scrollController = ScrollController();
@@ -334,6 +335,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
               controller: authorController,
             ),
             const SizedBox(height: 20),
+
             HtmlEditor(
               controller: controller,
               htmlEditorOptions: HtmlEditorOptions(
