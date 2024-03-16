@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
+import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
 
@@ -31,8 +32,10 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    bool isMobile =
-        MediaQuery.of(context).size.width < 600; // Adjust the value as needed
+    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+      statusBarColor: Theme.of(context).colorScheme.background,
+    ));
+    bool isMobile = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,

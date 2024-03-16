@@ -13,6 +13,6 @@ class CustomScrollPhysics extends ScrollPhysics {
   @override
   double applyPhysicsToUserOffset(ScrollMetrics position, double offset) {
     // Adjust the multiplier to change the scroll speed
-    return super.applyPhysicsToUserOffset(position, offset * 0.1);
+    return super.applyPhysicsToUserOffset(position, offset * 0.3);
   }
 }

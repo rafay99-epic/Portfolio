@@ -7,6 +7,7 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/admin/backend/model/BlogModel.dart';
+import 'package:rafay_portfolio/user/frontend/views/ProjectGallery.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/HoverChip.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/scrollAnimation.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
@@ -109,10 +110,20 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
       }
     }
 
+    //Screen Type
+    ScreenType screenType = ScreenType(MediaQuery.of(context).size.width);
     return Scaffold(
       appBar: AppBar(
         elevation: 0,
         automaticallyImplyLeading: false,
+        leading: screenType.isMobile
+            ? IconButton(
+                icon: const Icon(Icons.arrow_back_ios_new),
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+              )
+            : null,
         backgroundColor: Theme.of(context).colorScheme.background,
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(2.0),
@@ -136,7 +147,9 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: 400.0, right: 400.0),
+                padding: screenType.isMobile
+                    ? const EdgeInsets.only(left: 10.0, right: 10.0)
+                    : const EdgeInsets.only(left: 400.0, right: 400.0),
                 child: FAProgressBar(
                   currentValue: 100,
                   size: 10,
@@ -184,10 +197,12 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                       children: <Widget>[
                         const SizedBox(height: 10),
                         Padding(
-                          padding: const EdgeInsets.only(left: 35, right: 35),
+                          padding: screenType.isMobile
+                              ? const EdgeInsets.only(left: 15.0, right: 15.0)
+                              : const EdgeInsets.only(left: 35.0, right: 35.0),
                           child: StyledText(
                             text: data.title,
-                            fontSize: 40,
+                            fontSize: screenType.isMobile ? 30.0 : 40.0,
                             color: Theme.of(context).colorScheme.primary,
                             bold: true,
                             fontFamily: 'ABeeZee',
@@ -196,7 +211,9 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                         ),
                         const SizedBox(height: 20),
                         Padding(
-                          padding: const EdgeInsets.only(left: 35, right: 35),
+                          padding: screenType.isMobile
+                              ? const EdgeInsets.only(left: 15.0, right: 15.0)
+                              : const EdgeInsets.only(left: 35.0, right: 35.0),
                           child: StyledText(
                             text: data.subTitle,
                             fontSize: 20,
@@ -208,7 +225,9 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                         ),
                         const SizedBox(height: 10),
                         Padding(
-                          padding: const EdgeInsets.only(left: 35, right: 35),
+                          padding: screenType.isMobile
+                              ? const EdgeInsets.only(left: 15.0, right: 15.0)
+                              : const EdgeInsets.only(left: 35.0, right: 35.0),
                           child: StyledText(
                             text: "Date: ${data.date}",
                             fontSize: 18,
@@ -218,7 +237,9 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                         ),
                         const SizedBox(height: 10),
                         Padding(
-                          padding: const EdgeInsets.only(left: 35, right: 35),
+                          padding: screenType.isMobile
+                              ? const EdgeInsets.only(left: 15.0, right: 15.0)
+                              : const EdgeInsets.only(left: 35.0, right: 35.0),
                           child: StyledText(
                             text: "Author: ${data.author}",
                             fontSize: 18,
@@ -228,7 +249,9 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                         ),
                         const SizedBox(height: 10),
                         Padding(
-                          padding: const EdgeInsets.only(left: 35, right: 35),
+                          padding: screenType.isMobile
+                              ? const EdgeInsets.only(left: 15.0, right: 15.0)
+                              : const EdgeInsets.only(left: 35.0, right: 35.0),
                           child: Wrap(
                             spacing: 8.0,
                             runSpacing: 4.0,
@@ -244,13 +267,16 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
 
                         //Rendering the content
                         Padding(
-                          padding:
-                              const EdgeInsets.only(left: 35.0, right: 35.0),
+                          padding: screenType.isMobile
+                              ? const EdgeInsets.only(left: 15.0, right: 15.0)
+                              : const EdgeInsets.only(left: 35.0, right: 35.0),
                           child: renderContent(data.content),
                         ),
                         const SizedBox(height: 20),
                         Padding(
-                          padding: const EdgeInsets.only(left: 35.0, right: 35),
+                          padding: screenType.isMobile
+                              ? const EdgeInsets.only(left: 15.0, right: 15.0)
+                              : const EdgeInsets.only(left: 35.0, right: 35.0),
                           child: Align(
                             alignment: Alignment.center,
                             child: StyledText(
@@ -275,10 +301,9 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                             child: ClipRRect(
                               borderRadius: BorderRadius.circular(15.0),
                               child: SizedBox(
-                                height: MediaQuery.of(context).size.height *
-                                    0.5, // 50% of screen height
-                                width: MediaQuery.of(context).size.width *
-                                    0.8, // 80% of screen width
+                                height:
+                                    MediaQuery.of(context).size.height * 0.5,
+                                width: MediaQuery.of(context).size.width * 0.8,
                                 child: Image.network(
                                   data.thumbnail,
                                   fit: BoxFit.cover,

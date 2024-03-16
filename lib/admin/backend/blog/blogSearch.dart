@@ -12,7 +12,7 @@ class BlogService {
       return FirebaseFirestore.instance
           .collection('blogPosts')
           .orderBy('title')
-          .startAt([searchQuery]).endAt([searchQuery + '\uf8ff']).snapshots();
+          .startAt([searchQuery]).endAt(['$searchQuery\uf8ff']).snapshots();
     }
   }
 }

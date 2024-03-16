@@ -4,7 +4,9 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 import 'package:lottie/lottie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:rafay_portfolio/admin/backend/blog/blogSearch.dart';
+import 'package:flutter/foundation.dart' show kIsWeb;
+import 'package:page_transition/page_transition.dart';
+import 'package:rafay_portfolio/user/frontend/views/ProjectGallery.dart';
 import 'package:rafay_portfolio/user/frontend/views/readBlogs.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/HoverChip.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
@@ -20,7 +22,9 @@ class DisplayBlog extends StatefulWidget {
 class _DisplayBlogState extends State<DisplayBlog> {
   late ScrollController _scrollController;
   bool isSearchBarVisible = false;
-  final BlogService blogService = BlogService();
+
+  // final BlogService blogService = BlogService();
+  String searchQuery = '';
 
   @override
   void initState() {
@@ -55,27 +59,64 @@ class _DisplayBlogState extends State<DisplayBlog> {
 
   @override
   Widget build(BuildContext context) {
+    ScreenType screenType = ScreenType(MediaQuery.of(context).size.width);
+
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
+      appBar: !kIsWeb
+          ? AppBar(
+              backgroundColor: Theme.of(context).colorScheme.background,
+              elevation: 0,
+              title: isSearchBarVisible
+                  ? TextField(
+                      onChanged: (value) {
+                        setState(() {
+                          searchQuery = value;
+                        });
+                      },
+                      decoration: InputDecoration(
+                        hintText: 'Search Articles...',
+                        filled: true,
+                        fillColor: Theme.of(context).colorScheme.background,
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(30.0),
+                          borderSide: BorderSide.none,
+                        ),
+                      ),
+                    )
+                  : const Text(''),
+              actions: [
+                IconButton(
+                  icon: Icon(isSearchBarVisible ? Icons.close : Icons.search),
+                  onPressed: () {
+                    setState(() {
+                      isSearchBarVisible = !isSearchBarVisible;
+                    });
+                  },
+                ),
+              ],
+            )
+          : null,
       body: Container(
         margin: const EdgeInsets.all(15.0),
         child: Column(
           children: <Widget>[
             Padding(
-              padding: const EdgeInsets.only(top: 25, bottom: 30, left: 30),
+              padding: (MediaQuery.of(context).size.width <= 600)
+                  ? const EdgeInsets.only(bottom: 30, left: 5.0)
+                  : const EdgeInsets.only(top: 25, bottom: 30),
               child: Row(
                 children: [
-                  const Align(
+                  Align(
                     alignment: Alignment.centerLeft,
                     child: AnimatedTextBuilder(
                       text: "Articles",
-                      size: 55.0,
+                      size: screenType.isMobile ? 40.0 : 72.0,
                       underline: true,
                     ),
                   ),
                   const Spacer(),
-                  if (MediaQuery.of(context).size.width >
-                      600) // Change this value as needed
+                  if (MediaQuery.of(context).size.width > 600)
                     AnimatedContainer(
                       width: isSearchBarVisible ? 200 : 0,
                       duration: const Duration(milliseconds: 300),
@@ -86,7 +127,7 @@ class _DisplayBlogState extends State<DisplayBlog> {
                               child: TextField(
                                 onChanged: (value) {
                                   setState(() {
-                                    blogService.searchQuery = value;
+                                    searchQuery = value;
                                   });
                                 },
                                 decoration: InputDecoration(
@@ -103,8 +144,7 @@ class _DisplayBlogState extends State<DisplayBlog> {
                             )
                           : null,
                     ),
-                  if (MediaQuery.of(context).size.width >
-                      600) // Change this value as needed
+                  if (MediaQuery.of(context).size.width > 600)
                     IconButton(
                       icon: const Icon(Icons.search),
                       onPressed: () {
@@ -119,43 +159,55 @@ class _DisplayBlogState extends State<DisplayBlog> {
             Expanded(
               child: Container(
                 child: StreamBuilder<QuerySnapshot>(
-                  stream: FirebaseFirestore.instance
-                      .collection('blogPosts')
-                      .snapshots(),
+                  stream: (searchQuery != '')
+                      ? FirebaseFirestore.instance
+                          .collection('blogPosts')
+                          .orderBy('title')
+                          .startAt([searchQuery]).endAt(
+                              ['$searchQuery\uf8ff']).snapshots()
+                      : FirebaseFirestore.instance
+                          .collection('blogPosts')
+                          .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
-                      return Center(
-                        child:
-                            Lottie.asset('assets/animation/datanotfound.json'),
+                      return SingleChildScrollView(
+                        child: Center(
+                          child: Lottie.asset(
+                              'assets/animation/datanotfound.json'),
+                        ),
                       );
                     }
 
                     if (snapshot.connectionState == ConnectionState.waiting) {
-                      return Center(
-                        child: Lottie.asset('assets/animation/loader.json'),
+                      return SingleChildScrollView(
+                        child: Center(
+                          child: Lottie.asset('assets/animation/loader.json'),
+                        ),
                       );
                     }
 
                     if (snapshot.data!.docs.isEmpty) {
                       // Add this condition
-                      return Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8.0, top: 20.0, bottom: 20.0),
-                          child: Column(
-                            children: <Widget>[
-                              const SizedBox(height: 10),
-                              Lottie.asset(
-                                  'assets/animation/datanotfound.json'),
-                              const SizedBox(height: 10),
-                              StyledText(
-                                text: "Sorry!! No search results found. ",
-                                fontSize: 20,
-                                color: Theme.of(context).colorScheme.primary,
-                                textAlign: TextAlign.center,
-                                bold: true,
-                              )
-                            ],
+                      return SingleChildScrollView(
+                        child: Center(
+                          child: Padding(
+                            padding: const EdgeInsets.only(
+                                left: 8.0, right: 8.0, top: 20.0, bottom: 20.0),
+                            child: Column(
+                              children: <Widget>[
+                                const SizedBox(height: 10),
+                                Lottie.asset(
+                                    'assets/animation/datanotfound.json'),
+                                const SizedBox(height: 10),
+                                StyledText(
+                                  text: "Sorry!! No search results found. ",
+                                  fontSize: 20,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  textAlign: TextAlign.center,
+                                  bold: true,
+                                )
+                              ],
+                            ),
                           ),
                         ),
                       );
@@ -164,16 +216,15 @@ class _DisplayBlogState extends State<DisplayBlog> {
                     return LayoutBuilder(
                       builder:
                           (BuildContext context, BoxConstraints constraints) {
-                        // Determine the number of cards in a row based on the screen width
                         int crossAxisCount;
                         if (constraints.maxWidth < 600) {
-                          crossAxisCount = 1; // Mobile portrait
+                          crossAxisCount = 1;
                         } else if (constraints.maxWidth < 900) {
-                          crossAxisCount = 2; // Mobile landscape
+                          crossAxisCount = 2;
                         } else if (constraints.maxWidth < 1200) {
-                          crossAxisCount = 3; // Tablet portrait and landscape
+                          crossAxisCount = 3;
                         } else {
-                          crossAxisCount = 4; // Desktop and larger tablets
+                          crossAxisCount = 4;
                         }
 
                         return GridView.builder(
@@ -187,13 +238,23 @@ class _DisplayBlogState extends State<DisplayBlog> {
                             var doc = snapshot.data!.docs[index];
                             return GestureDetector(
                               onTap: () {
-                                // Handle your blog post tap here
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
+                                if (screenType.isMobile) {
+                                  Navigator.push(
+                                    context,
+                                    PageTransition(
+                                      type: PageTransitionType.rightToLeft,
+                                      child: ReadMeBlogs(id: doc.id),
+                                    ),
+                                  );
+                                } else {
+                                  Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
                                       builder: (context) =>
-                                          ReadMeBlogs(id: doc.id)),
-                                );
+                                          ReadMeBlogs(id: doc.id),
+                                    ),
+                                  );
+                                }
                               },
                               child: Card(
                                 shape: RoundedRectangleBorder(
