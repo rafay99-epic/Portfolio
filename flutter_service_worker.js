@@ -3,8 +3,8 @@ const MANIFEST = 'flutter-app-manifest';
 const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 
-const RESOURCES = {"index.html": "8974772c71e2ec51eb57d6d880113822",
-"/": "8974772c71e2ec51eb57d6d880113822",
+const RESOURCES = {"index.html": "6194e97d2c179ea64d00481144b6758a",
+"/": "6194e97d2c179ea64d00481144b6758a",
 "_redirects": "d3f02c1e572a02b03f656b8e7b320d3b",
 "canvaskit/canvaskit.js": "eb8797020acdbdf96a12fb0405582c1b",
 "canvaskit/skwasm.js": "87063acf45c5e1ab9565dcf06b0c18b8",
@@ -15,7 +15,7 @@ const RESOURCES = {"index.html": "8974772c71e2ec51eb57d6d880113822",
 "canvaskit/skwasm.worker.js": "bfb704a6c714a75da9ef320991e88b03",
 "favicon.png": "53781e8dd0698320d237bc5d4767e1f1",
 "assets/FontManifest.json": "7868c4923a3c0189c8f431acd90832c9",
-"assets/fonts/MaterialIcons-Regular.otf": "c81422c39e18497333dc053c37af0dbd",
+"assets/fonts/MaterialIcons-Regular.otf": "07196d376ea32b3a14fafd8523a9861f",
 "assets/AssetManifest.bin.json": "0b3bbdaefa70ff4c8b500dc704dca134",
 "assets/assets/image/blog.png": "838f4d461e2568f7faf0545fe84fdb9a",
 "assets/assets/image/inboxMessages.png": "621847830b69b8ce137843d7cb3b79ec",
@@ -65,7 +65,7 @@ const RESOURCES = {"index.html": "8974772c71e2ec51eb57d6d880113822",
 "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "manifest.json": "e06f2e882df95a1f07e00df74d795188",
 "flutter.js": "7d69e653079438abfbb24b82a655b0a4",
-"main.dart.js": "0bb6964abd589dfd265ffca0ca03fc49"};
+"main.dart.js": "ee188cc145e4cc31187f328a96dcd3ab"};
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = ["main.dart.js",
