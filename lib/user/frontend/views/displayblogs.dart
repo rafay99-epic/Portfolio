@@ -22,8 +22,6 @@ class DisplayBlog extends StatefulWidget {
 class _DisplayBlogState extends State<DisplayBlog> {
   late ScrollController _scrollController;
   bool isSearchBarVisible = false;
-
-  // final BlogService blogService = BlogService();
   String searchQuery = '';
 
   @override
@@ -41,8 +39,7 @@ class _DisplayBlogState extends State<DisplayBlog> {
   // Scroll Down
   void _smoothScrollDown() {
     _scrollController.animateTo(
-      _scrollController.offset +
-          300, // Change this value to control how much you want to scroll down
+      _scrollController.offset + 300,
       duration: const Duration(milliseconds: 500),
       curve: Curves.easeInOut,
     );
@@ -238,6 +235,23 @@ class _DisplayBlogState extends State<DisplayBlog> {
                             var doc = snapshot.data!.docs[index];
                             return GestureDetector(
                               onTap: () {
+                                // if (screenType.isMobile) {
+                                //   Navigator.push(
+                                //     context,
+                                //     PageTransition(
+                                //       type: PageTransitionType.rightToLeft,
+                                //       child: ReadMeBlogs(id: doc.id),
+                                //     ),
+                                //   );
+                                // } else {
+                                //   Navigator.push(
+                                //     context,
+                                //     MaterialPageRoute(
+                                //       builder: (context) =>
+                                //           ReadMeBlogs(id: doc.id),
+                                //     ),
+                                //   );
+                                // }
                                 if (screenType.isMobile) {
                                   Navigator.push(
                                     context,
@@ -245,6 +259,12 @@ class _DisplayBlogState extends State<DisplayBlog> {
                                       type: PageTransitionType.rightToLeft,
                                       child: ReadMeBlogs(id: doc.id),
                                     ),
+                                  ).then(
+                                    (_) {
+                                      setState(() {
+                                        searchQuery = '';
+                                      });
+                                    },
                                   );
                                 } else {
                                   Navigator.push(
@@ -253,6 +273,12 @@ class _DisplayBlogState extends State<DisplayBlog> {
                                       builder: (context) =>
                                           ReadMeBlogs(id: doc.id),
                                     ),
+                                  ).then(
+                                    (_) {
+                                      setState(() {
+                                        searchQuery = '';
+                                      });
+                                    },
                                   );
                                 }
                               },

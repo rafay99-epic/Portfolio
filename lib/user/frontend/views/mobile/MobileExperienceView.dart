@@ -12,6 +12,13 @@ class MobileExperienceView extends StatefulWidget {
 class _MobileExperienceViewState extends State<MobileExperienceView> {
   @override
   Widget build(BuildContext context) {
-    return const Scaffold();
+    return Scaffold(
+      body: Center(
+        child: TextButton(
+          onPressed: () => throw Exception(),
+          child: const Text("Throw Test Exception"),
+        ),
+      ),
+    );
   }
 }
