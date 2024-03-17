@@ -37,6 +37,7 @@ dependencies:
   firebase_crashlytics: ^3.4.19
   timeline_tile: ^2.0.0
   showcaseview: ^2.0.3
+  connectivity_plus: ^5.0.2
 dev_dependencies:
   flutter_test:
     sdk: flutter

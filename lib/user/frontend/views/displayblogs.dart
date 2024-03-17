@@ -1,4 +1,5 @@
 // ignore_for_file: library_private_types_in_public_api, avoid_unnecessary_containers
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
@@ -11,6 +12,7 @@ import 'package:rafay_portfolio/user/frontend/views/readBlogs.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/HoverChip.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
+import 'dart:io' show Platform;
 
 class DisplayBlog extends StatefulWidget {
   const DisplayBlog({super.key});
@@ -23,11 +25,13 @@ class _DisplayBlogState extends State<DisplayBlog> {
   late ScrollController _scrollController;
   bool isSearchBarVisible = false;
   String searchQuery = '';
+  bool _isInternetConnected = true;
 
   @override
   void initState() {
     super.initState();
     _scrollController = ScrollController();
+    _checkInternetConnectivity();
   }
 
   @override
@@ -54,10 +58,50 @@ class _DisplayBlogState extends State<DisplayBlog> {
     );
   }
 
+  // Checking internet connection on android device
+  Future<void> _checkInternetConnectivity() async {
+    if (Platform.isAndroid || Platform.isIOS) {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        setState(() {
+          _isInternetConnected = false;
+        });
+      }
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     ScreenType screenType = ScreenType(MediaQuery.of(context).size.width);
-
+    if (!_isInternetConnected) {
+      return Scaffold(
+        body: SingleChildScrollView(
+          child: Padding(
+            padding: EdgeInsets.only(
+              top: MediaQuery.of(context).size.height * 0.25,
+              bottom: MediaQuery.of(context).size.height * 0.25,
+            ),
+            child: Center(
+              child: Column(
+                children: <Widget>[
+                  const SizedBox(height: 10),
+                  Lottie.asset('assets/animation/noInternet.json'),
+                  const SizedBox(height: 10),
+                  StyledText(
+                    text:
+                        "Sorry!! To Read an Article Please Connect to the Internet",
+                    fontSize: 20,
+                    color: Theme.of(context).colorScheme.primary,
+                    textAlign: TextAlign.center,
+                    bold: true,
+                  )
+                ],
+              ),
+            ),
+          ),
+        ),
+      );
+    }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: !kIsWeb
@@ -235,23 +279,6 @@ class _DisplayBlogState extends State<DisplayBlog> {
                             var doc = snapshot.data!.docs[index];
                             return GestureDetector(
                               onTap: () {
-                                // if (screenType.isMobile) {
-                                //   Navigator.push(
-                                //     context,
-                                //     PageTransition(
-                                //       type: PageTransitionType.rightToLeft,
-                                //       child: ReadMeBlogs(id: doc.id),
-                                //     ),
-                                //   );
-                                // } else {
-                                //   Navigator.push(
-                                //     context,
-                                //     MaterialPageRoute(
-                                //       builder: (context) =>
-                                //           ReadMeBlogs(id: doc.id),
-                                //     ),
-                                //   );
-                                // }
                                 if (screenType.isMobile) {
                                   Navigator.push(
                                     context,
