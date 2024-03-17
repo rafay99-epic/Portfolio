@@ -203,11 +203,13 @@ class _DisplayBlogState extends State<DisplayBlog> {
                   stream: (searchQuery != '')
                       ? FirebaseFirestore.instance
                           .collection('blogPosts')
+                          .where('isEnabled', isEqualTo: true)
                           .orderBy('title')
                           .startAt([searchQuery]).endAt(
                               ['$searchQuery\uf8ff']).snapshots()
                       : FirebaseFirestore.instance
                           .collection('blogPosts')
+                          .where('isEnabled', isEqualTo: true)
                           .snapshots(),
                   builder: (context, snapshot) {
                     if (snapshot.hasError) {
