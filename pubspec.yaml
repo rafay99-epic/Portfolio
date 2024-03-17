@@ -35,7 +35,8 @@ dependencies:
   flutter_animation_progress_bar: ^2.3.1
   markdown_editor_plus: ^0.2.13
   firebase_crashlytics: ^3.4.19
-
+  timeline_tile: ^2.0.0
+  showcaseview: ^2.0.3
 dev_dependencies:
   flutter_test:
     sdk: flutter
