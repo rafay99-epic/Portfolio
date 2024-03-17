@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:rafay_portfolio/admin/backend/blog/blogAdd.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/blogs/blog_preview.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/buildTextField.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -49,7 +50,11 @@ class _AddBlogPostState extends State<AddBlogPost> {
   @override
   void initState() {
     super.initState();
-    dateController.text = "${selectedDateController.toLocal()}".split(' ')[0];
+    try {
+      dateController.text = "${selectedDateController.toLocal()}".split(' ')[0];
+    } catch (e) {
+      print('An error occurred: $e');
+    }
   }
 
   @override
@@ -81,6 +86,22 @@ class _AddBlogPostState extends State<AddBlogPost> {
                   ),
                   onPressed: () async {
                     //render whole Article
+                    final text = await controller.getText();
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => BlogPreview(
+                          title: titleController.text,
+                          subTitle: subTitleController.text,
+                          tags: tagsController.text,
+                          author: authorController.text,
+                          date: dateController.text,
+                          selectedDate: selectedDateController,
+                          htmlData: text,
+                          image: _image,
+                        ),
+                      ),
+                    );
                   },
                   child: Text('Preview Article'),
                 ),
@@ -353,18 +374,22 @@ class _AddBlogPostState extends State<AddBlogPost> {
 
   //fetch date
   Future<void> _selectDate(BuildContext context) async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
-      initialDate: selectedDateController,
-      firstDate: DateTime(2015, 8),
-      lastDate: DateTime(2101),
-    );
-    if (picked != null && picked != selectedDateController) {
-      setState(() {
-        selectedDateController = picked;
-        dateController.text =
-            "${selectedDateController.toLocal()}".split(' ')[0];
-      });
+    try {
+      final DateTime? picked = await showDatePicker(
+        context: context,
+        initialDate: selectedDateController,
+        firstDate: DateTime(2015, 8),
+        lastDate: DateTime(2101),
+      );
+      if (picked != null && picked != selectedDateController) {
+        setState(() {
+          selectedDateController = picked;
+          dateController.text =
+              "${selectedDateController.toLocal()}".split(' ')[0];
+        });
+      }
+    } catch (e) {
+      print('An error occurred: $e');
     }
   }
 }

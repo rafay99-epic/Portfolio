@@ -324,8 +324,7 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                   if (MediaQuery.of(context).size.width > 600)
                     Expanded(
                       flex: 1,
-                      child: MediaQuery.of(context).size.width >
-                              600 // Change this value as needed
+                      child: MediaQuery.of(context).size.width > 600
                           ? Column(
                               children: [
                                 const SizedBox(
