@@ -3,11 +3,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rafay_portfolio/admin/backend/blog/BlogDisable.dart';
+import 'package:rafay_portfolio/admin/backend/blog/blogEnable.dart';
 import 'package:rafay_portfolio/admin/backend/blog/blogSearch.dart';
-import 'package:rafay_portfolio/admin/backend/blog/blogUpdate.dart';
 import 'package:rafay_portfolio/admin/backend/blog/blogdelete.dart';
 import 'package:rafay_portfolio/admin/backend/model/BlogModel.dart';
 import 'package:rafay_portfolio/admin/frontend/pages/blogs/blogAdd.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/blogs/blogUpdate.dart';
 import 'package:rafay_portfolio/admin/frontend/widgets/admin_drawer.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 
@@ -195,7 +197,13 @@ class _BlogPostState extends State<BlogPostAdmin> {
                                 color: Colors.blue,
                               ),
                               onPressed: () {
-                                // TODO: Implement update functionality
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        UpdateBlogPost(document.id),
+                                  ),
+                                );
                               },
                             ),
                             IconButton(
