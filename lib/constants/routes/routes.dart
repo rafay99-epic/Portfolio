@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 // Admin Pages
-import 'package:rafay_portfolio/admin/frontend/pages/loginPage.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/auth/loginPage.dart';
 
 // user Page
 import 'package:rafay_portfolio/user/frontend/screens/NotFound_page.dart';

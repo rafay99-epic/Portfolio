@@ -9,29 +9,35 @@ class StyledText extends StatelessWidget {
   final bool bold;
   final TextAlign textAlign;
   final Color color;
+  final FontWeight fontWeight;
+  final String fontFamily;
+  final FontStyle fontStyle;
 
-  const StyledText({
-    super.key,
-    required this.text,
-    required this.fontSize,
-    this.boldWords = const [],
-    this.underline = false,
-    this.bold = false,
-    this.textAlign = TextAlign.left,
-    this.color = Colors.black,
-  });
+  const StyledText(
+      {super.key,
+      required this.text,
+      required this.fontSize,
+      this.boldWords = const [],
+      this.underline = false,
+      this.bold = false,
+      this.textAlign = TextAlign.left,
+      this.color = Colors.black,
+      this.fontWeight = FontWeight.normal,
+      this.fontFamily = 'Roboto',
+      this.fontStyle = FontStyle.normal});
 
   @override
   Widget build(BuildContext context) {
     List<String> words = text.split(' ');
     return RichText(
-      textAlign: textAlign, // Update this line
+      textAlign: textAlign,
       text: TextSpan(
         children: words.map((word) {
           if (boldWords.contains(word)) {
             return TextSpan(
               text: '$word ',
-              style: GoogleFonts.roboto(
+              style: GoogleFonts.getFont(
+                fontFamily,
                 decoration: underline ? TextDecoration.underline : null,
                 fontWeight: FontWeight.bold,
                 fontSize: fontSize,
@@ -41,7 +47,8 @@ class StyledText extends StatelessWidget {
           } else {
             return TextSpan(
               text: '$word ',
-              style: GoogleFonts.roboto(
+              style: GoogleFonts.getFont(
+                fontFamily,
                 decoration: underline ? TextDecoration.underline : null,
                 fontWeight: bold ? FontWeight.bold : FontWeight.normal,
                 fontSize: fontSize,

@@ -1,24 +1,26 @@
-import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rafay_portfolio/admin/backend/auth/authService.dart';
-import 'package:rafay_portfolio/admin/frontend/pages/dashboardPage.dart';
+// ignore_for_file: use_build_context_synchronously, must_be_immutable
 
+import 'package:flutter/material.dart';
+
+import 'package:lottie/lottie.dart';
+import 'package:rafay_portfolio/admin/backend/auth/authService.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/buildTextField.dart';
-import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/dialogbox.dart';
 
 class AdminLogin extends StatefulWidget {
   AdminLogin({super.key});
+
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  final AuthService _authService = AuthService();
+  var phoneNumber = '+92 3035650798';
 
   @override
   State<AdminLogin> createState() => _AdminLoginState();
 }
 
 class _AdminLoginState extends State<AdminLogin> {
+  final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -69,12 +71,27 @@ class _AdminLoginState extends State<AdminLogin> {
                         //Check if email and password are not empty
                         if (widget.emailController.text.isEmpty ||
                             widget.passwordController.text.isEmpty) {
-                          showEmptyFieldsDialog(context);
+                          // showEmptyFieldsDialog(context);
+                          showDialogBox(
+                            context,
+                            Icons.error,
+                            Colors.red,
+                            Theme.of(context).colorScheme.primary,
+                            'Error',
+                            'Please enter your email and password.',
+                            () => Navigator.of(context).pop(),
+                          );
                           return;
                         }
 
                         //firebase Login and Error Handelling
-                        await handleLogin(context);
+
+                        await _authService.handleLogin(
+                          context,
+                          widget.emailController.text,
+                          widget.passwordController.text,
+                          widget.phoneNumber,
+                        );
 
                         //making sure to clear the controller
                         widget.emailController.clear();
@@ -109,104 +126,6 @@ class _AdminLoginState extends State<AdminLogin> {
           ],
         ),
       ),
-    );
-  }
-
-  //Login Function
-  Future<void> handleLogin(BuildContext context) async {
-    try {
-      UserCredential? userCredential =
-          await widget._authService.signInWithEmailAndPassword(
-        widget.emailController.text,
-        widget.passwordController.text,
-      );
-
-      // If the user is authenticated, navigate to the next screen
-      if (userCredential != null && userCredential.user != null) {
-        // ignore: use_build_context_synchronously
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const DashboardPage(),
-          ),
-        );
-      }
-    } catch (e) {
-      String errorMessage;
-      if (e is FirebaseAuthException) {
-        switch (e.code) {
-          case 'auth/user-not-found':
-            errorMessage = 'No user found for that email.';
-            break;
-          case 'auth/wrong-password':
-            errorMessage = 'Wrong password provided for that user.';
-            break;
-          case 'auth/invalid-email':
-            errorMessage = 'The email address is not valid.';
-            break;
-          case 'auth/invalid-credential':
-            errorMessage = 'The credential data is malformed or has expired.';
-            break;
-          default:
-            errorMessage = 'An unknown error occurred.';
-            break;
-        }
-      } else {
-        errorMessage = 'An error occurred.';
-      }
-
-      // ignore: use_build_context_synchronously
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const StyledText(
-              text: 'Login Error',
-              fontSize: 14,
-            ),
-            content: Text(errorMessage),
-            actions: <Widget>[
-              TextButton(
-                child: const StyledText(
-                  text: 'OK',
-                  fontSize: 14,
-                ),
-                onPressed: () {
-                  Navigator.of(context).pop(); // Close the dialog box
-                },
-              ),
-            ],
-          );
-        },
-      );
-    }
-  }
-
-  //Empty Fields Dialog
-  void showEmptyFieldsDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const StyledText(
-            text: 'Error',
-            fontSize: 22,
-            bold: true,
-          ),
-          content: const StyledText(
-            text: 'Please enter your email and password.',
-            fontSize: 20,
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop(); // Close the dialog box
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }
