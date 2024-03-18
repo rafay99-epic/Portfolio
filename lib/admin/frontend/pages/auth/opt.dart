@@ -7,8 +7,8 @@ import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/admin/frontend/pages/dashboardPage.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/buildTextField.dart';
+import 'package:rafay_portfolio/user/frontend/widgets/dialogbox.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/snackBar.dart';
-import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 
 class OtpPage extends StatefulWidget {
   final String verificationId;
@@ -89,7 +89,15 @@ class _OtpPageState extends State<OtpPage> {
                       onPressed: () async {
                         //Check if email and password are not empty
                         if (_otpController.text.isEmpty) {
-                          showEmptyFieldsDialog(context);
+                          showDialogBox(
+                            context,
+                            Icons.error,
+                            Colors.red,
+                            Colors.red,
+                            'Error',
+                            'Enter the OTP password.',
+                            () => Navigator.of(context).pop(),
+                          );
                           return;
                         }
 
@@ -128,33 +136,6 @@ class _OtpPageState extends State<OtpPage> {
           ],
         ),
       ),
-    );
-  }
-
-  void showEmptyFieldsDialog(BuildContext context) {
-    showDialog(
-      context: context,
-      builder: (BuildContext context) {
-        return AlertDialog(
-          title: const StyledText(
-            text: 'Error',
-            fontSize: 22,
-            bold: true,
-          ),
-          content: const StyledText(
-            text: 'Please enter your OTP Pin',
-            fontSize: 20,
-          ),
-          actions: <Widget>[
-            TextButton(
-              child: const Text('OK'),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ],
-        );
-      },
     );
   }
 }

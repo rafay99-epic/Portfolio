@@ -14,13 +14,13 @@ class AdminLogin extends StatefulWidget {
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
   var phoneNumber = '+92 3035650798';
-  final AuthService _authService = AuthService();
 
   @override
   State<AdminLogin> createState() => _AdminLoginState();
 }
 
 class _AdminLoginState extends State<AdminLogin> {
+  final AuthService _authService = AuthService();
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -86,11 +86,12 @@ class _AdminLoginState extends State<AdminLogin> {
 
                         //firebase Login and Error Handelling
 
-                        await widget._authService.handleLogin(
-                            context,
-                            widget.emailController.text,
-                            widget.passwordController.text,
-                            widget.phoneNumber);
+                        await _authService.handleLogin(
+                          context,
+                          widget.emailController.text,
+                          widget.passwordController.text,
+                          widget.phoneNumber,
+                        );
 
                         //making sure to clear the controller
                         widget.emailController.clear();
