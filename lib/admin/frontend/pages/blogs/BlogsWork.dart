@@ -1,9 +1,10 @@
-// ignore_for_file: file_names
+// ignore_for_file: file_names, use_build_context_synchronously
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/admin/backend/blog/blogSearch.dart';
+import 'package:rafay_portfolio/admin/backend/blog/blogUpdate.dart';
 import 'package:rafay_portfolio/admin/backend/blog/blogdelete.dart';
 import 'package:rafay_portfolio/admin/backend/model/BlogModel.dart';
 import 'package:rafay_portfolio/admin/frontend/pages/blogs/blogAdd.dart';
@@ -185,14 +186,87 @@ class _BlogPostState extends State<BlogPostAdmin> {
                             )
                           ],
                         ),
-                        trailing: IconButton(
-                          icon: const Icon(
-                            Icons.delete,
-                            color: Colors.red,
-                          ),
-                          onPressed: () async {
-                            await deleteBlogPost(document.id);
-                          },
+                        trailing: Row(
+                          mainAxisSize: MainAxisSize.min,
+                          children: <Widget>[
+                            IconButton(
+                              icon: const Icon(
+                                Icons.edit,
+                                color: Colors.blue,
+                              ),
+                              onPressed: () {
+                                // TODO: Implement update functionality
+                              },
+                            ),
+                            IconButton(
+                              icon: Icon(
+                                blogPost.isEnabled
+                                    ? Icons.visibility
+                                    : Icons.visibility_off,
+                                color: blogPost.isEnabled
+                                    ? Colors.green
+                                    : Colors.grey,
+                              ),
+                              onPressed: () async {
+                                if (blogPost.isEnabled) {
+                                  await disableBlogPost(document.id);
+                                } else {
+                                  await enableBlogPost(document.id);
+                                }
+                              },
+                            ),
+                            IconButton(
+                              icon: const Icon(
+                                Icons.delete,
+                                color: Colors.red,
+                              ),
+                              onPressed: () async {
+                                showDialog(
+                                  context: context,
+                                  builder: (context) => AlertDialog(
+                                    title: StyledText(
+                                      text: 'Delete Blog Post',
+                                      fontSize: 20,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                    content: StyledText(
+                                      text:
+                                          'Are you sure you want to delete this blog post?',
+                                      fontSize: 18,
+                                      color:
+                                          Theme.of(context).colorScheme.primary,
+                                    ),
+                                    actions: <Widget>[
+                                      TextButton(
+                                        child: StyledText(
+                                          text: 'Cancel',
+                                          fontSize: 14,
+                                          color: Theme.of(context)
+                                              .colorScheme
+                                              .primary,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: const StyledText(
+                                          text: 'Delete',
+                                          fontSize: 14,
+                                          color: Colors.red,
+                                        ),
+                                        onPressed: () async {
+                                          await deleteBlogPost(document.id);
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                    ],
+                                  ),
+                                );
+                              },
+                            ),
+                          ],
                         ),
                       ),
                     );
