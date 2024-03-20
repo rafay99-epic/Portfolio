@@ -1,5 +1,7 @@
 // ignore_for_file: library_private_types_in_public_api, library_prefixes, depend_on_referenced_packages
 
+import 'dart:html' as html;
+
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
@@ -13,6 +15,7 @@ import 'package:rafay_portfolio/user/frontend/widgets/scrollAnimation.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 import 'package:html/parser.dart' as htmlParser;
 import 'package:html/dom.dart' as dom;
+import 'package:scroll_to_index/scroll_to_index.dart';
 
 class ReadMeBlogs extends StatefulWidget {
   final String id;
@@ -26,6 +29,8 @@ class ReadMeBlogs extends StatefulWidget {
 class _ReadMeBlogsState extends State<ReadMeBlogs> {
   late ScrollController _scrollController;
   final ValueNotifier<double> _progress = ValueNotifier(0);
+  html.Element? element;
+  final controller = AutoScrollController();
 
   @override
   void initState() {
@@ -55,11 +60,22 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
   @override
   Widget build(BuildContext context) {
     //extract Table of content
-    List<String> extractHeadings(String htmlContent) {
+    // List<String> extractHeadings(String htmlContent) {
+    //   dom.Document document = htmlParser.parse(htmlContent);
+    //   List<dom.Element> headingElements =
+    //       document.querySelectorAll('h1, h2, h3, h4, h5, h6');
+    //   return headingElements.map((element) => element.text).toList();
+    // }
+    //version 03
+    List<Map<String, dynamic>> extractHeadings(String htmlContent) {
       dom.Document document = htmlParser.parse(htmlContent);
       List<dom.Element> headingElements =
           document.querySelectorAll('h1, h2, h3, h4, h5, h6');
-      return headingElements.map((element) => element.text).toList();
+
+      return headingElements.map((element) {
+        String? level = element.localName;
+        return {'level': level, 'text': element.text};
+      }).toList();
     }
 
     //widget for determin content and then render the content
@@ -183,7 +199,8 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
             );
           } else {
             BlogPosModel data = snapshot.data!;
-            List<String> tableOfContents = extractHeadings(data.content);
+            List<Map<String, dynamic>> tableOfContents =
+                extractHeadings(data.content);
             return SingleChildScrollView(
               physics: const CustomScrollPhysics(),
               controller: _scrollController,
@@ -328,7 +345,7 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                           ? Column(
                               children: [
                                 const SizedBox(
-                                  height: 150,
+                                  height: 100,
                                 ),
                                 Padding(
                                   padding: const EdgeInsets.only(
@@ -345,71 +362,76 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                                 ),
                                 const SizedBox(height: 25),
                                 Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: tableOfContents
                                       .asMap()
                                       .entries
                                       .map((entry) {
                                     int idx = entry.key;
-                                    String heading = entry.value;
-                                    return Row(
-                                      children: <Widget>[
-                                        SizedBox(
-                                          width: 50,
-                                          child: Column(
-                                            children: <Widget>[
-                                              SizedBox(
-                                                height: idx == 0 ? 0 : 25,
-                                                child: VerticalDivider(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .outline,
-                                                  thickness: 3,
-                                                ),
-                                              ),
-                                              CircleAvatar(
-                                                radius: 10,
-                                                backgroundColor:
-                                                    Theme.of(context)
-                                                        .colorScheme
-                                                        .primary,
-                                              ),
-                                              SizedBox(
-                                                height: idx ==
-                                                        tableOfContents.length -
-                                                            1
-                                                    ? 0
-                                                    : 25,
-                                                child: VerticalDivider(
-                                                  color: Theme.of(context)
-                                                      .colorScheme
-                                                      .outline,
-                                                  thickness: 3,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Expanded(
-                                          child: ListTile(
-                                            title: StyledText(
-                                              text: heading,
-                                              fontSize: 22,
-                                              fontWeight: FontWeight.w400,
+                                    Map<String, dynamic> heading = entry.value;
+                                    double fontSize;
+                                    double paddingLeft;
+                                    switch (heading['level']) {
+                                      case 'h1':
+                                        fontSize = 28;
+                                        paddingLeft = 20.0;
+                                        break;
+                                      case 'h2':
+                                        fontSize = 24;
+                                        paddingLeft = 40.0;
+                                        break;
+                                      case 'h3':
+                                        fontSize = 20;
+                                        paddingLeft = 60.0;
+                                        break;
+                                      case 'h4':
+                                        fontSize = 18;
+                                        paddingLeft = 80.0;
+                                        break;
+                                      case 'h5':
+                                        fontSize = 16;
+                                        paddingLeft = 100.0;
+                                        break;
+                                      case 'h6':
+                                        fontSize = 14;
+                                        paddingLeft = 120.0;
+                                        break;
+                                      default:
+                                        fontSize = 24;
+                                        paddingLeft = 20.0;
+                                        break;
+                                    }
+                                    return AutoScrollTag(
+                                      index: idx,
+                                      key: ValueKey(idx),
+                                      controller: controller,
+                                      child: Padding(
+                                        padding:
+                                            EdgeInsets.only(left: paddingLeft),
+                                        child: ListTile(
+                                          leading: Icon(Icons.label,
                                               color: Theme.of(context)
                                                   .colorScheme
-                                                  .primary,
-                                              fontFamily: 'ABeeZee',
-                                            ),
-                                            onTap: () {
-                                              // Handle tap
-                                            },
+                                                  .inversePrimary),
+                                          title: StyledText(
+                                            text: heading['text'],
+                                            fontSize:
+                                                fontSize, // Use the determined font size
+                                            fontWeight: FontWeight.w400,
+                                            color: Theme.of(context)
+                                                .colorScheme
+                                                .primary,
+                                            fontFamily: 'ABeeZee',
                                           ),
+                                          onTap: () async {
+                                            await controller.scrollToIndex(idx,
+                                                preferPosition:
+                                                    AutoScrollPosition.middle);
+                                          },
                                         ),
-                                      ],
+                                      ),
                                     );
                                   }).toList(),
-                                ),
+                                )
                               ],
                             )
                           : Container(), // Empty container for mobile view
