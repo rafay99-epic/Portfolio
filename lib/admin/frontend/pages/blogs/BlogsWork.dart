@@ -197,13 +197,13 @@ class _BlogPostState extends State<BlogPostAdmin> {
                                 color: Colors.blue,
                               ),
                               onPressed: () {
-                                Navigator.push(
-                                  context,
-                                  MaterialPageRoute(
-                                    builder: (context) =>
-                                        UpdateBlogPost(document.id),
-                                  ),
-                                );
+                                // Navigator.push(
+                                //   context,
+                                //   MaterialPageRoute(
+                                //     builder: (context) =>
+                                //         UpdateBlogPost(document.id),
+                                //   ),
+                                // );
                               },
                             ),
                             IconButton(

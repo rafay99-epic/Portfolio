@@ -1,18 +1,9 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rafay_portfolio/user/frontend/widgets/ProjectCards.dart';
+import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
+import 'package:rafay_portfolio/user/frontend/pages/experiences/widget/ProjectCards.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
-
-class ScreenType {
-  final double width;
-
-  ScreenType(this.width);
-
-  bool get isMobile => width < 600;
-  bool get isTablet => width >= 600 && width < 1200;
-  bool get isDesktop => width >= 1200;
-}
 
 class ProjectGallery extends StatefulWidget {
   const ProjectGallery({

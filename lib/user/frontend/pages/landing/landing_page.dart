@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rafay_portfolio/user/frontend/screens/contentMe_page.dart';
+import 'package:rafay_portfolio/user/frontend/pages/contact_me/ContactMe.dart';
 
 import 'package:rafay_portfolio/user/frontend/widgets/SocialMediaIcon.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
@@ -43,7 +43,7 @@ class _LandingPageState extends State<LandingPage> {
                 Navigator.push(
                   context,
                   MaterialPageRoute(
-                    builder: (context) => const ContactMePage(),
+                    builder: (context) => const ContactMe(),
                   ),
                 );
               },

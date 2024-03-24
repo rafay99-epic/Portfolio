@@ -1,6 +1,6 @@
 // ignore_for_file: prefer_const_constructors, use_build_context_synchronously, avoid_print, avoid_web_libraries_in_flutter, file_names
 
-import 'dart:html' as html;
+// import 'dart:html' as html;
 import 'package:flutter/material.dart';
 
 import 'package:html_editor_enhanced/html_editor.dart';
@@ -29,7 +29,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
   HtmlEditorController controller = HtmlEditorController();
 
   bool isEnabled = false;
-  html.File? _image;
+  // html.File? _image;
   final scrollController = ScrollController();
 
   String? _imageUrl;
@@ -87,21 +87,21 @@ class _AddBlogPostState extends State<AddBlogPost> {
                   onPressed: () async {
                     //render whole Article
                     final text = await controller.getText();
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => BlogPreview(
-                          title: titleController.text,
-                          subTitle: subTitleController.text,
-                          tags: tagsController.text,
-                          author: authorController.text,
-                          date: dateController.text,
-                          selectedDate: selectedDateController,
-                          htmlData: text,
-                          image: _image,
-                        ),
-                      ),
-                    );
+                    // Navigator.push(
+                    //   context,
+                    //   MaterialPageRoute(
+                    //     builder: (context) => BlogPreview(
+                    //       title: titleController.text,
+                    //       subTitle: subTitleController.text,
+                    //       tags: tagsController.text,
+                    //       author: authorController.text,
+                    //       date: dateController.text,
+                    //       selectedDate: selectedDateController,
+                    //       htmlData: text,
+                    //       image: _image,
+                    //     ),
+                    //   ),
+                    // );
                   },
                   child: Text('Preview Article'),
                 ),
@@ -169,16 +169,16 @@ class _AddBlogPostState extends State<AddBlogPost> {
                   onPressed: () async {
                     if (_formKey.currentState!.validate()) {
                       try {
-                        await addBlogPost(
-                          title: titleController.text,
-                          subTitle: subTitleController.text,
-                          isEnabled: isEnabled,
-                          tags: tagsController.text.split(','),
-                          author: authorController.text,
-                          content: await controller.getText(),
-                          imageFile: _image!,
-                          date: selectedDateController,
-                        );
+                        // await addBlogPost(
+                        //   title: titleController.text,
+                        //   subTitle: subTitleController.text,
+                        //   isEnabled: isEnabled,
+                        //   tags: tagsController.text.split(','),
+                        //   author: authorController.text,
+                        //   content: await controller.getText(),
+                        //   imageFile: _image!,
+                        //   date: selectedDateController,
+                        // );
 
                         titleController.clear();
                         subTitleController.clear();
@@ -262,24 +262,24 @@ class _AddBlogPostState extends State<AddBlogPost> {
                   padding: const EdgeInsets.only(left: 15.0, right: 15.0),
                   child: ElevatedButton(
                     onPressed: () {
-                      html.FileUploadInputElement uploadInput =
-                          html.FileUploadInputElement();
-                      uploadInput.click();
+                      // html.FileUploadInputElement uploadInput =
+                      //     html.FileUploadInputElement();
+                      // uploadInput.click();
 
-                      uploadInput.onChange.listen((e) {
-                        final files = uploadInput.files;
-                        if (files!.length == 1) {
-                          final file = files[0];
-                          final reader = html.FileReader();
-                          reader.readAsDataUrl(file);
-                          reader.onLoadEnd.listen((event) {
-                            setState(() {
-                              _image = file;
-                              _imageUrl = reader.result as String;
-                            });
-                          });
-                        }
-                      });
+                      // uploadInput.onChange.listen((e) {
+                      //   final files = uploadInput.files;
+                      //   if (files!.length == 1) {
+                      //     final file = files[0];
+                      //     final reader = html.FileReader();
+                      //     reader.readAsDataUrl(file);
+                      //     reader.onLoadEnd.listen((event) {
+                      //       setState(() {
+                      //         _image = file;
+                      //         _imageUrl = reader.result as String;
+                      //       });
+                      //     });
+                      //   }
+                      // });
                     },
                     child: const Text('Upload Thumbnail'),
                   ),
