@@ -3,8 +3,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rafay_portfolio/admin/backend/messages/MessageUnArchive.dart';
-import 'package:rafay_portfolio/admin/backend/messages/MessagesDelete.dart';
+
+import 'package:rafay_portfolio/admin/backend/messages/messages_functionality.dart';
 
 import 'package:rafay_portfolio/admin/frontend/widgets/admin_drawer.dart';
 
@@ -16,6 +16,7 @@ class ArchiveMessages extends StatefulWidget {
 }
 
 class _ArchiveMessagesState extends State<ArchiveMessages> {
+  final MessageService messageService = MessageService();
   final Stream<QuerySnapshot> _messagesStream =
       FirebaseFirestore.instance.collection('messages').snapshots();
   @override
@@ -75,7 +76,7 @@ class _ArchiveMessagesState extends State<ArchiveMessages> {
                               color: Colors.green,
                             ),
                             onPressed: () async {
-                              await unhideMessage(document.id);
+                              await messageService.unhideMessage(document.id);
                             },
                           ),
                           IconButton(
@@ -142,7 +143,8 @@ class _ArchiveMessagesState extends State<ArchiveMessages> {
                                             ),
                                           ),
                                           onPressed: () async {
-                                            await deleteMessage(document.id);
+                                            await messageService
+                                                .deleteMessage(document.id);
                                             Navigator.pop(context);
                                           },
                                         ),

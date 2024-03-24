@@ -3,9 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rafay_portfolio/admin/backend/messages/MessageArchieve.dart';
-import 'package:rafay_portfolio/admin/backend/messages/MessagesDelete.dart';
-
+import 'package:rafay_portfolio/admin/backend/messages/messages_functionality.dart';
 import 'package:rafay_portfolio/admin/frontend/widgets/admin_drawer.dart';
 
 class InboxMessages extends StatefulWidget {
@@ -16,6 +14,7 @@ class InboxMessages extends StatefulWidget {
 }
 
 class _InboxMessagesState extends State<InboxMessages> {
+  final MessageService messageService = MessageService();
   final Stream<QuerySnapshot> _messagesStream =
       FirebaseFirestore.instance.collection('messages').snapshots();
   @override
@@ -75,7 +74,7 @@ class _InboxMessagesState extends State<InboxMessages> {
                               color: Colors.green,
                             ),
                             onPressed: () async {
-                              await hideMessage(document.id);
+                              await messageService.hideMessage(document.id);
                             },
                           ),
                           IconButton(
@@ -142,7 +141,8 @@ class _InboxMessagesState extends State<InboxMessages> {
                                             ),
                                           ),
                                           onPressed: () async {
-                                            await deleteMessage(document.id);
+                                            await messageService
+                                                .deleteMessage(document.id);
                                             Navigator.pop(context);
                                           },
                                         ),

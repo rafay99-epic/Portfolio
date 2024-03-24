@@ -1,10 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
-import 'package:rafay_portfolio/admin/backend/messages/messageSave.dart';
-import 'package:rafay_portfolio/admin/backend/model/contactMeModel.dart';
+import 'package:lottie/lottie.dart';
+import 'package:rafay_portfolio/admin/backend/messages/messages_functionality.dart';
+import 'package:rafay_portfolio/admin/backend/model/message_model.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/buildTextField.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/dialogbox.dart';
@@ -21,8 +21,9 @@ final _formKey = GlobalKey<FormState>();
 final nameController = TextEditingController();
 final emailController = TextEditingController();
 final messageController = TextEditingController();
+final MessageService messageService = MessageService();
 
-class _ContactMeState extends State<ContactMe> {
+final class _ContactMeState extends State<ContactMe> {
   @override
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < 600;
@@ -138,13 +139,13 @@ class _ContactMeState extends State<ContactMe> {
                   );
                 } else {
                   if (_formKey.currentState!.validate()) {
-                    ContactMessage message = ContactMessage(
+                    contact_message message = contact_message(
                       name: nameController.text,
                       email: emailController.text,
                       message: messageController.text,
                     );
                     try {
-                      await saveContactMessage(message);
+                      await messageService.saveContactMessage(message);
                       showDialogBox(
                         context,
                         Icons.check_circle,
