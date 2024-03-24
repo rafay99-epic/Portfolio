@@ -3,13 +3,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rafay_portfolio/admin/backend/blog/BlogDisable.dart';
-import 'package:rafay_portfolio/admin/backend/blog/blogEnable.dart';
-import 'package:rafay_portfolio/admin/backend/blog/blogSearch.dart';
-import 'package:rafay_portfolio/admin/backend/blog/blogdelete.dart';
+import 'package:rafay_portfolio/admin/backend/article_functionality/article_functionality.dart';
 import 'package:rafay_portfolio/admin/backend/model/BlogModel.dart';
-import 'package:rafay_portfolio/admin/frontend/pages/blogs/blogAdd.dart';
-import 'package:rafay_portfolio/admin/frontend/pages/blogs/blogUpdate.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/article/blogAdd.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/article/blogUpdate.dart';
 import 'package:rafay_portfolio/admin/frontend/widgets/admin_drawer.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 
@@ -21,7 +18,7 @@ class BlogPostAdmin extends StatefulWidget {
 }
 
 class _BlogPostState extends State<BlogPostAdmin> {
-  final BlogService blogService = BlogService();
+  final ArticleFunctionality articleFunctionality = ArticleFunctionality();
   bool isSearchBarVisible = false;
 
   @override
@@ -42,7 +39,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
                       child: TextField(
                         onChanged: (value) {
                           setState(() {
-                            blogService.searchQuery = value;
+                            articleFunctionality.searchQuery = value;
                           });
                         },
                         decoration: InputDecoration(
@@ -86,7 +83,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
         child: const Icon(Icons.add),
       ),
       body: StreamBuilder<QuerySnapshot>(
-        stream: blogService.getBlogPosts(),
+        stream: articleFunctionality.getBlogPosts(),
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
             return Center(
@@ -197,13 +194,13 @@ class _BlogPostState extends State<BlogPostAdmin> {
                                 color: Colors.blue,
                               ),
                               onPressed: () {
-                                // Navigator.push(
-                                //   context,
-                                //   MaterialPageRoute(
-                                //     builder: (context) =>
-                                //         UpdateBlogPost(document.id),
-                                //   ),
-                                // );
+                                Navigator.push(
+                                  context,
+                                  MaterialPageRoute(
+                                    builder: (context) =>
+                                        UpdateBlogPost(document.id),
+                                  ),
+                                );
                               },
                             ),
                             IconButton(
@@ -217,9 +214,11 @@ class _BlogPostState extends State<BlogPostAdmin> {
                               ),
                               onPressed: () async {
                                 if (blogPost.isEnabled) {
-                                  await disableBlogPost(document.id);
+                                  await articleFunctionality
+                                      .disableBlogPost(document.id);
                                 } else {
-                                  await enableBlogPost(document.id);
+                                  await articleFunctionality
+                                      .enableBlogPost(document.id);
                                 }
                               },
                             ),
@@ -265,7 +264,8 @@ class _BlogPostState extends State<BlogPostAdmin> {
                                           color: Colors.red,
                                         ),
                                         onPressed: () async {
-                                          await deleteBlogPost(document.id);
+                                          await articleFunctionality
+                                              .deleteBlogPost(document.id);
                                           Navigator.of(context).pop();
                                         },
                                       ),
