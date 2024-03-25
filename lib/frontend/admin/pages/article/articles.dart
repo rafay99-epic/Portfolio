@@ -19,7 +19,6 @@ class _BlogPostState extends State<BlogPostAdmin> {
   // ----------------------
   // Variable Controllers
   // ----------------------
-
   final ArticleFunctionality articleFunctionality = ArticleFunctionality();
   bool isSearchBarVisible = false;
 
@@ -412,22 +411,6 @@ class _BlogPostState extends State<BlogPostAdmin> {
   // -----------------------------------------
   //  Blog Post: Enable and Disable Function
   // -----------------------------------------
-  // IconButton _buildVisibilityButton(
-  //     DocumentSnapshot document, BlogPosModel blogPost) {
-  //   return IconButton(
-  //     icon: Icon(
-  //       blogPost.isEnabled ? Icons.visibility : Icons.visibility_off,
-  //       color: blogPost.isEnabled ? Colors.green : Colors.grey,
-  //     ),
-  //     onPressed: () async {
-  //       if (blogPost.isEnabled) {
-  //         await articleFunctionality.disableBlogPost(document.id);
-  //       } else {
-  //         await articleFunctionality.enableBlogPost(document.id);
-  //       }
-  //     },
-  //   );
-  // }
   IconButton _buildVisibilityButton(
       DocumentSnapshot document, BlogPosModel blogPost) {
     return IconButton(

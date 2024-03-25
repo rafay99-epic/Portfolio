@@ -1,3 +1,5 @@
+// ignore_for_file: use_build_context_synchronously
+
 import 'dart:html' as html;
 import 'package:flutter/material.dart';
 
@@ -156,7 +158,16 @@ class _AddBlogPostState extends State<AddBlogPost> {
       onPressed: () async {
         if (_formKey.currentState!.validate()) {
           try {
-            _saveBlogPost();
+            await articleFunctionality.addBlogPost(
+              title: titleController.text,
+              subTitle: subTitleController.text,
+              isEnabled: isEnabled,
+              tags: tagsController.text.split(','),
+              author: authorController.text,
+              content: await controller.getText(),
+              imageFile: _image!,
+              date: selectedDateController,
+            );
             // --------------------------
             // Clear All Form
             // --------------------------
@@ -178,19 +189,6 @@ class _AddBlogPostState extends State<AddBlogPost> {
         }
       },
       child: const Text('Save Blog Post'),
-    );
-  }
-
-  void _saveBlogPost() async {
-    await articleFunctionality.addBlogPost(
-      title: titleController.text,
-      subTitle: subTitleController.text,
-      isEnabled: isEnabled,
-      tags: tagsController.text.split(','),
-      author: authorController.text,
-      content: await controller.getText(),
-      imageFile: _image!,
-      date: selectedDateController,
     );
   }
 
