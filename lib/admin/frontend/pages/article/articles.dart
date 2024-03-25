@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/admin/backend/article_functionality/article_functionality.dart';
 import 'package:rafay_portfolio/admin/backend/model/BlogModel.dart';
-import 'package:rafay_portfolio/admin/frontend/pages/article/blogAdd.dart';
-import 'package:rafay_portfolio/admin/frontend/pages/article/blogUpdate.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/article/article_add.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/article/article_update.dart';
 import 'package:rafay_portfolio/admin/frontend/widgets/admin_drawer.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';
 

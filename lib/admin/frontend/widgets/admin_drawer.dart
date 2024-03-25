@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafay_portfolio/admin/backend/auth/authService.dart';
-import 'package:rafay_portfolio/admin/frontend/pages/article/BlogsWork.dart';
+import 'package:rafay_portfolio/admin/frontend/pages/article/articles.dart';
 import 'package:rafay_portfolio/admin/frontend/pages/dashboardPage.dart';
 import 'package:rafay_portfolio/admin/frontend/view/MessageDashboard.dart';
 
