@@ -5,8 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 
-import 'package:rafay_portfolio/user/frontend/pages/blogs/widgets/blogCards.dart';
-import 'package:rafay_portfolio/user/frontend/pages/blogs/readBlog.dart';
+import 'package:rafay_portfolio/user/frontend/pages/blogs/widgets/blog_display_cards.dart';
+import 'package:rafay_portfolio/user/frontend/pages/blogs/read_blog.dart';
 
 class BlogLayoutBuilder extends StatelessWidget {
   final AsyncSnapshot<QuerySnapshot> snapshot;
@@ -57,6 +57,7 @@ class BlogGridView extends StatelessWidget {
   String searchQuery;
 
   BlogGridView({
+    super.key,
     required this.crossAxisCount,
     required this.snapshot,
     required this.screenType,

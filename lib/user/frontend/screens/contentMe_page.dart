@@ -1,7 +1,7 @@
 // ignore: file_names
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:rafay_portfolio/user/frontend/pages/contact_me/ContactMe.dart';
+import 'package:rafay_portfolio/user/frontend/pages/contact_me/contact_me.dart';
 
 class ContactMePage extends StatelessWidget {
   const ContactMePage({super.key});

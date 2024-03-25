@@ -8,8 +8,8 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 
 // import 'package:rafay_portfolio/user/frontend/views/ProjectGallery.dart';
-import 'package:rafay_portfolio/user/frontend/pages/blogs/widgets/blogBuilder.dart';
-import 'package:rafay_portfolio/user/frontend/pages/blogs/widgets/floatingButton.dart';
+import 'package:rafay_portfolio/user/frontend/pages/blogs/widgets/blog_builder.dart';
+import 'package:rafay_portfolio/user/frontend/pages/blogs/widgets/floating_button.dart';
 import 'package:rafay_portfolio/user/frontend/pages/blogs/widgets/no_internet.dart';
 
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
@@ -24,11 +24,17 @@ class DisplayBlog extends StatefulWidget {
 }
 
 class _DisplayBlogState extends State<DisplayBlog> {
+  // ----------------------------
+  // Controller and Varaiables
+  // ----------------------------
   late ScrollController _scrollController;
   bool isSearchBarVisible = false;
   String searchQuery = '';
   bool _isInternetConnected = true;
 
+  // ----------------------------
+  // Init State & Dispose State
+  // ----------------------------
   @override
   void initState() {
     super.initState();
@@ -42,7 +48,9 @@ class _DisplayBlogState extends State<DisplayBlog> {
     super.dispose();
   }
 
-  // Scroll Down
+  // ----------------------------
+  // Scroll Down & Up Function
+  // ----------------------------
   void _smoothScrollDown() {
     _scrollController.animateTo(
       _scrollController.offset + 300,
@@ -51,7 +59,6 @@ class _DisplayBlogState extends State<DisplayBlog> {
     );
   }
 
-  //Scroll Top
   void _smoothScrollToTop() {
     _scrollController.animateTo(
       0,
@@ -60,7 +67,43 @@ class _DisplayBlogState extends State<DisplayBlog> {
     );
   }
 
-  // Checking internet connection on android device
+  // ----------------------------
+  // Main Build Widget
+  // ----------------------------
+  @override
+  Widget build(BuildContext context) {
+    // ----------------------------
+    // Screen Sizes
+    // ----------------------------
+    ScreenType screenType = ScreenType(MediaQuery.of(context).size.width);
+    // --------------------------------
+    // Internet Net Check for Mobile
+    // --------------------------------
+    if (!_isInternetConnected) {
+      return noInternetConnection(context);
+    }
+    return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.background,
+      // ---------------------------------------
+      // App Bar, Only For Android Application
+      // --------------------------------------
+      appBar: !kIsWeb ? buildAppBar(context) : null,
+      // ----------------------------
+      // Main widget Body
+      // ----------------------------
+      body: buildBody(context, screenType),
+      // --------------------------------
+      // Floating Buttons for Web Only
+      // -------------------------------
+      floatingActionButton: MediaQuery.of(context).size.width > 600
+          ? buildFloatingButton(context, _smoothScrollToTop, _smoothScrollDown)
+          : null,
+    );
+  }
+
+  // -------------------------------------------------------------
+  // Checking Internet on Android Application & IOS Application
+  // -------------------------------------------------------------
   Future<void> _checkInternetConnectivity() async {
     if (Platform.isAndroid || Platform.isIOS) {
       var connectivityResult = await (Connectivity().checkConnectivity());
@@ -72,6 +115,9 @@ class _DisplayBlogState extends State<DisplayBlog> {
     }
   }
 
+  // ---------------------------------
+  // Search Bar for Web Only devices
+  // ---------------------------------
   Padding buildSearchBar(BuildContext context, ScreenType screenType) {
     return Padding(
       padding: (MediaQuery.of(context).size.width <= 600)
@@ -129,6 +175,9 @@ class _DisplayBlogState extends State<DisplayBlog> {
     );
   }
 
+  // ----------------------------------
+  // App Bar for Android Application
+  // ----------------------------------
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -164,6 +213,9 @@ class _DisplayBlogState extends State<DisplayBlog> {
     );
   }
 
+  // ----------------------------
+  // Container for Main Body
+  // ----------------------------
   Container buildBody(BuildContext context, ScreenType screenType) {
     return Container(
       margin: const EdgeInsets.all(15.0),
@@ -228,6 +280,11 @@ class _DisplayBlogState extends State<DisplayBlog> {
                       ),
                     );
                   }
+                  // ----------------------------------------------
+                  // Building Boxes and Display Blogs
+                  //  - Passing all the data to another Widget
+                  //  - Return and redndering the Widget
+                  // ----------------------------------------------
                   return BlogLayoutBuilder(
                     snapshot: snapshot,
                     screenType: screenType,
@@ -240,22 +297,6 @@ class _DisplayBlogState extends State<DisplayBlog> {
           ),
         ],
       ),
-    );
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    ScreenType screenType = ScreenType(MediaQuery.of(context).size.width);
-    if (!_isInternetConnected) {
-      return noInternetConnection(context);
-    }
-    return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      appBar: !kIsWeb ? buildAppBar(context) : null,
-      body: buildBody(context, screenType),
-      floatingActionButton: MediaQuery.of(context).size.width > 600
-          ? buildFloatingButton(context, _smoothScrollToTop, _smoothScrollDown)
-          : null,
     );
   }
 }

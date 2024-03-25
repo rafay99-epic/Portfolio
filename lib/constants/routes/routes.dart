@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 // Admin Pages
 import 'package:rafay_portfolio/admin/frontend/pages/auth/loginPage.dart';
-import 'package:rafay_portfolio/user/frontend/pages/aboutme/aboutMe.dart';
+import 'package:rafay_portfolio/user/frontend/pages/aboutme/about_me.dart';
 import 'package:rafay_portfolio/user/frontend/pages/blogs/displayblogs.dart';
 import 'package:rafay_portfolio/user/frontend/pages/error/page404.dart';
-import 'package:rafay_portfolio/user/frontend/pages/experiences/ProjectGallery.dart';
+import 'package:rafay_portfolio/user/frontend/pages/experiences/project_gallery.dart';
 import 'package:rafay_portfolio/user/frontend/pages/experiences/resume.dart';
 import 'package:rafay_portfolio/user/frontend/screens/contentMe_page.dart';
 

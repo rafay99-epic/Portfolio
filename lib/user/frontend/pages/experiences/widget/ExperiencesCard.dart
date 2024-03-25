@@ -2,7 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
-import 'package:rafay_portfolio/user/frontend/class/jobExperienceData.dart';
+import 'package:rafay_portfolio/user/frontend/class/job_experience_data.dart';
 
 import 'package:rafay_portfolio/user/frontend/widgets/HoverChip.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/textstyle.dart';

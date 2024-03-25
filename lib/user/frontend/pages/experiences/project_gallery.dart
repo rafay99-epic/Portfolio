@@ -1,7 +1,7 @@
 // ignore_for_file: file_names
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
+import 'package:rafay_portfolio/user/frontend/pages/blogs/widgets/floating_button.dart';
 import 'package:rafay_portfolio/user/frontend/pages/experiences/widget/ProjectCards.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
 
@@ -33,8 +33,7 @@ class _ProjectGalleryState extends State<ProjectGallery> {
   // Scroll Down
   void _smoothScrollDown() {
     _scrollController.animateTo(
-      _scrollController.offset +
-          200, // Change this value to control how much you want to scroll down
+      _scrollController.offset + 200,
       duration: const Duration(seconds: 1),
       curve: Curves.easeInOut,
     );
@@ -111,6 +110,28 @@ class _ProjectGalleryState extends State<ProjectGallery> {
                           "Streamline note-taking with a Flutter and Firebase app for efficient and accessible organization.",
                       deploedlink: "",
                       githublink: "https://github.com/rafay99-epic/CheckPoint",
+                      technologyNames: ["Flutter", "Firebase", "Dart"],
+                    ),
+                    ProjectCard(
+                      text: 'EQUIPOS-DE-CONTRCION',
+                      HeadingFontSize: 22,
+                      DescriptionFontSize: 16,
+                      description:
+                          "EQUIPOS DE CONTRUCCIÓN is your one-stop destination for construction equipment solutions. Whether you're in the market to buy or rent top-notch construction machinery, our project has you covered. Explore our meticulously designed Figma project for a visual walkthrough.",
+                      deploedlink: "",
+                      githublink:
+                          "https://github.com/rafay99-epic/EQUIPOS-DE-CONTRCION",
+                      technologyNames: ["Flutter", "Firebase", "Dart"],
+                    ),
+                    ProjectCard(
+                      text: 'Dienstleistro',
+                      HeadingFontSize: 22,
+                      DescriptionFontSize: 16,
+                      description:
+                          "Dienstleisto is a Flutter-based job-finding app designed to simplify your job search. With intuitive features and a user-friendly interface, find your next opportunity hassle-free.",
+                      deploedlink: "",
+                      githublink:
+                          "https://github.com/rafay99-epic/Dienstleistro",
                       technologyNames: ["Flutter", "Firebase", "Dart"],
                     ),
                     ProjectCard(
@@ -193,36 +214,7 @@ class _ProjectGalleryState extends State<ProjectGallery> {
       ),
       floatingActionButton: screenType.isMobile
           ? null
-          : Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-                FloatingActionButton(
-                  backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                  focusColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Theme.of(context).colorScheme.background,
-                  onPressed: _smoothScrollToTop,
-                  heroTag: "btn1",
-                  enableFeedback: true,
-                  child: const Icon(
-                    FontAwesomeIcons.arrowUp,
-                  ),
-                ),
-                const SizedBox(
-                  height: 20,
-                ),
-                FloatingActionButton(
-                  backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                  focusColor: Theme.of(context).colorScheme.primary,
-                  foregroundColor: Theme.of(context).colorScheme.background,
-                  onPressed: _smoothScrollDown,
-                  enableFeedback: true,
-                  heroTag: "btn2",
-                  child: const Icon(
-                    FontAwesomeIcons.arrowDown,
-                  ),
-                ),
-              ],
-            ),
+          : buildFloatingButton(context, _smoothScrollToTop, _smoothScrollDown),
     );
   }
 }

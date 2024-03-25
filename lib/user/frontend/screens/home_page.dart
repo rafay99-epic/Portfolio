@@ -3,10 +3,10 @@ import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:iconly/iconly.dart';
-import 'package:rafay_portfolio/user/frontend/pages/aboutme/aboutMe.dart';
+import 'package:rafay_portfolio/user/frontend/pages/aboutme/about_me.dart';
 import 'package:rafay_portfolio/user/frontend/pages/blogs/displayblogs.dart';
-import 'package:rafay_portfolio/user/frontend/pages/contact_me/ContactMe.dart';
-import 'package:rafay_portfolio/user/frontend/pages/experiences/ProjectGallery.dart';
+import 'package:rafay_portfolio/user/frontend/pages/contact_me/contact_me.dart';
+import 'package:rafay_portfolio/user/frontend/pages/experiences/project_gallery.dart';
 import 'package:rafay_portfolio/user/frontend/pages/experiences/resume.dart';
 
 import 'package:rafay_portfolio/user/frontend/pages/landing/landing_page.dart';

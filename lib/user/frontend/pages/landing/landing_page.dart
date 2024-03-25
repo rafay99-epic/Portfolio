@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rafay_portfolio/user/frontend/pages/contact_me/ContactMe.dart';
+import 'package:rafay_portfolio/user/frontend/pages/contact_me/contact_me.dart';
 
 import 'package:rafay_portfolio/user/frontend/widgets/SocialMediaIcon.dart';
 import 'package:rafay_portfolio/user/frontend/widgets/animatedtext.dart';
