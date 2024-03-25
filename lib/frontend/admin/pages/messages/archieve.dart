@@ -6,7 +6,7 @@ import 'package:lottie/lottie.dart';
 
 import 'package:rafay_portfolio/backend/messages/messages_functionality.dart';
 
-import 'package:rafay_portfolio/frontend/admin/widgets/admin_drawer.dart';
+import 'package:rafay_portfolio/constants/widgets/admin_drawer.dart';
 
 class ArchiveMessages extends StatefulWidget {
   const ArchiveMessages({super.key});

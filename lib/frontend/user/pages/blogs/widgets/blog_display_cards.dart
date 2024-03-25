@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/HoverChip.dart';
+import 'package:rafay_portfolio/constants/widgets/HoverChip.dart';
 
 class BlogCard extends StatelessWidget {
   final QueryDocumentSnapshot doc;

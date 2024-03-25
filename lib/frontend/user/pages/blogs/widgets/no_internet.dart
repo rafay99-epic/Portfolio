@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
 
 Widget noInternetConnection(BuildContext context) {
   return Scaffold(

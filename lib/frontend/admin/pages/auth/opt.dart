@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:rafay_portfolio/frontend/admin/pages/dashboardPage.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/animatedtext.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/buildTextField.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/dialogbox.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/snackBar.dart';
+import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/buildTextField.dart';
+import 'package:rafay_portfolio/constants/widgets/dialogbox.dart';
+import 'package:rafay_portfolio/constants/widgets/snackBar.dart';
 
 class OtpPage extends StatefulWidget {
   final String verificationId;

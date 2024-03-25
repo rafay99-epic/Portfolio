@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/floating_button.dart';
 import 'package:rafay_portfolio/frontend/user/pages/experiences/widget/ProjectCards.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
 
 class ProjectGallery extends StatefulWidget {
   const ProjectGallery({

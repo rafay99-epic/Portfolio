@@ -5,9 +5,9 @@ import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 
-import 'package:rafay_portfolio/frontend/user/widgets/HoverChip.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/scrollAnimation.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/HoverChip.dart';
+import 'package:rafay_portfolio/constants/widgets/scrollAnimation.dart';
+import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
 import 'package:html/parser.dart' as htmlParser;
 import 'package:html/dom.dart' as dom;
 import 'dart:html' as html;

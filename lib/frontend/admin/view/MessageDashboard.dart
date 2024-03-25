@@ -6,7 +6,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafay_portfolio/frontend/admin/pages/messages/archieve.dart';
 import 'package:rafay_portfolio/frontend/admin/pages/messages/inbox.dart';
-import 'package:rafay_portfolio/frontend/admin/widgets/admin_drawer.dart';
+import 'package:rafay_portfolio/constants/widgets/admin_drawer.dart';
 
 class MessagesDashboard extends StatelessWidget {
   const MessagesDashboard({super.key});

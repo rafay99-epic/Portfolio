@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
-import 'package:rafay_portfolio/frontend/user/widgets/animatedtext.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
 
 class AboutMe extends StatefulWidget {
   const AboutMe({Key? key}) : super(key: key);

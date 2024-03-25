@@ -3,7 +3,7 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 import 'package:rafay_portfolio/frontend/user/class/job_experience_data.dart';
 import 'package:rafay_portfolio/frontend/user/pages/experiences/widget/ExperiencesCard.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class Resume extends StatefulWidget {

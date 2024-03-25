@@ -12,8 +12,8 @@ import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/blog_builder.d
 import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/floating_button.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/no_internet.dart';
 
-import 'package:rafay_portfolio/frontend/user/widgets/animatedtext.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
 import 'dart:io' show Platform;
 
 class DisplayBlog extends StatefulWidget {

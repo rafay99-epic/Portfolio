@@ -6,9 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:html_editor_enhanced/html_editor.dart';
 import 'package:rafay_portfolio/backend/article_functionality/article_functionality.dart';
 import 'package:rafay_portfolio/frontend/admin/pages/article/article_preview.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/buildTextField.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/dialogbox.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/buildTextField.dart';
+import 'package:rafay_portfolio/constants/widgets/dialogbox.dart';
+import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
 
 class AddBlogPost extends StatefulWidget {
   const AddBlogPost({Key? key}) : super(key: key);

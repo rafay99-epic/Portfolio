@@ -6,7 +6,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:rafay_portfolio/backend/auth/authService.dart';
 import 'package:rafay_portfolio/frontend/admin/pages/article/articles.dart';
 import 'package:rafay_portfolio/frontend/admin/view/MessageDashboard.dart';
-import 'package:rafay_portfolio/frontend/admin/widgets/admin_drawer.dart';
+import 'package:rafay_portfolio/constants/widgets/admin_drawer.dart';
 
 class Dashboard extends StatelessWidget {
   const Dashboard({super.key});

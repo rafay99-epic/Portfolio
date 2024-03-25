@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/SocialMediaIcon.dart';
-import 'package:rafay_portfolio/frontend/user/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/SocialMediaIcon.dart';
+import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
 
 class ProjectCard extends StatefulWidget {
   final String text;
