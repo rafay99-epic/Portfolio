@@ -1,18 +1,18 @@
-class contact_message {
+class ContactMessage {
   final String name;
   final String email;
   final String message;
   final bool hideMessage;
 
-  contact_message({
+  ContactMessage({
     required this.name,
     required this.email,
     required this.message,
     this.hideMessage = false,
   });
 
-  factory contact_message.fromMap(Map<String, dynamic> map) {
-    return contact_message(
+  factory ContactMessage.fromMap(Map<String, dynamic> map) {
+    return ContactMessage(
       name: map['name'],
       email: map['email'],
       message: map['message'],

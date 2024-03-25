@@ -13,7 +13,7 @@ class MessageService {
   CollectionReference messages =
       FirebaseFirestore.instance.collection('messages');
 
-  Future<void> saveContactMessage(contact_message message) async {
+  Future<void> saveContactMessage(ContactMessage message) async {
     await messages.add(message.toMap());
   }
 

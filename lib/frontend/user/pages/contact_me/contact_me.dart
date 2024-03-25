@@ -139,7 +139,7 @@ final class _ContactMeState extends State<ContactMe> {
                   );
                 } else {
                   if (_formKey.currentState!.validate()) {
-                    contact_message message = contact_message(
+                    ContactMessage message = ContactMessage(
                       name: nameController.text,
                       email: emailController.text,
                       message: messageController.text,
