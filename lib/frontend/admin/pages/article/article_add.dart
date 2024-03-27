@@ -47,6 +47,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
     authorController.dispose();
     dateController.dispose();
     _image = null;
+    _imageUrl = null;
     super.dispose();
   }
 

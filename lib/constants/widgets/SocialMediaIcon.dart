@@ -9,12 +9,14 @@ class SocialMediaButton extends StatelessWidget {
   final IconData icon;
   final String url;
   final Color color;
+  final double? iconSize;
 
   const SocialMediaButton({
     super.key,
     required this.icon,
     required this.url,
     this.color = Colors.black,
+    this.iconSize,
   });
 
   Future<void> launchUrlString(String urlString) async {
@@ -38,6 +40,7 @@ class SocialMediaButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return IconButton(
       color: color,
+      iconSize: iconSize,
       icon: FaIcon(icon),
       onPressed: () => launchUrlString(url),
     );

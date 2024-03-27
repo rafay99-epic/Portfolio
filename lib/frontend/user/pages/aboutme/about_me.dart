@@ -1,8 +1,14 @@
+import 'dart:io';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
+import 'package:open_file/open_file.dart';
 
 import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
 import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
+import 'package:universal_html/html.dart' as html;
+import 'package:path_provider/path_provider.dart';
+import 'package:flutter/services.dart' show ByteData, rootBundle;
 
 class AboutMe extends StatefulWidget {
   const AboutMe({Key? key}) : super(key: key);
@@ -58,7 +64,7 @@ class _AboutMeState extends State<AboutMe> {
           child: Padding(
             padding: const EdgeInsets.all(25.0),
             child: Lottie.asset(
-              'assets/animation/about_me.json',
+              'assets/animation/about_me_animation.json',
               backgroundLoading: true,
             ),
           ),
@@ -66,7 +72,8 @@ class _AboutMeState extends State<AboutMe> {
       if (isMobile)
         const CircleAvatar(
           radius: 100,
-          backgroundImage: AssetImage('assets/image/author.jpg'),
+          backgroundImage: AssetImage('assets/image/favicon.png'),
+          backgroundColor: Colors.transparent,
         ),
       Flexible(
         fit: FlexFit.tight,
@@ -105,14 +112,48 @@ class _AboutMeState extends State<AboutMe> {
               const SizedBox(
                 height: 25.0,
               ),
-              const StyledText(
-                text:
-                    "In my free time, I'm passionate about continuous learning. Thriving on the tech industry's dynamic challenges, I expand my skill set, always seeking growth. Let's collaborate and create something extraordinary!",
-                fontSize: 18.0,
-                underline: false,
-                bold: false,
-                textAlign: TextAlign.justify,
-                boldWords: [],
+              if (!isMobile)
+                const StyledText(
+                  text:
+                      "In my free time, I'm passionate about continuous learning. Thriving on the tech industry's dynamic challenges, I expand my skill set, always seeking growth. Let's collaborate and create something extraordinary!",
+                  fontSize: 18.0,
+                  underline: false,
+                  bold: false,
+                  textAlign: TextAlign.justify,
+                  boldWords: [],
+                ),
+              const SizedBox(height: 15),
+              Center(
+                child: TextButton.icon(
+                  onPressed: () async {
+                    if (kIsWeb) {
+                      html.AnchorElement anchorElement =
+                          html.AnchorElement(href: 'assets/pdf/resume.pdf');
+                      anchorElement.download = 'resume.pdf';
+                      anchorElement.click();
+                    } else {
+                      var tempDir = await getTemporaryDirectory();
+                      String fullPath = "${tempDir.path}/resume.pdf";
+                      ByteData data =
+                          await rootBundle.load('assets/pdf/resume.pdf');
+                      List<int> bytes = data.buffer
+                          .asUint8List(data.offsetInBytes, data.lengthInBytes);
+                      await File(fullPath).writeAsBytes(bytes, flush: true);
+                      OpenFile.open(fullPath);
+                    }
+                  },
+                  style: TextButton.styleFrom(
+                    foregroundColor:
+                        Theme.of(context).colorScheme.inversePrimary,
+                    textStyle: const TextStyle(
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    padding: const EdgeInsets.all(20.0),
+                  ),
+                  label: const Text("My Resume"),
+                  icon: const Icon(Icons.download_rounded),
+                ),
               ),
             ],
           ),

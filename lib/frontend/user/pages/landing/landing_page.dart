@@ -118,8 +118,6 @@ class _LandingPageState extends State<LandingPage> {
                     Navigator.pushNamed(context, '/contact');
                   },
                   style: TextButton.styleFrom(
-                    // ! Old Color
-                    // foregroundColor: Colors.deepOrange,
                     foregroundColor:
                         Theme.of(context).colorScheme.inversePrimary,
                     textStyle: const TextStyle(
@@ -139,7 +137,7 @@ class _LandingPageState extends State<LandingPage> {
           ),
         ),
       ),
-      if (!isMobile) // Don't show this on mobile
+      if (!isMobile)
         Expanded(
           child: Padding(
             padding: const EdgeInsets.only(right: 0.0),
