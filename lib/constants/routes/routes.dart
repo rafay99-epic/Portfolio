@@ -1,23 +1,21 @@
 import "package:flutter/material.dart";
-// Admin Pages
-import 'package:rafay_portfolio/admin/frontend/pages/auth/loginPage.dart';
 
-// user Page
-import 'package:rafay_portfolio/user/frontend/screens/NotFound_page.dart';
-import 'package:rafay_portfolio/user/frontend/screens/ProjectGalley_Page.dart';
-import 'package:rafay_portfolio/user/frontend/screens/Resume_page.dart';
-import 'package:rafay_portfolio/user/frontend/screens/aboutme_page.dart';
-import 'package:rafay_portfolio/user/frontend/screens/blog_page.dart';
-import 'package:rafay_portfolio/user/frontend/screens/contentMe_page.dart';
-import 'package:rafay_portfolio/user/frontend/screens/home_page.dart';
+import 'package:rafay_portfolio/frontend/admin/pages/auth/loginPage.dart';
+import 'package:rafay_portfolio/frontend/user/pages/aboutme/about_me.dart';
+import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs.dart';
+import 'package:rafay_portfolio/frontend/user/pages/error/page404.dart';
+import 'package:rafay_portfolio/frontend/user/pages/project_gallery/project_gallery.dart';
+import 'package:rafay_portfolio/frontend/user/pages/experiences/resume.dart';
+import 'package:rafay_portfolio/frontend/user/screens/contact_me_page.dart';
+import 'package:rafay_portfolio/frontend/user/screens/home_page.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
   '/home': (context) => const HomePage(),
-  '/projects': (context) => const ProjectGalleryPage(),
-  '/resume': (context) => const ResumePage(),
+  '/projects': (context) => const ProjectGridView(),
+  '/resume': (context) => const Resume(),
   '/contact': (context) => const ContactMePage(),
-  '/blog': (context) => const BlogPage(),
-  '/aboutme': (context) => const AboutMePage(),
-  '/404': (context) => const NotFoundPage(),
+  '/blog': (context) => const DisplayBlog(),
+  '/aboutme': (context) => const AboutMe(),
+  '/404': (context) => const Page404(),
   '/admin': (context) => const LoginAdmin(),
 };

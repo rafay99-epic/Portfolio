@@ -1,14 +1,15 @@
-import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'dart:ui' as ui;
 
 import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_core/firebase_core.dart';
-import 'package:rafay_portfolio/admin/backend/auth/auth_gate.dart';
+import 'package:rafay_portfolio/backend/auth/auth_gate.dart';
 import 'package:rafay_portfolio/firebase_options.dart';
+import 'package:rafay_portfolio/frontend/user/pages/error/page404.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:rafay_portfolio/constants/routes/routes.dart';
-import 'package:rafay_portfolio/user/frontend/screens/NotFound_page.dart';
-import 'user/frontend/screens/splash_page.dart';
+
+import 'frontend/user/screens/splash_page.dart';
 import 'constants/theme/light.dart';
 import 'package:firebase_analytics/firebase_analytics.dart';
 
@@ -26,7 +27,7 @@ Future<void> main() async {
   FlutterError.onError = (errorDetails) {
     FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
   };
-  PlatformDispatcher.instance.onError = (error, stack) {
+  ui.PlatformDispatcher.instance.onError = (error, stack) {
     FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
     return true;
   };
@@ -58,7 +59,7 @@ class MyApp extends StatelessWidget {
         ...appRoutes,
       },
       onUnknownRoute: (settings) => MaterialPageRoute(
-        builder: (context) => const NotFoundPage(),
+        builder: (context) => const Page404(),
       ),
     );
   }
