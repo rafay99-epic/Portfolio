@@ -3,8 +3,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/frontend/user/pages/contact_me/contact_me.dart';
 
-import 'package:rafay_portfolio/constants/widgets/SocialMediaIcon.dart';
-import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/SocialMediaIcon.dart';
+import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);

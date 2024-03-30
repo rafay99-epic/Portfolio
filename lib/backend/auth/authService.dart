@@ -3,7 +3,7 @@
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/frontend/admin/pages/auth/opt.dart';
 import 'package:rafay_portfolio/frontend/admin/pages/dashboardPage.dart';
-import 'package:rafay_portfolio/constants/widgets/dialogbox.dart';
+import 'package:rafay_portfolio/constants/widgets/dialogBox/dialogbox.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 
 class AuthService {

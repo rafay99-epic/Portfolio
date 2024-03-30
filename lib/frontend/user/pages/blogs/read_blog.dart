@@ -10,9 +10,9 @@ import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/backend/model/BlogModel.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 
-import 'package:rafay_portfolio/constants/widgets/HoverChip.dart';
-import 'package:rafay_portfolio/constants/widgets/scrollAnimation.dart';
-import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/HoverChip.dart';
+import 'package:rafay_portfolio/constants/scrollAnimation/scrollAnimation.dart';
+import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 import 'package:html/parser.dart' as htmlParser;
 import 'package:html/dom.dart' as dom;
 import 'package:flutter/foundation.dart' show kIsWeb;

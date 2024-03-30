@@ -9,11 +9,11 @@ import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
 
 import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/blog_builder.dart';
-import 'package:rafay_portfolio/constants/widgets/floating_button.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/floating_button.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/no_internet.dart';
 
-import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
-import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 import 'dart:io' show Platform;
 
 class DisplayBlog extends StatefulWidget {

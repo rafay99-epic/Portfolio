@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:open_file/open_file.dart';
 
-import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
-import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 import 'package:universal_html/html.dart' as html;
 import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;

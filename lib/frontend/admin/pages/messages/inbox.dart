@@ -4,7 +4,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/backend/messages/messages_functionality.dart';
-import 'package:rafay_portfolio/constants/widgets/admin_drawer.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/admin_drawer.dart';
 
 class InboxMessages extends StatefulWidget {
   const InboxMessages({super.key});

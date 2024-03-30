@@ -2,9 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:rafay_portfolio/constants/widgets/HoverChip.dart';
-import 'package:rafay_portfolio/constants/widgets/SocialMediaIcon.dart';
-import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/HoverChip.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/SocialMediaIcon.dart';
+import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 
 class ProjectCard extends StatelessWidget {
   final String title;

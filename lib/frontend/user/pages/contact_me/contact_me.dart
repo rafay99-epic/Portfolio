@@ -5,10 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/backend/messages/messages_functionality.dart';
 import 'package:rafay_portfolio/backend/model/message_model.dart';
-import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
-import 'package:rafay_portfolio/constants/widgets/buildTextField.dart';
-import 'package:rafay_portfolio/constants/widgets/dialogbox.dart';
-import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/textfeild/buildTextField.dart';
+import 'package:rafay_portfolio/constants/widgets/dialogBox/dialogbox.dart';
+import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 
 class ContactMe extends StatefulWidget {
   const ContactMe({Key? key}) : super(key: key);

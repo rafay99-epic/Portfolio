@@ -6,8 +6,8 @@ import 'package:rafay_portfolio/backend/article_functionality/article_functional
 import 'package:rafay_portfolio/backend/model/BlogModel.dart';
 import 'package:rafay_portfolio/frontend/admin/pages/article/article_add.dart';
 import 'package:rafay_portfolio/frontend/admin/pages/article/article_update.dart';
-import 'package:rafay_portfolio/constants/widgets/admin_drawer.dart';
-import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/admin_drawer.dart';
+import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 
 class BlogPostAdmin extends StatefulWidget {
   const BlogPostAdmin({Key? key}) : super(key: key);

@@ -4,8 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 import 'package:rafay_portfolio/frontend/user/class/job_experience_data.dart';
 
-import 'package:rafay_portfolio/constants/widgets/HoverChip.dart';
-import 'package:rafay_portfolio/constants/widgets/textstyle.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/HoverChip.dart';
+import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 
 //card Widget
 class JobCard extends StatelessWidget {

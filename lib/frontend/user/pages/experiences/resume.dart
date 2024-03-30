@@ -2,9 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
 import 'package:rafay_portfolio/frontend/user/class/job_experience_data.dart';
-import 'package:rafay_portfolio/constants/widgets/floating_button.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/floating_button.dart';
 import 'package:rafay_portfolio/frontend/user/pages/experiences/widget/ExperiencesCard.dart';
-import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class Resume extends StatefulWidget {

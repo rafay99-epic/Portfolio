@@ -4,9 +4,9 @@ import 'package:flutter/material.dart';
 
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/backend/auth/authService.dart';
-import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
-import 'package:rafay_portfolio/constants/widgets/buildTextField.dart';
-import 'package:rafay_portfolio/constants/widgets/dialogbox.dart';
+import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/textfeild/buildTextField.dart';
+import 'package:rafay_portfolio/constants/widgets/dialogBox/dialogbox.dart';
 
 class AdminLogin extends StatefulWidget {
   AdminLogin({super.key});
