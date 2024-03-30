@@ -4,11 +4,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:page_transition/page_transition.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
+import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
 
 import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/blog_display_cards.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/read_blog.dart';
 
-class BlogLayoutBuilder extends StatelessWidget {
+class BlogLayoutBuilder extends StatelessWidget with ScrollControllerMixin {
   final AsyncSnapshot<QuerySnapshot> snapshot;
   final ScreenType screenType;
   final Function setState;
@@ -49,7 +50,7 @@ class BlogLayoutBuilder extends StatelessWidget {
   }
 }
 
-class BlogGridView extends StatelessWidget {
+class BlogGridView extends StatelessWidget with ScrollControllerMixin {
   final int crossAxisCount;
   final AsyncSnapshot<QuerySnapshot> snapshot;
   final ScreenType screenType;
@@ -68,6 +69,7 @@ class BlogGridView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GridView.builder(
+      controller: scrollController,
       gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: crossAxisCount,
         childAspectRatio: 1 / 1,

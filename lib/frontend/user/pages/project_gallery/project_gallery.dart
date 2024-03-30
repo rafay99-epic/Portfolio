@@ -2,8 +2,9 @@
 
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
+import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
 import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
-import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/floating_button.dart';
+import 'package:rafay_portfolio/constants/widgets/floating_button.dart';
 import 'package:rafay_portfolio/frontend/user/pages/project_gallery/components/project_card.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
@@ -14,47 +15,8 @@ class ProjectGridView extends StatefulWidget {
   _ProjectGridViewState createState() => _ProjectGridViewState();
 }
 
-class _ProjectGridViewState extends State<ProjectGridView> {
-  //----------------------
-  //Controllers
-  //----------------------
-  late ScrollController _scrollController;
-
-  //----------------------
-  //init State & Dispose
-  //----------------------
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  //------------------------------
-  // Scroll Up & Down Functions
-  //------------------------------
-
-  void _smoothScrollDown() {
-    _scrollController.animateTo(
-      _scrollController.offset + 200,
-      duration: const Duration(seconds: 1),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  void _smoothScrollToTop() {
-    _scrollController.animateTo(
-      0,
-      duration: const Duration(seconds: 1),
-      curve: Curves.easeInOut,
-    );
-  }
-
+class _ProjectGridViewState extends State<ProjectGridView>
+    with ScrollControllerMixin {
   //----------------------
   // Main Build Widget
   //----------------------
@@ -94,7 +56,7 @@ class _ProjectGridViewState extends State<ProjectGridView> {
       //----------------------
       floatingActionButton: screenType.isMobile
           ? null
-          : buildFloatingButton(context, _smoothScrollToTop, _smoothScrollDown),
+          : buildFloatingButton(context, smoothScrollToTop, smoothScrollDown),
     );
   }
 
@@ -134,7 +96,7 @@ class _ProjectGridViewState extends State<ProjectGridView> {
               _calculateChildAspectRatio(constraints, crossAxisCount);
 
           return GridView.builder(
-            controller: _scrollController,
+            controller: scrollController,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount,
               childAspectRatio: childAspectRatio,
@@ -194,6 +156,24 @@ class _ProjectGridViewState extends State<ProjectGridView> {
   //-----------------------------
   List<ProjectCard> _buildProjects() {
     return [
+      const ProjectCard(
+        title: 'Simple Thread',
+        description:
+            "Simple Thread is a simple communication application developed using flutter and Firebase.",
+        imageUrl: 'assets/image/SimpleThread.png',
+        technologies: [
+          'Flutter',
+          'Firebase',
+          'Dart',
+          'VS-code',
+          "Git",
+          "GitHub",
+          "Postman",
+          "Test Magic"
+        ],
+        githubLink: 'https://github.com/rafay99-epic/Dienstleistro',
+        deployedLink: '',
+      ),
       const ProjectCard(
         title: 'Dienstleisto',
         description:

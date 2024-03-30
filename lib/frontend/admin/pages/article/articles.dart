@@ -94,12 +94,12 @@ class _BlogPostState extends State<BlogPostAdmin> {
         padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 16),
       ),
       onPressed: () => {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const AddBlogPost(),
-          ),
-        )
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => const AddBlogPost(),
+        //   ),
+        // )
       },
       child: const Text("Article Add"),
     );
@@ -145,12 +145,12 @@ class _BlogPostState extends State<BlogPostAdmin> {
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       foregroundColor: Theme.of(context).colorScheme.background,
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const AddBlogPost(),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => const AddBlogPost(),
+        //   ),
+        // );
       },
       child: const Icon(Icons.add),
     );
@@ -399,12 +399,12 @@ class _BlogPostState extends State<BlogPostAdmin> {
         color: Colors.blue,
       ),
       onPressed: () {
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => UpdateBlogPost(document.id),
-          ),
-        );
+        // Navigator.push(
+        //   context,
+        //   MaterialPageRoute(
+        //     builder: (context) => UpdateBlogPost(document.id),
+        //   ),
+        // );
       },
     );
   }

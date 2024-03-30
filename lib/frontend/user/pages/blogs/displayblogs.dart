@@ -6,10 +6,10 @@ import 'package:lottie/lottie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
+import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
 
-// import 'package:rafay_portfolio/user/frontend/views/ProjectGallery.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/blog_builder.dart';
-import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/floating_button.dart';
+import 'package:rafay_portfolio/constants/widgets/floating_button.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/no_internet.dart';
 
 import 'package:rafay_portfolio/constants/widgets/animatedtext.dart';
@@ -23,49 +23,13 @@ class DisplayBlog extends StatefulWidget {
   _DisplayBlogState createState() => _DisplayBlogState();
 }
 
-class _DisplayBlogState extends State<DisplayBlog> {
+class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
   // ----------------------------
-  // Controller and Varaiables
+  //  Varaiables
   // ----------------------------
-  late ScrollController _scrollController;
   bool isSearchBarVisible = false;
   String searchQuery = '';
   bool _isInternetConnected = true;
-
-  // ----------------------------
-  // Init State & Dispose State
-  // ----------------------------
-  @override
-  void initState() {
-    super.initState();
-    _scrollController = ScrollController();
-    _checkInternetConnectivity();
-  }
-
-  @override
-  void dispose() {
-    _scrollController.dispose();
-    super.dispose();
-  }
-
-  // ----------------------------
-  // Scroll Down & Up Function
-  // ----------------------------
-  void _smoothScrollDown() {
-    _scrollController.animateTo(
-      _scrollController.offset + 300,
-      duration: const Duration(milliseconds: 500),
-      curve: Curves.easeInOut,
-    );
-  }
-
-  void _smoothScrollToTop() {
-    _scrollController.animateTo(
-      0,
-      duration: const Duration(seconds: 1),
-      curve: Curves.easeInOut,
-    );
-  }
 
   // ----------------------------
   // Main Build Widget
@@ -96,7 +60,7 @@ class _DisplayBlogState extends State<DisplayBlog> {
       // Floating Buttons for Web Only
       // -------------------------------
       floatingActionButton: MediaQuery.of(context).size.width > 600
-          ? buildFloatingButton(context, _smoothScrollToTop, _smoothScrollDown)
+          ? buildFloatingButton(context, smoothScrollToTop, smoothScrollDown)
           : null,
     );
   }
