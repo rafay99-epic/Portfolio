@@ -66,7 +66,12 @@ flutter:
 flutter_icons:
   android: true
   ios: true
-  image_path: "assets/image/logo.png"
+  image_path: "assets/image/favicon.png"
+  web:
+    generate: true
+    image_path: "assets/image/favicon.png"
+    background_color: "#FFF4F4"
+    theme_color: "#31A499"
 # Flutter Fonts
 # fonts:
 #   - family: Schyler
