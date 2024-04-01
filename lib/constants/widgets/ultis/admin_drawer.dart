@@ -232,7 +232,7 @@ class _MyDrawerAdminState extends State<MyDrawerAdmin>
                                       Navigator.of(context)
                                           .pushReplacementNamed(
                                         '/admin',
-                                      ); // Redirect to the login page
+                                      );
                                     },
                                   ),
                                 ),

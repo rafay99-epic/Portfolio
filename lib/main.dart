@@ -5,6 +5,7 @@ import 'package:firebase_crashlytics/firebase_crashlytics.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:rafay_portfolio/backend/auth/auth_gate.dart';
 import 'package:rafay_portfolio/firebase_options.dart';
+import 'package:rafay_portfolio/frontend/user/pages/blogs/read_blog.dart';
 import 'package:rafay_portfolio/frontend/user/pages/error/page404.dart';
 import 'package:url_strategy/url_strategy.dart';
 import 'package:rafay_portfolio/constants/routes/routes.dart';
@@ -20,7 +21,7 @@ Future<void> main() async {
     options: DefaultFirebaseOptions.currentPlatform,
   );
 
-  //firebase Error Catching and Crash Reporting
+  // firebase Error Catching and Crash Reporting
   FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -58,9 +59,38 @@ class MyApp extends StatelessWidget {
         '/admin': (context) => const AuthGate(),
         ...appRoutes,
       },
+      onGenerateRoute: (settings) {
+        var uri = Uri.parse(settings.name!);
+        if (uri.pathSegments.length >= 2 && uri.pathSegments.first == 'blog') {
+          var url = uri.pathSegments.sublist(1).join('/');
+          return MaterialPageRoute(
+            builder: (context) => ReadMeBlogs(
+              url: url,
+            ),
+          );
+        }
+        // Unknown route
+        return MaterialPageRoute(builder: (context) => const Page404());
+      },
       onUnknownRoute: (settings) => MaterialPageRoute(
         builder: (context) => const Page404(),
       ),
     );
+
+    // Orginal Code without onGenerateRoute & Auto Routes
+    // return MaterialApp(
+    //   navigatorObservers: <NavigatorObserver>[observer],
+    //   debugShowCheckedModeBanner: false,
+    //   theme: lightMode,
+    //   initialRoute: '/',
+    //   routes: {
+    //     '/': (context) => const SplashScreen(),
+    //     '/admin': (context) => const AuthGate(),
+    //     ...appRoutes,
+    //   },
+    //   onUnknownRoute: (settings) => MaterialPageRoute(
+    //     builder: (context) => const Page404(),
+    //   ),
+    // );
   }
 }

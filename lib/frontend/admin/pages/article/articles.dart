@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/backend/article_functionality/article_functionality.dart';
 import 'package:rafay_portfolio/backend/model/BlogModel.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/HoverChip.dart';
 import 'package:rafay_portfolio/frontend/admin/pages/article/article_add.dart';
 import 'package:rafay_portfolio/frontend/admin/pages/article/article_update.dart';
 import 'package:rafay_portfolio/constants/widgets/ultis/admin_drawer.dart';
@@ -94,12 +95,12 @@ class _BlogPostState extends State<BlogPostAdmin> {
         padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 16),
       ),
       onPressed: () => {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => const AddBlogPost(),
-        //   ),
-        // )
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const AddBlogPost(),
+          ),
+        )
       },
       child: const Text("Article Add"),
     );
@@ -145,12 +146,12 @@ class _BlogPostState extends State<BlogPostAdmin> {
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       foregroundColor: Theme.of(context).colorScheme.background,
       onPressed: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => const AddBlogPost(),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const AddBlogPost(),
+          ),
+        );
       },
       child: const Icon(Icons.add),
     );
@@ -349,17 +350,8 @@ class _BlogPostState extends State<BlogPostAdmin> {
       runSpacing: 4.0,
       spacing: 8.0,
       children: blogPost.tags.map((tag) {
-        return Container(
-          decoration: BoxDecoration(
-            border: Border.all(
-              color: Theme.of(context).colorScheme.primary,
-              width: 1,
-            ),
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Chip(
-            label: Text(tag),
-          ),
+        return HoverChip(
+          label: tag,
         );
       }).toList(),
     );
@@ -399,12 +391,12 @@ class _BlogPostState extends State<BlogPostAdmin> {
         color: Colors.blue,
       ),
       onPressed: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => UpdateBlogPost(document.id),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UpdateBlogPost(document.id),
+          ),
+        );
       },
     );
   }
@@ -441,12 +433,14 @@ class _BlogPostState extends State<BlogPostAdmin> {
           context: context,
           builder: (context) => AlertDialog(
             title: StyledText(
-              text: 'Delete Blog Post',
+              text: '${document['title']} is about to be deleted.',
               fontSize: 20,
+              bold: true,
               color: Theme.of(context).colorScheme.primary,
             ),
             content: StyledText(
-              text: 'Are you sure you want to delete this blog post?',
+              text:
+                  '\n${document['title']} is about to be Deleted \n\nAre you sure you want to delete this blog post? ',
               fontSize: 18,
               color: Theme.of(context).colorScheme.primary,
             ),
@@ -466,6 +460,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
                   text: 'Delete',
                   fontSize: 14,
                   color: Colors.red,
+                  bold: true,
                 ),
                 onPressed: () async {
                   await articleFunctionality.deleteBlogPost(document.id);

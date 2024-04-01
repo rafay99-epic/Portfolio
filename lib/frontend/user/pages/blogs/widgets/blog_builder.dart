@@ -84,7 +84,9 @@ class BlogGridView extends StatelessWidget with ScrollControllerMixin {
                 context,
                 PageTransition(
                   type: PageTransitionType.rightToLeft,
-                  child: ReadMeBlogs(id: doc.id),
+                  child: ReadMeBlogs(
+                    id: doc.id,
+                  ),
                 ),
               ).then(
                 (_) {
@@ -97,7 +99,9 @@ class BlogGridView extends StatelessWidget with ScrollControllerMixin {
               Navigator.push(
                 context,
                 MaterialPageRoute(
-                  builder: (context) => ReadMeBlogs(id: doc.id),
+                  builder: (context) => ReadMeBlogs(
+                    id: doc.id,
+                  ),
                 ),
               ).then(
                 (_) {

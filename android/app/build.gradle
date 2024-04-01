@@ -29,7 +29,8 @@ if (flutterVersionName == null) {
 
 
 def keystoreProperties = new Properties()
-def keystorePropertiesFile = file('/home/prometheus/code/Personal-Projects/Portfolio/android/app/key.properties')
+// def keystorePropertiesFile = file('/home/prometheus/code/Personal-Projects/Portfolio/android/app/key.properties')
+def keystorePropertiesFile = file('./android/app/key.properties')
 if (keystorePropertiesFile.exists()) {
     keystoreProperties.load(new FileInputStream(keystorePropertiesFile))
 }

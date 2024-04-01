@@ -23,9 +23,14 @@ import 'package:scroll_to_index/scroll_to_index.dart';
 // ReadMeBlogs Widget
 // ----------------------------
 class ReadMeBlogs extends StatefulWidget {
-  final String id;
+  final String? id;
+  final String? url;
 
-  const ReadMeBlogs({Key? key, required this.id}) : super(key: key);
+  const ReadMeBlogs({
+    Key? key,
+    this.id,
+    this.url,
+  }) : super(key: key);
 
   @override
   _ReadMeBlogsState createState() => _ReadMeBlogsState();
@@ -64,11 +69,38 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
   // ----------------------------
   // Display Blog Post
   // ----------------------------
-  Future<BlogPosModel> getBlogPost() async {
-    DocumentSnapshot doc = await FirebaseFirestore.instance
-        .collection('blogPosts')
-        .doc(widget.id)
-        .get();
+
+  //Orginal Code for getting Blog Post without Auto Routes and URL
+  // Future<BlogPosModel> getBlogPost() async {
+  //   DocumentSnapshot doc = await FirebaseFirestore.instance
+  //       .collection('blogPosts')
+  //       .doc(widget.id)
+  //       .get();
+  //   return BlogPosModel.fromMap(doc.data() as Map<String, dynamic>);
+  // }
+
+  //Version 07:
+  Future<BlogPosModel> getBlogPost({String? url}) async {
+    QuerySnapshot querySnapshot;
+    // print('URL: $url');
+
+    if (url != null) {
+      querySnapshot = await FirebaseFirestore.instance
+          .collection('blogPosts')
+          .where('url', isEqualTo: url)
+          .get();
+    } else {
+      querySnapshot = await FirebaseFirestore.instance
+          .collection('blogPosts')
+          .where(FieldPath.documentId, isEqualTo: widget.id)
+          .get();
+    }
+
+    if (querySnapshot.docs.isEmpty) {
+      throw Exception('Blog post not found');
+    }
+
+    DocumentSnapshot doc = querySnapshot.docs.first;
     return BlogPosModel.fromMap(doc.data() as Map<String, dynamic>);
   }
 
@@ -81,11 +113,13 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
       appBar: buildAppBar(context),
       backgroundColor: Theme.of(context).colorScheme.background,
       body: FutureBuilder<BlogPosModel>(
-        future: getBlogPost(),
+        future: getBlogPost(url: widget.url),
         builder: (BuildContext context, AsyncSnapshot<BlogPosModel> snapshot) {
           if (snapshot.connectionState == ConnectionState.waiting) {
             return buildLoadingIndicator(context);
           } else if (snapshot.hasError) {
+            print('Error: ${snapshot.error}');
+
             return buildErrorWidget(context);
           } else {
             return buildBlogContent(context, snapshot.data!);
