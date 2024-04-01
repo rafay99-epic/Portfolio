@@ -30,6 +30,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
   final dateController = TextEditingController();
   DateTime selectedDateController = DateTime.now();
   HtmlEditorController controller = HtmlEditorController();
+  final urlController = TextEditingController();
   final ArticleFunctionality articleFunctionality = ArticleFunctionality();
   bool isEnabled = false;
   html.File? _image;
@@ -168,6 +169,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
               content: await controller.getText(),
               imageFile: _image!,
               date: selectedDateController,
+              url: urlController.text,
             );
             // --------------------------
             // Clear All Form
@@ -219,6 +221,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
     subTitleController.clear();
     tagsController.clear();
     authorController.clear();
+    urlController.clear();
     isEnabled = false;
     controller.clear();
     _image = null;
@@ -259,6 +262,9 @@ class _AddBlogPostState extends State<AddBlogPost> {
           const SizedBox(height: 20),
           buildTextField('Author Article', 'Name of the Author Article',
               Icons.person_2_outlined, authorController),
+          const SizedBox(height: 20),
+          buildTextField('Website URL', 'Website URL of the Article',
+              Icons.share, urlController),
           const SizedBox(height: 20),
           buildHtmlEditor(),
         ],

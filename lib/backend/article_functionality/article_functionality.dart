@@ -15,6 +15,7 @@ class ArticleFunctionality {
     required String content,
     required html.File imageFile,
     required DateTime date,
+    required String url,
   }) async {
     final String fileName =
         'blogImage_${DateTime.now().millisecondsSinceEpoch}';
@@ -44,7 +45,7 @@ class ArticleFunctionality {
       author: author,
       content: content,
       thumbnail: downloadUrl,
-      url: '',
+      url: url,
       date: date,
     );
 
@@ -57,6 +58,7 @@ class ArticleFunctionality {
       'content': blogPost.content,
       'thumbnail': blogPost.thumbnail,
       'date': date,
+      'url': blogPost.url,
     });
 
     print('Upload complete');

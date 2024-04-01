@@ -305,10 +305,26 @@ class _BlogPostState extends State<BlogPostAdmin> {
         // ----------------------
         _buildBlogPostAuthor(blogPost),
         // ----------------------
+        // URL
+        // ----------------------
+        _buildBlogURL(blogPost),
+        // ----------------------
         // Tags
         // ----------------------
         _buildBlogPostTags(context, blogPost),
       ],
+    );
+  }
+
+  Widget _buildBlogURL(BlogPosModel blogPost) {
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: StyledText(
+        text: "Article URL: ${blogPost.url}",
+        fontSize: 15,
+        bold: true,
+        boldWords: const ["Blog Description:"],
+      ),
     );
   }
 
@@ -335,7 +351,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
       padding: const EdgeInsets.only(bottom: 8.0),
       child: StyledText(
         text: "Author: ${blogPost.author}",
-        fontSize: 13,
+        fontSize: 15,
         bold: false,
         boldWords: const ["Author:"],
       ),
