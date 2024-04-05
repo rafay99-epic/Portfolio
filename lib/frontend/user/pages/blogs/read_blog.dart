@@ -7,9 +7,12 @@ import 'package:flutter/material.dart';
 import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_html/flutter_html.dart';
 import 'package:flutter_markdown/flutter_markdown.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:html/dom.dart' as dom;
 import 'package:html/parser.dart' as htmlParser;
+import 'package:intl/intl.dart';
 import 'package:lottie/lottie.dart';
+import 'package:rafay_portfolio/constants/widgets/ultis/SocialMediaIcon.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:rafay_portfolio/backend/model/BlogModel.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
@@ -67,20 +70,8 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
   // ----------------------------
   // Display Blog Post
   // ----------------------------
-
-  //Orginal Code for getting Blog Post without Auto Routes and URL
-  Future<BlogPosModel> getReleatedBlogPost() async {
-    DocumentSnapshot doc = await FirebaseFirestore.instance
-        .collection('blogPosts')
-        .doc(widget.id)
-        .get();
-    return BlogPosModel.fromMap(doc.data() as Map<String, dynamic>);
-  }
-
-  //Version 07:
   Future<BlogPosModel> getBlogPost({String? url}) async {
     QuerySnapshot querySnapshot;
-    // print('URL: $url');
 
     if (url != null) {
       querySnapshot = await FirebaseFirestore.instance
@@ -100,6 +91,133 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
 
     DocumentSnapshot doc = querySnapshot.docs.first;
     return BlogPosModel.fromMap(doc.data() as Map<String, dynamic>);
+  }
+
+  //---------------------------
+  // Get Releated Blog Post
+  //---------------------------
+  Future<List<BlogPosModel>> getReleatedBlogPost() async {
+    QuerySnapshot querySnapshot =
+        await FirebaseFirestore.instance.collection('blogPosts').limit(3).get();
+
+    if (querySnapshot.docs.isEmpty) {
+      throw Exception('No blog posts found');
+    }
+
+    querySnapshot.docs.shuffle();
+
+    return querySnapshot.docs.map((doc) {
+      return BlogPosModel.fromMap(doc.data() as Map<String, dynamic>);
+    }).toList();
+  }
+
+  //---------------------------
+  // Cards for Related Blogs
+  //---------------------------
+  Widget buildBlogPostCard(BlogPosModel blogPost) {
+    bool isMobile = MediaQuery.of(context).size.width < 600;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 10.0),
+      child: SizedBox(
+        width: 500,
+        height: 200,
+        child: GestureDetector(
+          onTap: () {
+            Navigator.pushNamed(
+              context,
+              '/blog/${blogPost.url}',
+            );
+          },
+          child: Card(
+            color: Theme.of(context).colorScheme.background,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(5),
+              side: BorderSide(
+                color: Theme.of(context).colorScheme.outline,
+                width: isMobile ? 1 : 2,
+              ),
+            ),
+            child: Container(
+              padding: const EdgeInsets.all(10.0),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  buildStyledText(blogPost.title, 18.0, FontWeight.bold,
+                      Theme.of(context).colorScheme.primary),
+                  const SizedBox(height: 10.0),
+                  buildStyledText(
+                      DateFormat('yyyy-MM-dd').format(blogPost.date),
+                      16.0,
+                      FontWeight.w400,
+                      Theme.of(context).colorScheme.outline),
+                  const SizedBox(height: 10.0),
+                  buildAuthorRow(blogPost.author),
+                  buildSocialMediaRow(blogPost.url),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  //---------------------------
+  // Card Style
+  //---------------------------
+  Widget buildStyledText(
+      String text, double fontSize, FontWeight fontWeight, Color color) {
+    return StyledText(
+      text: text,
+      fontSize: fontSize,
+      fontWeight: fontWeight,
+      color: color,
+    );
+  }
+
+  //---------------------------
+  // Author Row in each Card
+  //---------------------------
+  Widget buildAuthorRow(String author) {
+    return Row(
+      children: <Widget>[
+        const CircleAvatar(
+          backgroundImage: AssetImage("assets/image/author.jpg"),
+          radius: 20,
+        ),
+        const SizedBox(width: 10),
+        buildStyledText(author, 16.0, FontWeight.normal,
+            Theme.of(context).colorScheme.primary),
+      ],
+    );
+  }
+
+  //--------------------------------
+  // Shareable Links og Blog Cards
+  //--------------------------------
+  Widget buildSocialMediaRow(String url) {
+    return Row(
+      children: <Widget>[
+        SocialMediaButton(
+          icon: FontAwesomeIcons.facebook,
+          url:
+              'https://www.facebook.com/sharer/sharer.php?u=${Uri.encodeComponent('https://rafay99.com/blog/$url')}',
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        SocialMediaButton(
+          icon: FontAwesomeIcons.twitter,
+          url:
+              'https://twitter.com/intent/tweet?text=${Uri.encodeComponent('Check out this blog post:')}%20${Uri.encodeComponent('https://rafay99.com/blog/$url')}',
+          color: Theme.of(context).colorScheme.primary,
+        ),
+        SocialMediaButton(
+          icon: FontAwesomeIcons.linkedin,
+          url:
+              'https://www.linkedin.com/sharing/share-offsite/?url=${Uri.encodeComponent('https://rafay99.com/blog/$url')}',
+          color: Theme.of(context).colorScheme.primary,
+        ),
+      ],
+    );
   }
 
   // ----------------------------
@@ -416,9 +534,8 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                     ),
                     const SizedBox(height: 10),
                     // ----------------------------
-                    // Author
+                    // Author for Mobile Only
                     // ----------------------------
-
                     if (!kIsWeb)
                       Padding(
                         padding: screenType.isMobile
@@ -437,7 +554,7 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                           ? const EdgeInsets.only(left: 20.0, right: 15.0)
                           : const EdgeInsets.only(left: 40.0, right: 35.0),
                       child: StyledText(
-                        text: "URL: ${data.url}",
+                        text: "Article Url : ${data.url}",
                         fontSize: 18,
                         color: Theme.of(context).colorScheme.primary,
                         fontStyle: FontStyle.italic,
@@ -463,6 +580,37 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                         ),
                       ),
                     ),
+                    const SizedBox(height: 10),
+                    //-------------------------
+                    // Share  Current Article
+                    //-------------------------
+                    Padding(
+                      padding: screenType.isMobile
+                          ? const EdgeInsets.only(left: 20.0, right: 15.0)
+                          : const EdgeInsets.only(left: 40.0, right: 35.0),
+                      child: Row(
+                        children: <Widget>[
+                          SocialMediaButton(
+                            icon: FontAwesomeIcons.facebook,
+                            url:
+                                'https://www.facebook.com/sharer/sharer.php?u=${Uri.encodeComponent('https://rafay99.com/blog/${data.url}')}',
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          SocialMediaButton(
+                            icon: FontAwesomeIcons.twitter,
+                            url:
+                                'https://twitter.com/intent/tweet?text=${Uri.encodeComponent('Check out this blog post:')}%20${Uri.encodeComponent('https://rafay99.com/blog/${data.url}')}',
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                          SocialMediaButton(
+                            icon: FontAwesomeIcons.linkedin,
+                            url:
+                                'https://www.linkedin.com/sharing/share-offsite/?url=${Uri.encodeComponent('https://rafay99.com/blog/${data.url}')}',
+                            color: Theme.of(context).colorScheme.primary,
+                          ),
+                        ],
+                      ),
+                    ),
                     const SizedBox(height: 20),
                     // -------------------------------------------------
                     // Render Blog Content on the base of Content Type
@@ -475,11 +623,57 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                     ),
                     const SizedBox(height: 20),
 
-                    const SizedBox(height: 35),
                     // ---------------------------
                     // Get Related Blog
                     // ---------------------------
 
+                    Align(
+                      alignment: Alignment.center,
+                      child: StyledText(
+                        text: "Releated Articles",
+                        fontSize: 32,
+                        fontWeight: FontWeight.bold,
+                        color: Theme.of(context).colorScheme.primary,
+                        fontStyle: FontStyle.normal,
+                      ),
+                    ),
+                    const SizedBox(height: 20),
+                    Align(
+                      alignment: Alignment.center,
+                      child: FutureBuilder<List<BlogPosModel>>(
+                        future: getReleatedBlogPost(),
+                        builder: (context, snapshot) {
+                          if (snapshot.connectionState ==
+                              ConnectionState.waiting) {
+                            return const CircularProgressIndicator();
+                          } else if (snapshot.hasError) {
+                            return Text('Error: ${snapshot.error}');
+                          } else {
+                            bool isMobile =
+                                MediaQuery.of(context).size.width < 600;
+                            return Center(
+                              // Add this
+                              child: isMobile
+                                  ? Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: snapshot.data!
+                                          .map(buildBlogPostCard)
+                                          .toList(),
+                                    )
+                                  : Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
+                                      children: snapshot.data!
+                                          .map(buildBlogPostCard)
+                                          .toList(),
+                                    ),
+                            );
+                          }
+                        },
+                      ),
+                    ),
+                    const SizedBox(height: 35),
                     //User Comments Near Future
                   ],
                 ),

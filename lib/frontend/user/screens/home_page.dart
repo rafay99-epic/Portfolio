@@ -127,9 +127,9 @@ class _HomePageState extends State<HomePage> {
 
   final List<Widget> _pages = [
     const LandingPage(),
+    const AboutMe(),
     const Resume(),
     const ProjectGridView(),
-    const AboutMe(),
     const DisplayBlog(),
     const ContactMe()
   ];
@@ -183,16 +183,16 @@ class _HomePageState extends State<HomePage> {
         unselectedColor: Colors.blue.shade200,
       ),
       CrystalNavigationBarItem(
+        icon: IconlyBold.user_2,
+        unselectedColor: Colors.redAccent,
+      ),
+      CrystalNavigationBarItem(
         icon: IconlyBold.document,
         unselectedColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       CrystalNavigationBarItem(
         icon: FontAwesomeIcons.codePullRequest,
         unselectedColor: Colors.green.shade400,
-      ),
-      CrystalNavigationBarItem(
-        icon: IconlyBold.user_2,
-        unselectedColor: Colors.redAccent,
       ),
       CrystalNavigationBarItem(
         icon: FontAwesomeIcons.rss,
