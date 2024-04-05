@@ -31,6 +31,18 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
   String searchQuery = '';
   bool _isInternetConnected = true;
 
+  @override
+  void initState() {
+    super.initState();
+    scrollController = ScrollController();
+  }
+
+  @override
+  void dispose() {
+    scrollController.dispose();
+    super.dispose();
+  }
+
   // ----------------------------
   // Main Build Widget
   // ----------------------------
@@ -59,9 +71,9 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
       // --------------------------------
       // Floating Buttons for Web Only
       // -------------------------------
-      floatingActionButton: MediaQuery.of(context).size.width > 600
-          ? buildFloatingButton(context, smoothScrollToTop, smoothScrollDown)
-          : null,
+      floatingActionButton: screenType.isMobile
+          ? null
+          : buildFloatingButton(context, smoothScrollToTop, smoothScrollDown),
     );
   }
 

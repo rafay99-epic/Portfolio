@@ -75,117 +75,124 @@ final class _ContactMeState extends State<ContactMe> {
   }
 
   Widget _buildForm(bool isMobile) {
-    return Padding(
-      padding: isMobile
-          ? const EdgeInsets.all(12)
-          : const EdgeInsets.only(left: 55.0),
-      child: Form(
-        key: _formKey,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            AnimatedTextBuilder(
-              text: "Contact Me",
-              size: isMobile ? 40.0 : 72.0,
-            ),
-            const SizedBox(
-              height: 15.0,
-            ),
-            const StyledText(
-              text: "I'm available for freelance work. Feel free to reach out!",
-              fontSize: 20.0,
-              bold: true,
-            ),
-            const SizedBox(height: 15),
-            CustomTextField(
-              labelText: 'Name',
-              controller: nameController,
-              hintText: 'Enter your name',
-              prefixIcon: Icons.person,
-            ),
-            const SizedBox(height: 15),
-            CustomTextField(
-              labelText: 'Email',
-              hintText: 'Enter your email',
-              prefixIcon: Icons.email,
-              controller: emailController,
-            ),
-            const SizedBox(height: 15),
-            CustomTextField(
-              labelText: 'Message',
-              controller: messageController,
-              maxLines: 5,
-              hintText: 'Enter your message',
-              prefixIcon: Icons.message,
-            ),
-            const SizedBox(
-              height: 20.0,
-            ),
-            TextButton.icon(
-              onPressed: () async {
-                // checking for empty fields
-                if (nameController.text.isEmpty ||
-                    emailController.text.isEmpty ||
-                    messageController.text.isEmpty) {
-                  showDialogBox(
-                    context,
-                    Icons.error,
-                    Colors.red,
-                    Colors.red,
-                    'Error',
-                    'Please provide all the information. Thank you!',
-                    () => Navigator.of(context).pop(),
-                  );
-                } else {
-                  if (_formKey.currentState!.validate()) {
-                    ContactMessage message = ContactMessage(
-                      name: nameController.text,
-                      email: emailController.text,
-                      message: messageController.text,
+    return SingleChildScrollView(
+      child: Padding(
+        padding: isMobile
+            ? EdgeInsets.only(
+                left: 12,
+                right: 12,
+                top: MediaQuery.of(context).size.height * 0.15,
+              )
+            : const EdgeInsets.only(left: 55.0),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              AnimatedTextBuilder(
+                text: "Contact Me",
+                size: isMobile ? 40.0 : 72.0,
+              ),
+              const SizedBox(
+                height: 15.0,
+              ),
+              const StyledText(
+                text:
+                    "I'm available for freelance work. Feel free to reach out!",
+                fontSize: 20.0,
+                bold: true,
+              ),
+              const SizedBox(height: 15),
+              CustomTextField(
+                labelText: 'Name',
+                controller: nameController,
+                hintText: 'Enter your name',
+                prefixIcon: Icons.person,
+              ),
+              const SizedBox(height: 15),
+              CustomTextField(
+                labelText: 'Email',
+                hintText: 'Enter your email',
+                prefixIcon: Icons.email,
+                controller: emailController,
+              ),
+              const SizedBox(height: 15),
+              CustomTextField(
+                labelText: 'Message',
+                controller: messageController,
+                maxLines: 5,
+                hintText: 'Enter your message',
+                prefixIcon: Icons.message,
+              ),
+              const SizedBox(
+                height: 20.0,
+              ),
+              TextButton.icon(
+                onPressed: () async {
+                  // checking for empty fields
+                  if (nameController.text.isEmpty ||
+                      emailController.text.isEmpty ||
+                      messageController.text.isEmpty) {
+                    showDialogBox(
+                      context,
+                      Icons.error,
+                      Colors.red,
+                      Colors.red,
+                      'Error',
+                      'Please provide all the information. Thank you!',
+                      () => Navigator.of(context).pop(),
                     );
-                    try {
-                      await messageService.saveContactMessage(message);
-                      showDialogBox(
-                        context,
-                        Icons.check_circle,
-                        Theme.of(context).colorScheme.inversePrimary,
-                        Theme.of(context).colorScheme.inversePrimary,
-                        'Success',
-                        'Message sent. Thank you for contacting me.',
-                        () {
-                          nameController.clear();
-                          emailController.clear();
-                          messageController.clear();
-                          Navigator.of(context).pop();
-                        },
+                  } else {
+                    if (_formKey.currentState!.validate()) {
+                      ContactMessage message = ContactMessage(
+                        name: nameController.text,
+                        email: emailController.text,
+                        message: messageController.text,
                       );
-                    } catch (e) {
-                      showDialogBox(
-                        context,
-                        Icons.error,
-                        Colors.red,
-                        Colors.red,
-                        'Error',
-                        'Failed to send message: $e',
-                        () => Navigator.of(context).pop(),
-                      );
+                      try {
+                        await messageService.saveContactMessage(message);
+                        showDialogBox(
+                          context,
+                          Icons.check_circle,
+                          Theme.of(context).colorScheme.inversePrimary,
+                          Theme.of(context).colorScheme.inversePrimary,
+                          'Success',
+                          'Message sent. Thank you for contacting me.',
+                          () {
+                            nameController.clear();
+                            emailController.clear();
+                            messageController.clear();
+                            Navigator.of(context).pop();
+                          },
+                        );
+                      } catch (e) {
+                        showDialogBox(
+                          context,
+                          Icons.error,
+                          Colors.red,
+                          Colors.red,
+                          'Error',
+                          'Failed to send message: $e',
+                          () => Navigator.of(context).pop(),
+                        );
+                      }
                     }
                   }
-                }
-              },
-              style: TextButton.styleFrom(
-                backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-                textStyle: const TextStyle(
-                  fontSize: 20,
-                  fontWeight: FontWeight.bold,
+                },
+                style: TextButton.styleFrom(
+                  backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+                  textStyle: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                  ),
+                  padding: const EdgeInsets.all(20.0),
                 ),
-                padding: const EdgeInsets.all(20.0),
+                label: const Text("Submit Message"),
+                icon: const Icon(Icons.send_rounded),
               ),
-              label: const Text("Submit Message"),
-              icon: const Icon(Icons.send_rounded),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

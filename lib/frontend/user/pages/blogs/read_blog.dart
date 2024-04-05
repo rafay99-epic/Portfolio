@@ -69,13 +69,13 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
   // ----------------------------
 
   //Orginal Code for getting Blog Post without Auto Routes and URL
-  // Future<BlogPosModel> getBlogPost() async {
-  //   DocumentSnapshot doc = await FirebaseFirestore.instance
-  //       .collection('blogPosts')
-  //       .doc(widget.id)
-  //       .get();
-  //   return BlogPosModel.fromMap(doc.data() as Map<String, dynamic>);
-  // }
+  Future<BlogPosModel> getReleatedBlogPost() async {
+    DocumentSnapshot doc = await FirebaseFirestore.instance
+        .collection('blogPosts')
+        .doc(widget.id)
+        .get();
+    return BlogPosModel.fromMap(doc.data() as Map<String, dynamic>);
+  }
 
   //Version 07:
   Future<BlogPosModel> getBlogPost({String? url}) async {
@@ -405,8 +405,8 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                     // ----------------------------
                     Padding(
                       padding: screenType.isMobile
-                          ? const EdgeInsets.only(left: 15.0, right: 15.0)
-                          : const EdgeInsets.only(left: 35.0, right: 35.0),
+                          ? const EdgeInsets.only(left: 20.0, right: 15.0)
+                          : const EdgeInsets.only(left: 40.0, right: 35.0),
                       child: StyledText(
                         text: "Date: ${data.date}",
                         fontSize: 18,
@@ -418,25 +418,40 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                     // ----------------------------
                     // Author
                     // ----------------------------
+
+                    if (!kIsWeb)
+                      Padding(
+                        padding: screenType.isMobile
+                            ? const EdgeInsets.only(left: 20.0, right: 15.0)
+                            : const EdgeInsets.only(left: 40.0, right: 35.0),
+                        child: StyledText(
+                          text: "Author: ${data.author}",
+                          fontSize: 18,
+                          color: Theme.of(context).colorScheme.primary,
+                          fontStyle: FontStyle.italic,
+                        ),
+                      ),
+                    const SizedBox(height: 10),
                     Padding(
                       padding: screenType.isMobile
-                          ? const EdgeInsets.only(left: 15.0, right: 15.0)
-                          : const EdgeInsets.only(left: 35.0, right: 35.0),
+                          ? const EdgeInsets.only(left: 20.0, right: 15.0)
+                          : const EdgeInsets.only(left: 40.0, right: 35.0),
                       child: StyledText(
-                        text: "Author: ${data.author}",
+                        text: "URL: ${data.url}",
                         fontSize: 18,
                         color: Theme.of(context).colorScheme.primary,
                         fontStyle: FontStyle.italic,
                       ),
                     ),
+
                     const SizedBox(height: 10),
                     // ----------------------------
                     // Blog Tage
                     // ----------------------------
                     Padding(
                       padding: screenType.isMobile
-                          ? const EdgeInsets.only(left: 15.0, right: 15.0)
-                          : const EdgeInsets.only(left: 35.0, right: 35.0),
+                          ? const EdgeInsets.only(left: 20.0, right: 15.0)
+                          : const EdgeInsets.only(left: 40.0, right: 35.0),
                       child: Wrap(
                         spacing: 8.0,
                         runSpacing: 4.0,
@@ -461,6 +476,9 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                     const SizedBox(height: 20),
 
                     const SizedBox(height: 35),
+                    // ---------------------------
+                    // Get Related Blog
+                    // ---------------------------
 
                     //User Comments Near Future
                   ],
@@ -479,19 +497,50 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                             const SizedBox(
                               height: 100,
                             ),
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 35, right: 35),
+                            Align(
+                              alignment: Alignment.centerLeft,
                               child: StyledText(
-                                text: "Table of Contents",
+                                text: "Written By:",
                                 fontSize: 30,
                                 color: Theme.of(context).colorScheme.primary,
                                 bold: true,
                                 fontFamily: 'ABeeZee',
-                                textAlign: TextAlign.center,
                               ),
                             ),
-                            const SizedBox(height: 25),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Row(
+                              children: <Widget>[
+                                const CircleAvatar(
+                                  backgroundImage:
+                                      AssetImage("assets/image/author.jpg"),
+                                  radius: 20,
+                                ),
+                                const SizedBox(width: 10),
+                                StyledText(
+                                  text: data.author,
+                                  fontSize: 20,
+                                  color: Theme.of(context).colorScheme.primary,
+                                  bold: false,
+                                  fontFamily: 'ABeeZee',
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 15,
+                            ),
+                            Align(
+                              alignment: Alignment.centerLeft,
+                              child: StyledText(
+                                text: "In this Article:",
+                                fontSize: 30,
+                                color: Theme.of(context).colorScheme.primary,
+                                bold: true,
+                                fontFamily: 'ABeeZee',
+                              ),
+                            ),
+                            const SizedBox(height: 15),
                             Column(
                               children:
                                   tableOfContents.asMap().entries.map((entry) {
@@ -501,31 +550,31 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
                                 double paddingLeft;
                                 switch (heading['level']) {
                                   case 'h1':
-                                    fontSize = 24;
+                                    fontSize = 18;
                                     paddingLeft = 20.0;
                                     break;
                                   case 'h2':
-                                    fontSize = 22;
+                                    fontSize = 16;
                                     paddingLeft = 40.0;
                                     break;
                                   case 'h3':
-                                    fontSize = 20;
+                                    fontSize = 14;
                                     paddingLeft = 60.0;
                                     break;
                                   case 'h4':
-                                    fontSize = 18;
+                                    fontSize = 12;
                                     paddingLeft = 80.0;
                                     break;
                                   case 'h5':
-                                    fontSize = 16;
+                                    fontSize = 12;
                                     paddingLeft = 100.0;
                                     break;
                                   case 'h6':
-                                    fontSize = 14;
+                                    fontSize = 12;
                                     paddingLeft = 120.0;
                                     break;
                                   default:
-                                    fontSize = 24;
+                                    fontSize = 18;
                                     paddingLeft = 20.0;
                                     break;
                                 }

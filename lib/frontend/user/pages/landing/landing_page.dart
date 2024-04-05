@@ -1,10 +1,14 @@
+// ignore_for_file: deprecated_member_use, use_build_context_synchronously
+
 import 'package:flutter/material.dart';
+
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
-import 'package:rafay_portfolio/frontend/user/pages/contact_me/contact_me.dart';
 
 import 'package:rafay_portfolio/constants/widgets/ultis/SocialMediaIcon.dart';
 import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
+import 'package:rafay_portfolio/frontend/user/screens/contact_me_page.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class LandingPage extends StatefulWidget {
   const LandingPage({Key? key}) : super(key: key);
@@ -39,13 +43,27 @@ class _LandingPageState extends State<LandingPage> {
       ),
       floatingActionButton: isMobile
           ? FloatingActionButton(
-              onPressed: () {
-                Navigator.push(
-                  context,
-                  MaterialPageRoute(
-                    builder: (context) => const ContactMe(),
-                  ),
-                );
+              onPressed: () async {
+                const url = 'https://wa.me/03035650798?text=Hello';
+                if (await canLaunch(url)) {
+                  try {
+                    await launch(url);
+                  } catch (e) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => const ContactMePage(),
+                      ),
+                    );
+                  }
+                } else {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const ContactMePage(),
+                    ),
+                  );
+                }
               },
               backgroundColor: Theme.of(context).colorScheme.inversePrimary,
               child: const Icon(FontAwesomeIcons.message),
@@ -129,7 +147,7 @@ class _LandingPageState extends State<LandingPage> {
                   label: const Text("Hire Me!"),
                   icon: const Icon(Icons.send_rounded),
                 ),
-              if (isMobile) // Show this only on mobile
+              if (isMobile)
                 Lottie.asset(
                   'assets/animation/rafay_animation.json',
                 ),
