@@ -1,6 +1,7 @@
 // // ignore_for_file: no_leading_underscores_for_local_identifiers
 
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 
 import 'package:google_fonts/google_fonts.dart';
 import 'package:rafay_portfolio/backend/auth/authService.dart';
@@ -408,10 +409,16 @@ class Dashboard extends StatelessWidget {
                                     onPressed: () async {
                                       Navigator.of(context).pop();
                                       await _authService.signOut();
-                                      Navigator.of(context)
-                                          .pushReplacementNamed(
-                                        '/admin',
-                                      ); // Redirect to the login page
+                                      SchedulerBinding.instance
+                                          .addPostFrameCallback(
+                                        (_) {
+                                          Navigator.of(context)
+                                              .pushNamedAndRemoveUntil(
+                                            '/admin',
+                                            (Route<dynamic> route) => false,
+                                          );
+                                        },
+                                      );
                                     },
                                   ),
                                 ),

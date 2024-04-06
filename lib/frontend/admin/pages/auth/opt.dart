@@ -2,6 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:lottie/lottie.dart';
 
 import 'package:rafay_portfolio/frontend/admin/pages/dashboardPage.dart';
@@ -24,30 +25,37 @@ class _OtpPageState extends State<OtpPage> {
 
   @override
   Widget build(BuildContext context) {
-    // Verify OTP
     Future<void> verifyOtp() async {
-      // Create a PhoneAuthCredential with the verification ID and the OTP
       PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: widget.verificationId,
         smsCode: _otpController.text,
       );
       try {
-        // Sign in with the credential
         await FirebaseAuth.instance.signInWithCredential(credential);
 
-        // SnackBar to show the OTP is verified
-        const SnackBarWidget(
-          text: 'OTP Pin is verified !',
-        );
-        // If the OTP is verified, navigate to DashboardPage
-        Navigator.push(
-          context,
-          MaterialPageRoute(
-            builder: (context) => const DashboardPage(),
-          ),
+        final snackBar = buildSnackBar(context, 'OTP Verified Successfully!');
+        ScaffoldMessenger.of(context).showSnackBar(snackBar);
+
+        SchedulerBinding.instance.addPostFrameCallback(
+          (_) {
+            Navigator.of(context).pushAndRemoveUntil(
+              MaterialPageRoute(
+                builder: (context) => const DashboardPage(),
+              ),
+              (Route<dynamic> route) => false,
+            );
+          },
         );
       } catch (e) {
-        print(e);
+        showDialogBox(
+          context,
+          Icons.error,
+          Colors.red,
+          Colors.red,
+          'Error',
+          e.toString(),
+          () => Navigator.of(context).pop(),
+        );
       }
     }
 
@@ -87,7 +95,6 @@ class _OtpPageState extends State<OtpPage> {
                     ),
                     TextButton.icon(
                       onPressed: () async {
-                        //Check if email and password are not empty
                         if (_otpController.text.isEmpty) {
                           showDialogBox(
                             context,
@@ -100,11 +107,7 @@ class _OtpPageState extends State<OtpPage> {
                           );
                           return;
                         }
-
-                        //firebase Login and Error Handelling
                         verifyOtp();
-
-                        //clear text Feild
                         _otpController.clear();
                       },
                       style: TextButton.styleFrom(

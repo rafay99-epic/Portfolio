@@ -6,8 +6,8 @@ import 'package:page_transition/page_transition.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
 
-import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/blog_display_cards.dart';
-import 'package:rafay_portfolio/frontend/user/pages/blogs/read_blog.dart';
+import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/widgets/blog_display_cards/blog_display_cards.dart';
+import 'package:rafay_portfolio/frontend/user/pages/blogs/readblogs/read_blog.dart';
 
 class BlogLayoutBuilder extends StatelessWidget with ScrollControllerMixin {
   final AsyncSnapshot<QuerySnapshot> snapshot;

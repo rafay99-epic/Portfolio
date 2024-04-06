@@ -71,7 +71,6 @@ class _AdminLoginState extends State<AdminLogin> {
                         //Check if email and password are not empty
                         if (widget.emailController.text.isEmpty ||
                             widget.passwordController.text.isEmpty) {
-                          // showEmptyFieldsDialog(context);
                           showDialogBox(
                             context,
                             Icons.error,
