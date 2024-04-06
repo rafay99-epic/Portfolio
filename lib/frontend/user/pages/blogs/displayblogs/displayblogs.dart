@@ -2,18 +2,16 @@
 import 'package:flutter/material.dart';
 
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:lottie/lottie.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
-
-import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/blog_builder.dart';
+import 'package:rafay_portfolio/constants/widgets/errorAndLanding/error.dart';
+import 'package:rafay_portfolio/constants/widgets/errorAndLanding/loading.dart';
+import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/widgets/blog_builder/blog_builder.dart';
 import 'package:rafay_portfolio/constants/widgets/ultis/floating_button.dart';
-import 'package:rafay_portfolio/frontend/user/pages/blogs/widgets/no_internet.dart';
-
+import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/widgets/check_internet.dart/no_internet.dart';
 import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
-import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 import 'dart:io' show Platform;
 
 class DisplayBlog extends StatefulWidget {
@@ -34,6 +32,7 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
   @override
   void initState() {
     super.initState();
+    _checkInternetConnectivity();
     scrollController = ScrollController();
   }
 
@@ -48,29 +47,14 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
   // ----------------------------
   @override
   Widget build(BuildContext context) {
-    // ----------------------------
-    // Screen Sizes
-    // ----------------------------
     ScreenType screenType = ScreenType(MediaQuery.of(context).size.width);
-    // --------------------------------
-    // Internet Net Check for Mobile
-    // --------------------------------
     if (!_isInternetConnected) {
       return noInternetConnection(context);
     }
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      // ---------------------------------------
-      // App Bar, Only For Android Application
-      // --------------------------------------
       appBar: !kIsWeb ? buildAppBar(context) : null,
-      // ----------------------------
-      // Main widget Body
-      // ----------------------------
       body: buildBody(context, screenType),
-      // --------------------------------
-      // Floating Buttons for Web Only
-      // -------------------------------
       floatingActionButton: screenType.isMobile
           ? null
           : buildFloatingButton(context, smoothScrollToTop, smoothScrollDown),
@@ -151,9 +135,6 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
     );
   }
 
-  // ----------------------------------
-  // App Bar for Android Application
-  // ----------------------------------
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
       backgroundColor: Theme.of(context).colorScheme.background,
@@ -189,9 +170,6 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
     );
   }
 
-  // ----------------------------
-  // Container for Main Body
-  // ----------------------------
   Container buildBody(BuildContext context, ScreenType screenType) {
     return Container(
       margin: const EdgeInsets.all(15.0),
@@ -214,47 +192,14 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
                         .snapshots(),
                 builder: (context, snapshot) {
                   if (snapshot.hasError) {
-                    return SingleChildScrollView(
-                      child: Center(
-                        child:
-                            Lottie.asset('assets/animation/datanotfound.json'),
-                      ),
-                    );
+                    return buildErrorWidget(context);
                   }
-
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return SingleChildScrollView(
-                      child: Center(
-                        child: Lottie.asset('assets/animation/loader.json'),
-                      ),
-                    );
+                    return const LoadingData();
                   }
 
                   if (snapshot.data!.docs.isEmpty) {
-                    // Add this condition
-                    return SingleChildScrollView(
-                      child: Center(
-                        child: Padding(
-                          padding: const EdgeInsets.only(
-                              left: 8.0, right: 8.0, top: 20.0, bottom: 20.0),
-                          child: Column(
-                            children: <Widget>[
-                              const SizedBox(height: 10),
-                              Lottie.asset(
-                                  'assets/animation/datanotfound.json'),
-                              const SizedBox(height: 10),
-                              StyledText(
-                                text: "Sorry!! No search results found. ",
-                                fontSize: 20,
-                                color: Theme.of(context).colorScheme.primary,
-                                textAlign: TextAlign.center,
-                                bold: true,
-                              )
-                            ],
-                          ),
-                        ),
-                      ),
-                    );
+                    return buildErrorWidget(context);
                   }
                   // ----------------------------------------------
                   // Building Boxes and Display Blogs

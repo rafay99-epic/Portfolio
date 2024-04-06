@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 
 import 'package:rafay_portfolio/frontend/admin/pages/auth/loginPage.dart';
 import 'package:rafay_portfolio/frontend/user/pages/aboutme/about_me.dart';
-import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs.dart';
+import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/displayblogs.dart';
 import 'package:rafay_portfolio/frontend/user/pages/error/page404.dart';
 import 'package:rafay_portfolio/frontend/user/pages/project_gallery/project_gallery.dart';
 import 'package:rafay_portfolio/frontend/user/pages/experiences/resume.dart';

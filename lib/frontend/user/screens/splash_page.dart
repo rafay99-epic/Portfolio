@@ -65,9 +65,7 @@ class _SplashScreenState extends State<SplashScreen>
               },
               repeat: true,
               alignment: Alignment.center,
-              width: isMobile
-                  ? MediaQuery.of(context).size.width * 0.8
-                  : null, // 80% of screen width for mobile
+              width: isMobile ? MediaQuery.of(context).size.width * 0.8 : null,
             ),
             SizedBox(
               height: 4.0,
