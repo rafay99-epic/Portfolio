@@ -27,7 +27,11 @@ function RunEmulator() {
                 exit 1
             }
         }
-        Start-Sleep -s 60
+        # Start-Sleep -s 60
+        for ($i = 60; $i -gt 0; $i--) {
+            Write-Host "Waiting for emulator to start... $i seconds remaining"
+            Start-Sleep -s 1
+        }
     }
 }
 
@@ -60,7 +64,7 @@ try {
         flutter run -d emulator
     }
     else {
-        throw "Invalid platform. Please enter either 'android' or 'web'."
+        Write-Host "Invalid platform. Please enter either 'android' or 'web'."
     }
 }
 catch {
