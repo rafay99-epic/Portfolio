@@ -7,12 +7,44 @@ function LogError {
     "$timestamp ERROR: $message" | Out-File -FilePath $logFile -Append
 }
 
-
+# function WaitForEmulatorToBeReady() {
+#     $isReady = $false
+#     while (-not $isReady) {
+#         $output = adb shell getprop init.svc.bootanim
+#         if ($output -eq 'stopped') {
+#             $isReady = $true
+#         }
+#         else {
+#             Write-Host "Waiting for emulator to be ready..."
+#             Start-Sleep -Seconds 10
+#         }
+#     }
+# }
+function WaitForEmulatorToBeReady() {
+    $isReady = $false
+    while (-not $isReady) {
+        try {
+            $output = adb shell getprop init.svc.bootanim
+            if ($output -eq 'stopped') {
+                $isReady = $true
+            }
+            else {
+                Write-Host "Waiting for emulator to be ready..."
+                Start-Sleep -Seconds 10
+            }
+        }
+        catch {
+            LogError "Failed to check emulator status: $_"
+            exit 1
+        }
+    }
+}
 
 function RunEmulator() {
     if ($platform -eq 'android') {
         try {
             flutter emulator --launch Prometheus
+            WaitForEmulatorToBeReady
         }
         catch {
             Write-Host "Failed to start the Prometheus emulator. Available emulators:"
@@ -21,16 +53,12 @@ function RunEmulator() {
             $emulatorName = Read-Host -Prompt 'Enter the name of the emulator you want to launch'
             try {
                 flutter emulator --launch $emulatorName
+                WaitForEmulatorToBeReady
             }
             catch {
                 LogError "Failed to start the emulator $emulatorName : $_"
                 exit 1
             }
-        }
-        # Start-Sleep -s 60
-        for ($i = 60; $i -gt 0; $i--) {
-            Write-Host "Waiting for emulator to start... $i seconds remaining"
-            Start-Sleep -s 1
         }
     }
 }
