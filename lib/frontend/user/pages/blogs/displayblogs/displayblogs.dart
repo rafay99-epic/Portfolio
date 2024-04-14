@@ -197,10 +197,16 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
                   if (snapshot.connectionState == ConnectionState.waiting) {
                     return const LoadingData();
                   }
-
+                  snapshot.data!.docs.where((doc) {
+                    final title = doc['title'] as String;
+                    return title
+                        .toLowerCase()
+                        .contains(searchQuery.toLowerCase());
+                  }).toList();
                   if (snapshot.data!.docs.isEmpty) {
                     return buildErrorWidget(context);
                   }
+
                   // ----------------------------------------------
                   // Building Boxes and Display Blogs
                   //  - Passing all the data to another Widget

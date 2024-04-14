@@ -32,40 +32,46 @@ Widget renderContent(String content, BuildContext context) {
   );
 
   if (htmlRegex.hasMatch(content)) {
-    return Html(
-      data: content,
-      style: {
-        "body": Style(
-          textAlign: TextAlign.justify,
-          fontSize: FontSize(18.0),
-          fontFamily: 'ABeeZee',
-          color: Theme.of(context).colorScheme.primary,
-          backgroundColor: Theme.of(context).colorScheme.background,
-        ),
-        "code": Style(
-          backgroundColor: Colors.grey.shade200,
-        ),
-        "pre": Style(
-          padding: HtmlPaddings.only(
-              left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-          backgroundColor: Theme.of(context).colorScheme.background,
-          color: Theme.of(context).colorScheme.primary,
-          fontFamily: 'monospace',
-          fontStyle:
-              htmlRegex.hasMatch(content) ? FontStyle.normal : FontStyle.italic,
-          fontSize: FontSize(16.0),
-          border: Border.all(
-            color: Theme.of(context).colorScheme.inversePrimary,
-            width: 2,
-          ), // Add this line
-        ),
-      },
+    return SelectionArea(
+      child: Html(
+        data: content,
+        style: {
+          "body": Style(
+            textAlign: TextAlign.justify,
+            fontSize: FontSize(18.0),
+            fontFamily: 'ABeeZee',
+            color: Theme.of(context).colorScheme.primary,
+            backgroundColor: Theme.of(context).colorScheme.background,
+          ),
+          "code": Style(
+            backgroundColor: Colors.grey.shade200,
+          ),
+          "pre": Style(
+            padding: HtmlPaddings.only(
+                left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
+            backgroundColor: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.primary,
+            fontFamily: 'monospace',
+            fontStyle: htmlRegex.hasMatch(content)
+                ? FontStyle.normal
+                : FontStyle.italic,
+            fontSize: FontSize(16.0),
+            border: Border.all(
+              color: Theme.of(context).colorScheme.inversePrimary,
+              width: 2,
+            ), // Add this line
+          ),
+        },
+      ),
     );
   } else if (markdownRegex.hasMatch(content)) {
     return Markdown(
       data: content,
+      selectable: true,
     );
   } else {
-    return Text(content);
+    return SelectionArea(
+      child: Text(content),
+    );
   }
 }
