@@ -50,7 +50,6 @@ dependencies:
   highlight: ^0.7.0
   share: ^2.0.4
   share_plus: ^8.0.2
-  vertical_nav_bar: ^0.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
