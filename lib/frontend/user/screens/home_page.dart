@@ -1,10 +1,10 @@
-// ignore_for_file: library_private_types_in_public_api
+// // ignore_for_file: library_private_types_in_public_api
 
 import 'package:flutter/material.dart';
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
 import 'package:flutter/services.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:iconly/iconly.dart';
+// import 'package:iconly/iconly.dart';
 import 'package:rafay_portfolio/frontend/user/pages/aboutme/about_me.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/displayblogs.dart';
 import 'package:rafay_portfolio/frontend/user/pages/contact_me/contact_me.dart';
@@ -21,6 +21,7 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
+  final _pageController = PageController();
 
   final List<Widget> _pages = [
     const LandingPage(),
@@ -44,13 +45,21 @@ class _HomePageState extends State<HomePage> {
     );
   }
 
+  // Widget _buildBody() {
+  //   return Column(
+  //     children: <Widget>[
+  //       Expanded(
+  //         child: _pages[_currentIndex],
+  //       ),
+  //     ],
+  //   );
+  // }
+
   Widget _buildBody() {
-    return Column(
-      children: <Widget>[
-        Expanded(
-          child: _pages[_currentIndex],
-        ),
-      ],
+    return PageView(
+      controller: _pageController,
+      onPageChanged: _handleIndexChanged,
+      children: _pages,
     );
   }
 
@@ -80,11 +89,11 @@ class _HomePageState extends State<HomePage> {
         unselectedColor: Colors.blue.shade200,
       ),
       CrystalNavigationBarItem(
-        icon: IconlyBold.user_2,
+        icon: FontAwesomeIcons.user,
         unselectedColor: Colors.redAccent,
       ),
       CrystalNavigationBarItem(
-        icon: IconlyBold.document,
+        icon: FontAwesomeIcons.briefcase,
         unselectedColor: Theme.of(context).colorScheme.inversePrimary,
       ),
       CrystalNavigationBarItem(
@@ -92,17 +101,26 @@ class _HomePageState extends State<HomePage> {
         unselectedColor: Colors.green.shade400,
       ),
       CrystalNavigationBarItem(
-        icon: FontAwesomeIcons.rss,
+        icon: FontAwesomeIcons.blog,
         unselectedColor: Colors.brown,
       ),
       CrystalNavigationBarItem(
-        icon: IconlyBold.message,
+        icon: FontAwesomeIcons.message,
         unselectedColor: Colors.cyan.shade400,
       ),
     ];
   }
 
+  //orginal code
+  // void _handleIndexChanged(int index) {
+  //   setState(() {
+  //     _currentIndex = index;
+  //   });
+  // }
+
   void _handleIndexChanged(int index) {
+    _pageController.jumpToPage(index);
+
     setState(() {
       _currentIndex = index;
     });

@@ -18,7 +18,6 @@ dependencies:
   url_launcher: ^6.2.4
   font_awesome_flutter: ^10.7.0
   crystal_navigation_bar: ^1.0.0
-  iconly: ^1.0.1
   web_smooth_scroll: ^1.1.0
   flutter_svg: ^2.0.9
   firebase_core: ^2.25.4
@@ -51,6 +50,7 @@ dependencies:
   highlight: ^0.7.0
   share: ^2.0.4
   share_plus: ^8.0.2
+  vertical_nav_bar: ^0.0.1
 dev_dependencies:
   flutter_test:
     sdk: flutter
