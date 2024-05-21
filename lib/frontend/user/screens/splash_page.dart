@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
-
-import 'home_page.dart';
+import 'package:rafay_portfolio/frontend/user/pages/home/home.dart';
 
 class SplashScreen extends StatefulWidget {
   static const _animation = 'assets/animation/jar-loading.json';

@@ -9,7 +9,6 @@ import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
 import 'package:rafay_portfolio/constants/widgets/errorAndLanding/error.dart';
 import 'package:rafay_portfolio/constants/widgets/errorAndLanding/loading.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/widgets/blog_builder/blog_builder.dart';
-import 'package:rafay_portfolio/constants/widgets/ultis/floating_button.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/widgets/check_internet.dart/no_internet.dart';
 import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
 import 'dart:io' show Platform;
@@ -38,7 +37,6 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
 
   @override
   void dispose() {
-    scrollController.dispose();
     super.dispose();
   }
 
@@ -55,9 +53,6 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
       backgroundColor: Theme.of(context).colorScheme.background,
       appBar: !kIsWeb ? buildAppBar(context) : null,
       body: buildBody(context, screenType),
-      floatingActionButton: screenType.isMobile
-          ? null
-          : buildFloatingButton(context, smoothScrollToTop, smoothScrollDown),
     );
   }
 

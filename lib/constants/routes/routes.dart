@@ -7,7 +7,7 @@ import 'package:rafay_portfolio/frontend/user/pages/error/page404.dart';
 import 'package:rafay_portfolio/frontend/user/pages/project_gallery/project_gallery.dart';
 import 'package:rafay_portfolio/frontend/user/pages/experiences/resume.dart';
 import 'package:rafay_portfolio/frontend/user/screens/contact_me_page.dart';
-import 'package:rafay_portfolio/frontend/user/screens/home_page.dart';
+import 'package:rafay_portfolio/frontend/user/pages/home/home.dart';
 
 final Map<String, WidgetBuilder> appRoutes = {
   '/home': (context) => const HomePage(),

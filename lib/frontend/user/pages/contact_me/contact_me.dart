@@ -25,6 +25,11 @@ final MessageService messageService = MessageService();
 
 final class _ContactMeState extends State<ContactMe> {
   @override
+  void dispose() {
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < 600;
 

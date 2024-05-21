@@ -2,7 +2,7 @@ name: Testing Flutter Web Deploy
 on:
   push:
     branches:
-      - v1
+      - v2
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -15,7 +15,7 @@ jobs:
       - name: Flutter setup
         uses: subosito/flutter-action@v2
         with:
-          flutter-version: "3.19"
+          flutter-version: "3.22"
 
       - name: Setup NodeJs
         uses: actions/setup-node@v4

@@ -2,7 +2,7 @@
 name: rafay_portfolio
 description: "Portfolio Website for Abdul Rafay"
 publish_to: "none"
-version: 1.3.1+1
+version: 2.0.1+1
 environment:
   sdk: ">=3.2.5 <4.0.0"
 
@@ -35,12 +35,12 @@ dependencies:
   firebase_crashlytics: ^3.4.19
   timeline_tile: ^2.0.0
   showcaseview: ^2.0.3
-  connectivity_plus: ^5.0.2
+  connectivity_plus: ^6.0.3
   intl: ^0.19.0
   scroll_to_index: ^3.0.1
   cached_network_image: ^3.3.1
   rxdart: ^0.27.7
-  flutter_markdown: ^0.6.22
+  flutter_markdown: ^0.7.1
   flutter_staggered_grid_view: ^0.7.0
   open_file: ^3.3.2
   universal_html: ^2.2.4
@@ -49,11 +49,11 @@ dependencies:
   html_parser_plus: ^0.1.4
   highlight: ^0.7.0
   share: ^2.0.4
-  share_plus: ^8.0.2
+  share_plus: ^9.0.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
-  flutter_lints: ^2.0.0
+  flutter_lints: ^4.0.0
 
 # Flutter Design and Assets
 flutter:

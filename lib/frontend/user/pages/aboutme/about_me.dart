@@ -20,20 +20,17 @@ class AboutMe extends StatefulWidget {
 class _AboutMeState extends State<AboutMe> {
   @override
   Widget build(BuildContext context) {
-    bool isMobile =
-        MediaQuery.of(context).size.width < 600; // Adjust the value as needed
+    bool isMobile = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.background,
-      body: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height,
-          ),
-          child: Container(
-            margin: const EdgeInsets.all(15.0),
-            child: isMobile ? _buildMobileLayout() : _buildWebLayout(),
-          ),
+      body: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height,
+        ),
+        child: Container(
+          margin: const EdgeInsets.all(15.0),
+          child: isMobile ? _buildMobileLayout() : _buildWebLayout(),
         ),
       ),
     );
