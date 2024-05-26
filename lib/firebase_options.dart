@@ -67,7 +67,7 @@ class DefaultFirebaseOptions {
     messagingSenderId: '182119041017',
     projectId: 'portfolio-f4698',
     storageBucket: 'portfolio-f4698.appspot.com',
-    iosBundleId: 'com.example.rafayPortfolio',
+    iosBundleId: 'com.example.rafay_portfolio',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
@@ -76,6 +76,6 @@ class DefaultFirebaseOptions {
     messagingSenderId: '182119041017',
     projectId: 'portfolio-f4698',
     storageBucket: 'portfolio-f4698.appspot.com',
-    iosBundleId: 'com.example.rafayPortfolio.RunnerTests',
+    iosBundleId: 'com.example.rafay_portfolio.RunnerTests',
   );
 }
