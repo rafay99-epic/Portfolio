@@ -4,14 +4,13 @@ import 'package:flutter/material.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+import 'dart:io' as io;
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
-import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
 import 'package:rafay_portfolio/constants/widgets/errorAndLanding/error.dart';
 import 'package:rafay_portfolio/constants/widgets/errorAndLanding/loading.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/widgets/blog_builder/blog_builder.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/widgets/check_internet.dart/no_internet.dart';
 import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
-import 'dart:io' show Platform;
 
 class DisplayBlog extends StatefulWidget {
   const DisplayBlog({super.key});
@@ -20,7 +19,7 @@ class DisplayBlog extends StatefulWidget {
   _DisplayBlogState createState() => _DisplayBlogState();
 }
 
-class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
+class _DisplayBlogState extends State<DisplayBlog> {
   // ----------------------------
   //  Varaiables
   // ----------------------------
@@ -32,7 +31,6 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
   void initState() {
     super.initState();
     _checkInternetConnectivity();
-    scrollController = ScrollController();
   }
 
   @override
@@ -60,12 +58,16 @@ class _DisplayBlogState extends State<DisplayBlog> with ScrollControllerMixin {
   // Checking Internet on Android Application & IOS Application
   // -------------------------------------------------------------
   Future<void> _checkInternetConnectivity() async {
-    if (Platform.isAndroid || Platform.isIOS) {
-      var connectivityResult = await (Connectivity().checkConnectivity());
-      if (connectivityResult == ConnectivityResult.none) {
-        setState(() {
-          _isInternetConnected = false;
-        });
+    if (kIsWeb) {
+    } else {
+      // Handle mobile platforms
+      if (io.Platform.isAndroid || io.Platform.isIOS) {
+        var connectivityResult = await (Connectivity().checkConnectivity());
+        if (connectivityResult == ConnectivityResult.none) {
+          setState(() {
+            _isInternetConnected = false;
+          });
+        }
       }
     }
   }

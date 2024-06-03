@@ -11,7 +11,7 @@ import 'package:rafay_portfolio/constants/widgets/ultis/admin_drawer.dart';
 import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 
 class BlogPostAdmin extends StatefulWidget {
-  const BlogPostAdmin({Key? key}) : super(key: key);
+  const BlogPostAdmin({super.key});
 
   @override
   State<BlogPostAdmin> createState() => _BlogPostState();
@@ -95,12 +95,12 @@ class _BlogPostState extends State<BlogPostAdmin> {
         padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 16),
       ),
       onPressed: () => {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => const AddBlogPost(),
-        //   ),
-        // )
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const AddBlogPost(),
+          ),
+        )
       },
       child: const Text("Article Add"),
     );
@@ -146,12 +146,12 @@ class _BlogPostState extends State<BlogPostAdmin> {
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
       foregroundColor: Theme.of(context).colorScheme.background,
       onPressed: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => const AddBlogPost(),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => const AddBlogPost(),
+          ),
+        );
       },
       child: const Icon(Icons.add),
     );
@@ -407,12 +407,12 @@ class _BlogPostState extends State<BlogPostAdmin> {
         color: Colors.blue,
       ),
       onPressed: () {
-        // Navigator.push(
-        //   context,
-        //   MaterialPageRoute(
-        //     builder: (context) => UpdateBlogPost(document.id),
-        //   ),
-        // );
+        Navigator.push(
+          context,
+          MaterialPageRoute(
+            builder: (context) => UpdateBlogPost(document.id),
+          ),
+        );
       },
     );
   }
