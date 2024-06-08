@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/constants/widgets/errorAndLanding/error.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/readblogs/widgets/blog_content/blog_content.dart';
-import 'package:rafay_portfolio/frontend/user/pages/blogs/readblogs/widgets/loading/loading.dart';
+import 'package:rafay_portfolio/constants/widgets/errorAndLanding/loading.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/readblogs/widgets/appbar/appbar.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:rafay_portfolio/backend/model/BlogModel.dart';

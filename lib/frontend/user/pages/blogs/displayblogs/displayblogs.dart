@@ -7,10 +7,10 @@ import 'package:flutter/foundation.dart' show kIsWeb;
 import 'dart:io' as io;
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
 import 'package:rafay_portfolio/constants/widgets/errorAndLanding/error.dart';
-import 'package:rafay_portfolio/constants/widgets/errorAndLanding/loading.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/widgets/blog_builder/blog_builder.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/displayblogs/widgets/check_internet.dart/no_internet.dart';
 import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
+import 'package:rafay_portfolio/constants/widgets/errorAndLanding/loading.dart';
 
 class DisplayBlog extends StatefulWidget {
   const DisplayBlog({super.key});
@@ -192,7 +192,7 @@ class _DisplayBlogState extends State<DisplayBlog> {
                     return buildErrorWidget(context);
                   }
                   if (snapshot.connectionState == ConnectionState.waiting) {
-                    return const LoadingData();
+                    return buildLoadingIndicator(context);
                   }
                   snapshot.data!.docs.where((doc) {
                     final title = doc['title'] as String;

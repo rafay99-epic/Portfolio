@@ -10,6 +10,7 @@ import 'package:html/dom.dart' as dom;
 import 'dart:html' as html;
 
 import 'package:rafay_portfolio/constants/scrollAnimation/scrollAnimation.dart';
+import 'package:rafay_portfolio/constants/widgets/dialogBox/dialogbox.dart';
 import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 import 'package:rafay_portfolio/constants/widgets/ultis/HoverChip.dart';
 
@@ -70,7 +71,15 @@ class _BlogPreviewState extends State<BlogPreview> {
               _scrollController.position.maxScrollExtent;
         });
     } catch (e) {
-      print('An error occurred: $e');
+      showDialogBox(
+        context,
+        Icons.error,
+        Colors.red,
+        Colors.red,
+        'Error',
+        e.toString(),
+        () => Navigator.of(context).pop(),
+      );
     }
   }
 

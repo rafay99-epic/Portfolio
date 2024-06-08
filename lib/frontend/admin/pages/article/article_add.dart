@@ -12,7 +12,7 @@ import 'package:rafay_portfolio/constants/widgets/textfeild/buildTextField.dart'
 import 'package:rafay_portfolio/frontend/admin/pages/article/article_preview.dart';
 
 class AddBlogPost extends StatefulWidget {
-  const AddBlogPost({Key? key}) : super(key: key);
+  const AddBlogPost({super.key});
 
   @override
   State<AddBlogPost> createState() => _AddBlogPostState();
