@@ -1,20 +1,6 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <!--
-    If you are serving your web app in a path other than the root, change the
-    href value below to reflect the base path you are serving from.
-
-    The path provided below has to start and end with a slash "/" in order for
-    it to work correctly.
-
-    For more details:
-    * https://developer.mozilla.org/en-US/docs/Web/HTML/Element/base
-
-    This is a placeholder for base href that will be replaced by the value of
-    the `--base-href` argument provided to `flutter build`.
-  -->
-    <!-- <base href="/"> -->
     <base href="/" />
     <meta charset="UTF-8" />
     <meta content="IE=Edge" http-equiv="X-UA-Compatible" />
@@ -23,7 +9,6 @@
       content="Discover the dynamic world of Abdul Rafay—a fusion of creativity, innovation, and passion. Explore captivating blog posts and stunning portfolio showcases. Join me on a journey of inspiration, collaboration, and endless possibilities. Let's shape the future, one idea at a time."
     />
 
-    <!-- iOS meta tags & icons -->
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black" />
     <meta name="apple-mobile-web-app-title" content="rafay_portfolio" />
@@ -36,10 +21,12 @@
     <link rel="manifest" href="manifest.json" />
 
     <script defer>
-      // The value below is injected by flutter build, do not touch.
-      const serviceWorkerVersion = "665252446";
+      {
+        {
+          flutter_service_worker_version;
+        }
+      }
     </script>
-    <!-- This script adds the flutter initialization JS code -->
     <script src="flutter.js" defer></script>
     <!-- umami Software for tracking -->
     <script
@@ -47,10 +34,34 @@
       src="https://eu.umami.is/script.js"
       data-website-id="78c248fa-8e79-4fe4-bf5e-de8345e8aa82"
     ></script>
+    <style>
+      body {
+        background-color: black;
+        margin: 0;
+        height: 100vh;
+        width: 100vw;
+      }
+      .main-content {
+        height: 100%;
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: opacity 0.2s ease-in;
+      }
+    </style>
   </head>
   <body>
-    <script defer>
+    <script src="flutter_bootstrap.js" async></script>
+    <script>
+      function delay(time) {
+        return new Promise(function (resolve) {
+          setTimeout(resolve, time);
+        });
+      }
+
       window.addEventListener("load", function (ev) {
+        var loadContent = document.getElementById("loader-content");
         // Download main.dart.js
         _flutter.loader.loadEntrypoint({
           serviceWorker: {
@@ -58,11 +69,14 @@
           },
           onEntrypointLoaded: function (engineInitializer) {
             engineInitializer.initializeEngine().then(function (appRunner) {
+              loadContent.style.opacity = 1;
+              delay(200);
               appRunner.runApp();
             });
           },
         });
       });
     </script>
+    <div class="main-content" id="loader-content"></div>
   </body>
 </html>
