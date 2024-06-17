@@ -16,7 +16,7 @@ class NavigationTextButton extends StatelessWidget {
         style: TextStyle(
           color: Theme.of(context).colorScheme.primary,
           fontSize: 17,
-          fontWeight: FontWeight.bold,
+
           // fontFamily: "Roboto",
         ),
       ),

@@ -11,7 +11,7 @@ import 'package:rafay_portfolio/constants/widgets/dialogBox/dialogbox.dart';
 import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 
 class ContactMe extends StatefulWidget {
-  const ContactMe({Key? key}) : super(key: key);
+  const ContactMe({super.key});
 
   @override
   State<ContactMe> createState() => _ContactMeState();

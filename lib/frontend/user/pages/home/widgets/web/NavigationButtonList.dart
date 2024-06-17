@@ -8,7 +8,7 @@ class NavigationButtonList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TweenAnimationBuilder(
-      tween: Tween(begin: 0.0, end: 1.0),
+      tween: Tween(begin: 0.0, end: 1.25),
       duration: const Duration(milliseconds: 200),
       builder: (context, value, child) {
         return Transform.scale(
@@ -44,8 +44,7 @@ class NavigationButtonList extends StatelessWidget {
                   },
                   text: 'Experiences'),
               Visibility(
-                visible:
-                    !Responsive.isMobile(context), // Hide on mobile screens
+                visible: !Responsive.isMobile(context),
                 child: NavigationTextButton(
                     onTap: () {
                       controller.animateToPage(4,

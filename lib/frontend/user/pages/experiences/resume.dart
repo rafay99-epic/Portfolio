@@ -6,7 +6,7 @@ import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class Resume extends StatefulWidget {
-  const Resume({Key? key}) : super(key: key);
+  const Resume({super.key});
 
   @override
   State<Resume> createState() => _ResumeState();
@@ -107,7 +107,7 @@ class _ResumeState extends State<Resume> {
   Widget build(BuildContext context) {
     ScreenType screenType = ScreenType(MediaQuery.of(context).size.width);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       //--------------
       // Widget Body
       //--------------

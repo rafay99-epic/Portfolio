@@ -48,7 +48,7 @@ class _DisplayBlogState extends State<DisplayBlog> {
       return noInternetConnection(context);
     }
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: !kIsWeb ? buildAppBar(context) : null,
       body: buildBody(context, screenType),
     );
@@ -108,7 +108,7 @@ class _DisplayBlogState extends State<DisplayBlog> {
                         decoration: InputDecoration(
                           hintText: 'Search Articles...',
                           filled: true,
-                          fillColor: Theme.of(context).colorScheme.background,
+                          fillColor: Theme.of(context).colorScheme.surface,
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30.0),
                             borderSide: BorderSide.none,
@@ -134,7 +134,7 @@ class _DisplayBlogState extends State<DisplayBlog> {
 
   AppBar buildAppBar(BuildContext context) {
     return AppBar(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       elevation: 0,
       title: isSearchBarVisible
           ? TextField(
@@ -146,7 +146,7 @@ class _DisplayBlogState extends State<DisplayBlog> {
               decoration: InputDecoration(
                 hintText: 'Search Articles...',
                 filled: true,
-                fillColor: Theme.of(context).colorScheme.background,
+                fillColor: Theme.of(context).colorScheme.surface,
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(30.0),
                   borderSide: BorderSide.none,

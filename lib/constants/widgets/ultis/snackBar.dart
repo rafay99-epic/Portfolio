@@ -18,7 +18,7 @@ class SnackBarWidget extends StatelessWidget {
       content: Text(
         text,
         style: TextStyle(
-          color: Theme.of(context).colorScheme.background,
+          color: Theme.of(context).colorScheme.surface,
           fontSize: 15,
         ),
       ),
@@ -37,7 +37,7 @@ SnackBar buildSnackBar(BuildContext context, String text) {
     content: Text(
       text,
       style: TextStyle(
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.surface,
         fontSize: 15,
       ),
     ),

@@ -9,25 +9,13 @@ import 'package:flutter_markdown/flutter_markdown.dart';
 
 Widget renderContent(String content, BuildContext context) {
   RegExp htmlRegex = RegExp(
-    r'(<[a-z1-6]+>)|' + // Start tags
-        r'(</[a-z1-6]+>)|' + // End tags
-        r'(<!--.*?-->)|' + // Comments
-        r'(<[a-z1-6]+/>)|' + // Self-closing tags
-        r'(<[a-z1-6]+ [^>]*>)', // Tags with attributes
+    r'(<[a-z1-6]+>)|' r'(</[a-z1-6]+>)|' r'(<!--.*?-->)|' r'(<[a-z1-6]+/>)|' r'(<[a-z1-6]+ [^>]*>)', // Tags with attributes
     multiLine: true,
     caseSensitive: false,
   );
 
   RegExp markdownRegex = RegExp(
-    r'(#{1,6}[^\n]+|' + // Headers
-        r'\*{1,2}[^\*]+\*{1,2}|' + // Emphasis and strong emphasis
-        r'\[[^\]]+\]\([^\)]+\)|' + // Links
-        r'!\[[^\]]+\]\([^\)]+\)|' + // Images
-        r'`[^`]+`|' + // Code
-        r'> [^\n]+|' + // Blockquotes
-        r'^\* [^\n]+|' + // Unordered list
-        r'^\d+\. [^\n]+|' + // Ordered list
-        r'^-{3,})', // Horizontal rule
+    r'(#{1,6}[^\n]+|' r'\*{1,2}[^\*]+\*{1,2}|' r'\[[^\]]+\]\([^\)]+\)|' r'!\[[^\]]+\]\([^\)]+\)|' r'`[^`]+`|' r'> [^\n]+|' r'^\* [^\n]+|' r'^\d+\. [^\n]+|' r'^-{3,})', // Horizontal rule
     multiLine: true,
   );
 
@@ -41,7 +29,7 @@ Widget renderContent(String content, BuildContext context) {
             fontSize: FontSize(18.0),
             fontFamily: 'ABeeZee',
             color: Theme.of(context).colorScheme.primary,
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
           ),
           "code": Style(
             backgroundColor: Colors.grey.shade200,
@@ -49,7 +37,7 @@ Widget renderContent(String content, BuildContext context) {
           "pre": Style(
             padding: HtmlPaddings.only(
                 left: 10.0, right: 10.0, top: 10.0, bottom: 10.0),
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             color: Theme.of(context).colorScheme.primary,
             fontFamily: 'monospace',
             fontStyle: htmlRegex.hasMatch(content)

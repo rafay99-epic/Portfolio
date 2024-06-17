@@ -108,25 +108,25 @@ class _BlogPreviewState extends State<BlogPreview> {
         }
 
         RegExp htmlRegex = RegExp(
-          r'(<[a-z1-6]+>)|' + // Start tags
-              r'(</[a-z1-6]+>)|' + // End tags
-              r'(<!--.*?-->)|' + // Comments
-              r'(<[a-z1-6]+/>)|' + // Self-closing tags
-              r'(<[a-z1-6]+ [^>]*>)', // Tags with attributes
+          r'(<[a-z1-6]+>)|'
+          r'(</[a-z1-6]+>)|'
+          r'(<!--.*?-->)|'
+          r'(<[a-z1-6]+/>)|'
+          r'(<[a-z1-6]+ [^>]*>)', // Tags with attributes
           multiLine: true,
           caseSensitive: false,
         );
 
         RegExp markdownRegex = RegExp(
-          r'(#{1,6}[^\n]+|' + // Headers
-              r'\*{1,2}[^\*]+\*{1,2}|' + // Emphasis and strong emphasis
-              r'\[[^\]]+\]\([^\)]+\)|' + // Links
-              r'!\[[^\]]+\]\([^\)]+\)|' + // Images
-              r'`[^`]+`|' + // Code
-              r'> [^\n]+|' + // Blockquotes
-              r'^\* [^\n]+|' + // Unordered list
-              r'^\d+\. [^\n]+|' + // Ordered list
-              r'^-{3,})', // Horizontal rule
+          r'(#{1,6}[^\n]+|'
+          r'\*{1,2}[^\*]+\*{1,2}|'
+          r'\[[^\]]+\]\([^\)]+\)|'
+          r'!\[[^\]]+\]\([^\)]+\)|'
+          r'`[^`]+`|'
+          r'> [^\n]+|'
+          r'^\* [^\n]+|'
+          r'^\d+\. [^\n]+|'
+          r'^-{3,})', // Horizontal rule
           multiLine: true,
         );
 
@@ -138,8 +138,8 @@ class _BlogPreviewState extends State<BlogPreview> {
                 textAlign: TextAlign.justify,
                 fontSize: FontSize(18.0),
                 fontFamily: 'ABeeZee',
-                color: Theme.of(context).colorScheme.primary,
-                backgroundColor: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.primaryFixed,
+                backgroundColor: Theme.of(context).colorScheme.onSurface,
               ),
             },
           );
@@ -166,7 +166,7 @@ class _BlogPreviewState extends State<BlogPreview> {
                   },
                 )
               : null,
-          backgroundColor: Theme.of(context).colorScheme.background,
+          backgroundColor: Theme.of(context).colorScheme.onSurface,
           bottom: PreferredSize(
             preferredSize: const Size.fromHeight(2.0),
             child: ValueListenableBuilder<double>(
@@ -174,7 +174,7 @@ class _BlogPreviewState extends State<BlogPreview> {
               builder: (context, value, child) {
                 return LinearProgressIndicator(
                   value: value,
-                  backgroundColor: Theme.of(context).colorScheme.background,
+                  backgroundColor: Theme.of(context).colorScheme.onSurface,
                   color: Theme.of(context).colorScheme.inversePrimary,
                   minHeight: 3.0,
                 );
@@ -182,7 +182,7 @@ class _BlogPreviewState extends State<BlogPreview> {
             ),
           ),
         ),
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.onSurface,
         body: SingleChildScrollView(
           physics: const CustomScrollPhysics(),
           controller: _scrollController,
@@ -202,7 +202,7 @@ class _BlogPreviewState extends State<BlogPreview> {
                       child: StyledText(
                         text: widget.title,
                         fontSize: screenType.isMobile ? 30.0 : 40.0,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.primaryFixed,
                         bold: true,
                         fontFamily: 'ABeeZee',
                         textAlign: TextAlign.center,
@@ -230,7 +230,7 @@ class _BlogPreviewState extends State<BlogPreview> {
                       child: StyledText(
                         text: "Date: ${widget.date}",
                         fontSize: 18,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.primaryFixed,
                         fontStyle: FontStyle.italic,
                       ),
                     ),
@@ -242,7 +242,7 @@ class _BlogPreviewState extends State<BlogPreview> {
                       child: StyledText(
                         text: "Author: ${widget.author}",
                         fontSize: 18,
-                        color: Theme.of(context).colorScheme.primary,
+                        color: Theme.of(context).colorScheme.primaryFixed,
                         fontStyle: FontStyle.italic,
                       ),
                     ),
@@ -281,7 +281,7 @@ class _BlogPreviewState extends State<BlogPreview> {
                         child: StyledText(
                           text: "Thumbnail",
                           fontSize: 40,
-                          color: Theme.of(context).colorScheme.primary,
+                          color: Theme.of(context).colorScheme.primaryFixed,
                           bold: true,
                           fontFamily: 'ABeeZee',
                           textAlign: TextAlign.center,
@@ -334,7 +334,8 @@ class _BlogPreviewState extends State<BlogPreview> {
                               child: StyledText(
                                 text: "Table of Contents",
                                 fontSize: 30,
-                                color: Theme.of(context).colorScheme.primary,
+                                color:
+                                    Theme.of(context).colorScheme.primaryFixed,
                                 bold: true,
                                 fontFamily: 'ABeeZee',
                                 textAlign: TextAlign.center,
@@ -391,7 +392,7 @@ class _BlogPreviewState extends State<BlogPreview> {
                                           fontWeight: FontWeight.w400,
                                           color: Theme.of(context)
                                               .colorScheme
-                                              .primary,
+                                              .primaryFixed,
                                           fontFamily: 'ABeeZee',
                                         ),
                                         onTap: () {

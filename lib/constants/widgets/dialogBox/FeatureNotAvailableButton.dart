@@ -28,7 +28,7 @@ class _FeatureNotAvailableButtonState extends State<FeatureNotAvailableButton> {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       title: buildStyledText(widget.titleBox),
       content: buildStyledText(widget.description),
       actions: [

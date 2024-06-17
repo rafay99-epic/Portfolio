@@ -39,11 +39,26 @@ class _CustomTextFieldState extends State<CustomTextField> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.only(left: 15.0),
-      child: Material(
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: BorderRadius.circular(15.0),
+          boxShadow: [
+            BoxShadow(
+              color: Theme.of(context).colorScheme.primary,
+              spreadRadius: 1,
+              blurRadius: 0,
+              // offset: const Offset(1, 1),
+            ),
+          ],
+        ),
         child: TextFormField(
           controller: widget.controller,
           maxLines: widget.maxLines,
           obscureText: widget.passwordText ? !_passwordVisible : false,
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
+          ),
           decoration: InputDecoration(
             labelText: widget.labelText,
             hintText: widget.hintText,
@@ -63,8 +78,11 @@ class _CustomTextFieldState extends State<CustomTextField> {
                   )
                 : null,
             border: OutlineInputBorder(
-              borderRadius: BorderRadius.circular(10.0),
+              borderRadius: BorderRadius.circular(15.0),
+              borderSide: BorderSide.none,
             ),
+            filled: true,
+            fillColor: Theme.of(context).colorScheme.surface,
           ),
         ),
       ),

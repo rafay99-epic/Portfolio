@@ -24,7 +24,7 @@ class _HoverChipState extends State<HoverChip> {
         decoration: BoxDecoration(
           color: _isHovering
               ? Theme.of(context).colorScheme.inversePrimary
-              : Theme.of(context).colorScheme.background,
+              : Theme.of(context).colorScheme.surface,
           borderRadius: BorderRadius.circular(16),
           border:
               Border.all(color: Theme.of(context).colorScheme.inversePrimary),
@@ -34,7 +34,7 @@ class _HoverChipState extends State<HoverChip> {
           widget.label,
           style: TextStyle(
             color: _isHovering
-                ? Theme.of(context).colorScheme.background
+                ? Theme.of(context).colorScheme.surface
                 : Theme.of(context).colorScheme.primary,
           ),
         ),

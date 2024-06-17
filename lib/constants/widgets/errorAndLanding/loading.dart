@@ -12,7 +12,7 @@ Widget buildLoadingIndicator(BuildContext context) {
       child: FAProgressBar(
         currentValue: 100,
         size: 10,
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         progressColor: Theme.of(context).colorScheme.inversePrimary,
         maxValue: 100,
         borderRadius: const BorderRadius.all(Radius.circular(10)),

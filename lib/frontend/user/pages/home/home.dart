@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
         DisplayBlog(),
       ]);
     } else {
-      final List<Widget> _pages = [
+      final List<Widget> pages = [
         const LandingPage(),
         const AboutMe(),
         const Resume(),
@@ -39,7 +39,7 @@ class _HomePageState extends State<HomePage> {
         const ContactMe(),
       ];
 
-      void _handleIndexChanged(int index) {
+      void handleIndexChanged(int index) {
         _pageController.jumpToPage(index);
 
         setState(() {
@@ -47,19 +47,19 @@ class _HomePageState extends State<HomePage> {
         });
       }
 
-      Widget _buildBody() {
+      Widget buildBody() {
         return PageView(
           controller: _pageController,
-          onPageChanged: _handleIndexChanged,
-          children: _pages,
+          onPageChanged: handleIndexChanged,
+          children: pages,
         );
       }
 
       return Scaffold(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        body: _buildBody(),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        body: buildBody(),
         bottomNavigationBar: buildBottomNavigationBar(
-            context, _currentIndex, _handleIndexChanged),
+            context, _currentIndex, handleIndexChanged),
       );
     }
   }

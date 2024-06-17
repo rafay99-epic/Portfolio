@@ -35,7 +35,7 @@ class ProjectCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(15.0),
           side: BorderSide(color: Theme.of(context).colorScheme.inversePrimary),
         ),
-        color: Theme.of(context).colorScheme.background,
+        color: Theme.of(context).colorScheme.primary,
         child: Column(
           children: [
             ClipRRect(
@@ -65,7 +65,7 @@ class ProjectCard extends StatelessWidget {
                   StyledText(
                     text: "Project Deployed & Location",
                     fontSize: 17,
-                    color: Theme.of(context).colorScheme.primary,
+                    color: Theme.of(context).colorScheme.surface,
                     bold: true,
                   ),
                   const SizedBox(height: 10),
@@ -104,7 +104,7 @@ class ProjectCard extends StatelessWidget {
               text: label,
               style: TextStyle(
                 fontSize: 17,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
                 fontWeight: FontWeight.bold,
                 fontFamily: "roboto",
               ),
@@ -113,7 +113,7 @@ class ProjectCard extends StatelessWidget {
               text: value,
               style: TextStyle(
                 fontSize: 17,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
                 fontFamily: "roboto",
                 fontWeight: FontWeight.w400,
               ),

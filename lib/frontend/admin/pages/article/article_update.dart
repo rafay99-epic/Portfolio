@@ -83,10 +83,10 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
             title: StyledText(
               text: 'Update Article',
               fontSize: 22,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.primaryFixed,
               textAlign: TextAlign.left,
             ),
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.onSurface,
             actions: <Widget>[
               Row(
                 children: [
@@ -95,7 +95,7 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
                     child: TextButton(
                       style: TextButton.styleFrom(
                         foregroundColor:
-                            Theme.of(context).colorScheme.background,
+                            Theme.of(context).colorScheme.onSurface,
                         backgroundColor:
                             Theme.of(context).colorScheme.inversePrimary,
                         shape: RoundedRectangleBorder(
@@ -231,7 +231,8 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
                         width: MediaQuery.of(context).size.width * 0.8,
                         decoration: BoxDecoration(
                           border: Border.all(
-                              color: Theme.of(context).colorScheme.primary),
+                              color:
+                                  Theme.of(context).colorScheme.primaryFixed),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: ClipRRect(

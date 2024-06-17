@@ -17,10 +17,10 @@ class ReadMeBlogs extends StatefulWidget {
   final String? url;
 
   const ReadMeBlogs({
-    Key? key,
+    super.key,
     this.id,
     this.url,
-  }) : super(key: key);
+  });
 
   @override
   _ReadMeBlogsState createState() => _ReadMeBlogsState();
@@ -74,7 +74,7 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context, _progress),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: FutureBuilder<BlogPosModel>(
         future: getBlogPost(url: widget.url),
         builder: (BuildContext context, AsyncSnapshot<BlogPosModel> snapshot) {

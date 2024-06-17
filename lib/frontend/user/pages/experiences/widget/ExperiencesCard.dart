@@ -26,11 +26,12 @@ class JobCard extends StatelessWidget {
         ),
         height: 350,
         child: Card(
+          color: Theme.of(context).colorScheme.primary,
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
+            borderRadius: BorderRadius.circular(20),
             side: BorderSide(
               color: Theme.of(context).colorScheme.inversePrimary,
-              width: 2,
+              width: 4,
             ),
           ),
           child: Padding(
@@ -46,7 +47,7 @@ class JobCard extends StatelessWidget {
                             text: job.companyName,
                             fontSize: 22,
                             bold: true,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context).colorScheme.surface,
                           ),
                           const SizedBox(
                             height: 10,
@@ -64,7 +65,7 @@ class JobCard extends StatelessWidget {
                             text: job.companyName,
                             fontSize: 30,
                             bold: true,
-                            color: Theme.of(context).colorScheme.primary,
+                            color: Theme.of(context).colorScheme.surface,
                           ),
                           const SizedBox(
                             width: 5,
@@ -101,7 +102,7 @@ class JobCard extends StatelessWidget {
                   text: "Responsibilities",
                   fontSize: 22,
                   bold: true,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
                 const SizedBox(
                   height: 15,
@@ -122,7 +123,7 @@ class JobCard extends StatelessWidget {
                             child: StyledText(
                               text: role,
                               fontSize: 18,
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Theme.of(context).colorScheme.surface,
                             ),
                           ),
                         ],
@@ -137,7 +138,7 @@ class JobCard extends StatelessWidget {
                   text: "Technology Used",
                   fontSize: 22,
                   bold: true,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
                 const SizedBox(
                   height: 10,

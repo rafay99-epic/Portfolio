@@ -7,7 +7,7 @@ import 'package:rafay_portfolio/frontend/user/pages/blogs/relatedblogpost/widget
 import 'package:rafay_portfolio/frontend/user/pages/blogs/relatedblogpost/widgets/social_share.dart';
 
 class RelatedBlogPosts extends StatelessWidget {
-  const RelatedBlogPosts({Key? key}) : super(key: key);
+  const RelatedBlogPosts({super.key});
 
   Future<List<BlogPosModel>> getReleatedBlogPost() async {
     QuerySnapshot querySnapshot =
@@ -39,7 +39,7 @@ class RelatedBlogPosts extends StatelessWidget {
             );
           },
           child: Card(
-            color: Theme.of(context).colorScheme.background,
+            color: Theme.of(context).colorScheme.surface,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(5),
               side: BorderSide(
@@ -81,7 +81,7 @@ class RelatedBlogPosts extends StatelessWidget {
         if (snapshot.connectionState == ConnectionState.waiting) {
           return CircularProgressIndicator(
             color: Theme.of(context).colorScheme.inversePrimary,
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
           );
         } else if (snapshot.hasError) {
           return Text('Error: ${snapshot.error}');

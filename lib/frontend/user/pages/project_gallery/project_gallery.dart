@@ -7,7 +7,7 @@ import 'package:rafay_portfolio/frontend/user/pages/project_gallery/components/p
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ProjectGridView extends StatefulWidget {
-  const ProjectGridView({Key? key}) : super(key: key);
+  const ProjectGridView({super.key});
 
   @override
   _ProjectGridViewState createState() => _ProjectGridViewState();
@@ -31,7 +31,7 @@ class _ProjectGridViewState extends State<ProjectGridView> {
     final screenType = ScreenType(MediaQuery.of(context).size.width);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(

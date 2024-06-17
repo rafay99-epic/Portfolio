@@ -14,17 +14,17 @@ class Dashboard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final AuthService _authService = AuthService();
+    final AuthService authService = AuthService();
     final double screenWidth = MediaQuery.of(context).size.width;
     final double cardWidth = screenWidth < 600 ? 150 : 300;
     final double cardHeight = screenWidth < 600 ? 190 : 380;
     final double padding = screenWidth < 600 ? 20 : 450;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: const MyDrawerAdmin(),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
+        backgroundColor: Theme.of(context).colorScheme.surface,
         title: const Text("Dashboard"),
       ),
       body: Center(
@@ -104,16 +104,18 @@ class Dashboard extends StatelessWidget {
                           context: context,
                           builder: (BuildContext context) {
                             return AlertDialog(
-                              title: const Text(
+                              title: Text(
                                 'Confirm Logout',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.surface,
                                 ),
                               ),
-                              content: const Text(
+                              content: Text(
                                 'Do you want to log out?',
                                 style: TextStyle(
                                   fontWeight: FontWeight.bold,
+                                  color: Theme.of(context).colorScheme.surface,
                                 ),
                               ),
                               actions: <Widget>[
@@ -124,9 +126,8 @@ class Dashboard extends StatelessWidget {
                                       backgroundColor: Theme.of(context)
                                           .colorScheme
                                           .inversePrimary,
-                                      foregroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .background,
+                                      foregroundColor:
+                                          Theme.of(context).colorScheme.primary,
                                     ),
                                     child: const Text(
                                       'No',
@@ -146,9 +147,8 @@ class Dashboard extends StatelessWidget {
                                   width: double.infinity,
                                   child: TextButton(
                                     style: TextButton.styleFrom(
-                                      foregroundColor: Theme.of(context)
-                                          .colorScheme
-                                          .background,
+                                      foregroundColor:
+                                          Theme.of(context).colorScheme.primary,
                                       backgroundColor: Theme.of(context)
                                           .colorScheme
                                           .inversePrimary,
@@ -161,7 +161,7 @@ class Dashboard extends StatelessWidget {
                                     ),
                                     onPressed: () async {
                                       Navigator.of(context).pop();
-                                      await _authService.signOut();
+                                      await authService.signOut();
                                       SchedulerBinding.instance
                                           .addPostFrameCallback(
                                         (_) {
@@ -199,6 +199,7 @@ class Dashboard extends StatelessWidget {
       child: GestureDetector(
         onTap: onTap,
         child: Card(
+          color: Theme.of(context).colorScheme.primary,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
@@ -215,7 +216,7 @@ class Dashboard extends StatelessWidget {
                 style: GoogleFonts.playfair(
                   fontSize: 32,
                   fontWeight: FontWeight.bold,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.surface,
                 ),
               ),
             ],

@@ -76,7 +76,7 @@ flutter_icons:
   web:
     generate: true
     image_path: "assets/image/favicon.png"
-    background_color: "#FFF4F4"
+    background_color: "#000000"
     theme_color: "#31A499"
 # Flutter Fonts
 # fonts:

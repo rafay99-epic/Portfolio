@@ -40,7 +40,7 @@ class _OtpEmailVerifyScreenState extends State<OtpEmailVerifyScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: SingleChildScrollView(
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20),
@@ -104,9 +104,13 @@ class _OtpEmailVerifyScreenState extends State<OtpEmailVerifyScreen> {
               ),
               FadeInDown(
                   duration: const Duration(milliseconds: 500),
-                  child: const Text(
+                  child: Text(
                     "Verification",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    style: TextStyle(
+                      fontSize: 30,
+                      fontWeight: FontWeight.bold,
+                      color: Theme.of(context).colorScheme.primary,
+                    ),
                   )),
               const SizedBox(
                 height: 30,
@@ -118,23 +122,28 @@ class _OtpEmailVerifyScreenState extends State<OtpEmailVerifyScreen> {
                   "Please enter the 4 digit code sent to \n Your Email",
                   textAlign: TextAlign.center,
                   style: TextStyle(
-                      fontSize: 16, color: Colors.grey.shade500, height: 1.5),
+                    fontSize: 16,
+                    color: Theme.of(context).colorScheme.primary,
+                    height: 1.5,
+                  ),
                 ),
               ),
               const SizedBox(
                 height: 30,
               ),
-
-              // Verification Code Input
               FadeInDown(
                 delay: const Duration(milliseconds: 600),
                 duration: const Duration(milliseconds: 500),
                 child: VerificationCode(
                   length: 4,
-                  textStyle: const TextStyle(fontSize: 20, color: Colors.black),
-                  underlineColor: Colors.black,
+                  textStyle: TextStyle(
+                    fontSize: 20,
+                    color: Theme.of(context).colorScheme.primary,
+                  ),
+                  underlineColor: Theme.of(context).colorScheme.inversePrimary,
                   keyboardType: TextInputType.number,
-                  underlineUnfocusedColor: Colors.black,
+                  underlineUnfocusedColor:
+                      Theme.of(context).colorScheme.primary,
                   onCompleted: (value) {
                     setState(() {
                       _code = value;
@@ -143,11 +152,9 @@ class _OtpEmailVerifyScreenState extends State<OtpEmailVerifyScreen> {
                   onEditing: (value) {},
                 ),
               ),
-
               const SizedBox(
                 height: 20,
               ),
-
               const SizedBox(
                 height: 50,
               ),
@@ -157,18 +164,30 @@ class _OtpEmailVerifyScreenState extends State<OtpEmailVerifyScreen> {
                   child: ElevatedButton(
                     onPressed: () async {
                       if (await widget.myauth.verifyOTP(otp: _code) == true) {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("OTP is verified"),
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.inversePrimary,
+                          content: Text(
+                            "OTP is verified",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
                         ));
                         Navigator.push(
                             context,
                             MaterialPageRoute(
                                 builder: (context) => const Dashboard()));
                       } else {
-                        ScaffoldMessenger.of(context)
-                            .showSnackBar(const SnackBar(
-                          content: Text("Invalid OTP"),
+                        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                          backgroundColor:
+                              Theme.of(context).colorScheme.inversePrimary,
+                          content: Text(
+                            "Invalid OTP",
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
                         ));
                       }
                     },
@@ -180,8 +199,7 @@ class _OtpEmailVerifyScreenState extends State<OtpEmailVerifyScreen> {
                       // Width 50
                       shape: WidgetStateProperty.all<OutlinedBorder>(
                           const RoundedRectangleBorder(
-                              borderRadius:
-                                  BorderRadius.zero)), // Remove rounded border
+                              borderRadius: BorderRadius.zero)),
                     ),
                     child: const Text(
                       "Verify",

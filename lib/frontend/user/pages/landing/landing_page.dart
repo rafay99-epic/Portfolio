@@ -11,7 +11,7 @@ import 'package:rafay_portfolio/frontend/user/screens/contact_me_page.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class LandingPage extends StatefulWidget {
-  const LandingPage({Key? key}) : super(key: key);
+  const LandingPage({super.key});
 
   @override
   State<LandingPage> createState() => _LandingPageState();
@@ -24,7 +24,7 @@ class _LandingPageState extends State<LandingPage> {
     bool isMobile = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Container(
         margin: const EdgeInsets.all(15.0),
         child: isMobile

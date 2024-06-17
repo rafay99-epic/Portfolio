@@ -37,14 +37,14 @@ class ConnectButton extends StatelessWidget {
             children: [
               Icon(
                 FontAwesomeIcons.whatsapp,
-                color: Theme.of(context).colorScheme.background,
+                color: Theme.of(context).colorScheme.surface,
                 size: 15,
               ),
               const SizedBox(width: defaultPadding / 4),
               Text(
                 'Whatsapp',
                 style: TextStyle(
-                  color: Theme.of(context).colorScheme.background,
+                  color: Theme.of(context).colorScheme.surface,
                   fontWeight: FontWeight.w500,
                   fontFamily: "Roboto",
                 ),

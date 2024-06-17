@@ -78,6 +78,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: buildAppBar(context),
       body: buildBody(),
     );
@@ -94,7 +95,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
         color: Theme.of(context).colorScheme.primary,
         textAlign: TextAlign.left,
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       actions: <Widget>[
         const SizedBox(width: 15),
         // --------------------------
@@ -117,7 +118,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
   TextButton buildPreviewButton(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-        foregroundColor: Theme.of(context).colorScheme.background,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -152,7 +153,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
   TextButton buildSaveButton() {
     return TextButton(
       style: TextButton.styleFrom(
-        foregroundColor: Theme.of(context).colorScheme.background,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -271,21 +272,52 @@ class _AddBlogPostState extends State<AddBlogPost> {
               prefixIcon: Icons.share,
               controller: urlController),
           const SizedBox(height: 20),
-          QuillHtmlEditor(
-            hintText: 'Start From Here...',
-            controller: quillEditorcontroller,
-            isEnabled: true,
-            minHeight: 500,
-            hintTextAlign: TextAlign.start,
-            padding: const EdgeInsets.only(left: 10, top: 5),
-            hintTextPadding: EdgeInsets.zero,
+         
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: StyledText(text: "Editior For Articles", fontSize: 32, 
+            color: Theme.of(context).colorScheme.primary,),
           ),
-          ToolBar(
-            toolBarColor: Colors.cyan.shade50,
-            activeIconColor: Colors.green,
-            padding: const EdgeInsets.all(8),
-            iconSize: 20,
-            controller: quillEditorcontroller,
+         const SizedBox(height: 20),
+         
+          Container(
+             decoration: BoxDecoration(
+                border: Border.all(
+                 color: Theme.of(context).colorScheme.primary, 
+                  width: 2, 
+                ),
+              borderRadius: BorderRadius.circular(10), 
+              ),
+            child: QuillHtmlEditor(
+              hintText: 'Write Article here....',
+              controller: quillEditorcontroller,
+              isEnabled: true,
+              minHeight: 500,
+              hintTextAlign: TextAlign.start,
+              padding: const EdgeInsets.only(left: 10, top: 5),
+              hintTextPadding: EdgeInsets.zero,
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              textStyle: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ),
+          Container(
+             decoration: BoxDecoration(
+                border: Border.all(
+                    color: Theme.of(context).colorScheme.primary, 
+                    width: 2,
+                ),
+              borderRadius: BorderRadius.circular(10), 
+              ),
+            child: ToolBar(
+              toolBarColor: Theme.of(context).colorScheme.surface,
+              activeIconColor: Theme.of(context).colorScheme.inversePrimary,
+              iconColor: Theme.of(context).colorScheme.primary,
+              padding: const EdgeInsets.all(10),
+              iconSize: 24,
+              controller: quillEditorcontroller,
+            ),
           ),
         ],
       ),
@@ -345,7 +377,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
       height: MediaQuery.of(context).size.height * 0.3,
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).colorScheme.primary),
+        border: Border.all(color: Theme.of(context).colorScheme.primaryFixed),
         borderRadius: BorderRadius.circular(10),
       ),
       child: ClipRRect(
@@ -366,7 +398,12 @@ class _AddBlogPostState extends State<AddBlogPost> {
       padding: const EdgeInsets.only(left: 15.0),
       child: ElevatedButton(
         onPressed: () => _selectDate(context),
-        child: const Text('Select date'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).colorScheme.surface,
+        ),
+
+        child: const Text('Select date')
       ),
     );
   }
@@ -379,13 +416,15 @@ class _AddBlogPostState extends State<AddBlogPost> {
       padding: const EdgeInsets.only(left: 15.0),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black),
+          border: Border.all(color: Theme.of(context).colorScheme.primary),
           borderRadius: BorderRadius.circular(10),
         ),
         child: ListTile(
-          title: const Text(
+          title:  Text(
             'Enabled Article ',
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: 18, 
+            color: Theme.of(context).colorScheme.primary
+            ),
           ),
           trailing: Checkbox(
             value: isEnabled,
@@ -395,7 +434,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
               });
             },
           ),
-          subtitle: isEnabled ? const Text('Blog is enabled on website') : null,
+          subtitle: isEnabled ?  Text('Blog is enabled on website', style: TextStyle(color: Theme.of(context).colorScheme.primary),) : null,
         ),
       ),
     );
