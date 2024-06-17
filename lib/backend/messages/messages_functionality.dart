@@ -14,19 +14,37 @@ class MessageService {
       FirebaseFirestore.instance.collection('messages');
 
   Future<void> saveContactMessage(ContactMessage message) async {
-    await messages.add(message.toMap());
+    try {
+      await messages.add(message.toMap());
+    } catch (e) {
+      rethrow;
+    }
   }
 
   //delete Message:
   Future<void> deleteMessage(String docId) async {
-    await FirebaseFirestore.instance.collection('messages').doc(docId).delete();
+    try {
+      await FirebaseFirestore.instance
+          .collection('messages')
+          .doc(docId)
+          .delete();
+    } catch (e) {
+      rethrow;
+    }
   }
 
   //unhide Message:
 
   Future<void> unhideMessage(String docId) async {
-    await FirebaseFirestore.instance.collection('messages').doc(docId).update({
-      'hideMessage': false,
-    });
+    try {
+      await FirebaseFirestore.instance
+          .collection('messages')
+          .doc(docId)
+          .update({
+        'hideMessage': false,
+      });
+    } catch (e) {
+      rethrow;
+    }
   }
 }

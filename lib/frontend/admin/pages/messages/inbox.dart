@@ -3,6 +3,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/backend/messages/messages_functionality.dart';
+import 'package:rafay_portfolio/constants/widgets/dialogBox/dialogbox.dart';
 import 'package:rafay_portfolio/constants/widgets/errorAndLanding/error.dart';
 import 'package:rafay_portfolio/constants/widgets/errorAndLanding/loading.dart';
 import 'package:rafay_portfolio/constants/widgets/ultis/admin_drawer.dart';
@@ -166,9 +167,22 @@ class _InboxMessagesState extends State<InboxMessages> {
                                             ),
                                           ),
                                           onPressed: () async {
-                                            await messageService
-                                                .deleteMessage(document.id);
-                                            Navigator.pop(context);
+                                            try {
+                                              await messageService
+                                                  .deleteMessage(document.id);
+                                              Navigator.pop(context);
+                                            } catch (e) {
+                                              showDialogBox(
+                                                context,
+                                                Icons.error,
+                                                Colors.red,
+                                                Colors.red,
+                                                'Error',
+                                                e.toString(),
+                                                () =>
+                                                    Navigator.of(context).pop(),
+                                              );
+                                            }
                                           },
                                         ),
                                       ),
