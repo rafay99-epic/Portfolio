@@ -12,11 +12,11 @@ class BlogAuthorAndContents extends StatelessWidget {
   final List<Map<String, dynamic>> tableOfContents;
 
   const BlogAuthorAndContents({
-    Key? key,
+    super.key,
     required this.data,
     required this.autoScrollController,
     required this.tableOfContents,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

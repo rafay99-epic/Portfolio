@@ -16,7 +16,7 @@ Column buildFloatingButton(
       FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         focusColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.background,
+        foregroundColor: Theme.of(context).colorScheme.surface,
         onPressed: smoothScrollToTop,
         heroTag: "btn1",
         enableFeedback: true,
@@ -30,7 +30,7 @@ Column buildFloatingButton(
       FloatingActionButton(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         focusColor: Theme.of(context).colorScheme.primary,
-        foregroundColor: Theme.of(context).colorScheme.background,
+        foregroundColor: Theme.of(context).colorScheme.surface,
         onPressed: smoothScrollDown,
         enableFeedback: true,
         heroTag: "btn2",

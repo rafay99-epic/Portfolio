@@ -1,23 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
-import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
 import 'package:rafay_portfolio/frontend/user/class/job_experience_data.dart';
-import 'package:rafay_portfolio/constants/widgets/ultis/floating_button.dart';
 import 'package:rafay_portfolio/frontend/user/pages/experiences/widget/ExperiencesCard.dart';
 import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
 import 'package:timeline_tile/timeline_tile.dart';
 
 class Resume extends StatefulWidget {
-  const Resume({Key? key}) : super(key: key);
+  const Resume({super.key});
 
   @override
   State<Resume> createState() => _ResumeState();
 }
 
-//-------------------------------------
-// Passing the ScrollControllerMixin
-//-------------------------------------
-class _ResumeState extends State<Resume> with ScrollControllerMixin {
+class _ResumeState extends State<Resume> {
   //--------------
   // Job List
   //--------------
@@ -112,18 +107,11 @@ class _ResumeState extends State<Resume> with ScrollControllerMixin {
   Widget build(BuildContext context) {
     ScreenType screenType = ScreenType(MediaQuery.of(context).size.width);
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       //--------------
       // Widget Body
       //--------------
       body: _buildBody(context, screenType),
-      //-------------------------
-      // Floating Action Button
-      //-------------------------
-
-      floatingActionButton: MediaQuery.of(context).size.width > 600
-          ? buildFloatingButton(context, smoothScrollToTop, smoothScrollDown)
-          : null,
     );
   }
 
@@ -132,7 +120,6 @@ class _ResumeState extends State<Resume> with ScrollControllerMixin {
   //-------------------------
   Widget _buildBody(BuildContext context, ScreenType screenType) {
     return SingleChildScrollView(
-      controller: scrollController,
       child: Column(
         children: [
           //-------------------------
@@ -163,7 +150,7 @@ class _ResumeState extends State<Resume> with ScrollControllerMixin {
         child: AnimatedTextBuilder(
           text: "Experiences",
           size: screenType.isMobile ? 40.0 : 72.0,
-          underline: true,
+          underline: false,
         ),
       ),
     );

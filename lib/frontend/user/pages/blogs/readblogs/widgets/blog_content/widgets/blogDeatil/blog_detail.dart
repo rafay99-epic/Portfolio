@@ -17,10 +17,10 @@ class BlogDetails extends StatelessWidget {
   final ScreenType screenType;
 
   const BlogDetails({
-    Key? key,
+    super.key,
     required this.data,
     required this.screenType,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

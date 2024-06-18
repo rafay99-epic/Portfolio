@@ -2,9 +2,11 @@
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 import 'package:rafay_portfolio/backend/messages/messages_functionality.dart';
+import 'package:rafay_portfolio/constants/widgets/dialogBox/dialogbox.dart';
+import 'package:rafay_portfolio/constants/widgets/errorAndLanding/error.dart';
+import 'package:rafay_portfolio/constants/widgets/errorAndLanding/loading.dart';
 
 import 'package:rafay_portfolio/constants/widgets/ultis/admin_drawer.dart';
 
@@ -22,26 +24,27 @@ class _ArchiveMessagesState extends State<ArchiveMessages> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: const MyDrawerAdmin(),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        title: const Text("Archive Messages"),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          "Archive Messages",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
       ),
       body: StreamBuilder<QuerySnapshot>(
         stream: _messagesStream,
         builder: (BuildContext context, AsyncSnapshot<QuerySnapshot> snapshot) {
           if (snapshot.hasError) {
-            return Center(
-              child: Lottie.asset('assets/animation/datanotfound.json'),
-            );
+            return buildErrorWidget(context);
           }
 
           if (snapshot.connectionState == ConnectionState.waiting) {
-            return Center(
-              child: Lottie.asset('assets/animation/loader.json'),
-            );
+            return buildLoadingIndicator(context);
           }
-
           return SingleChildScrollView(
             child: ListView(
               shrinkWrap: true,
@@ -53,18 +56,36 @@ class _ArchiveMessagesState extends State<ArchiveMessages> {
                   Map<String, dynamic> data =
                       document.data() as Map<String, dynamic>;
                   return Card(
+                    color: Theme.of(context).colorScheme.primary,
                     margin: const EdgeInsets.all(8.0),
                     child: ListTile(
-                      leading: const Icon(Icons.message),
-                      title: Text(data['name'] ?? 'No name',
-                          style: const TextStyle(fontWeight: FontWeight.bold)),
+                      leading: Icon(
+                        Icons.message,
+                        color: Theme.of(context).colorScheme.surface,
+                      ),
+                      title: Text(
+                        data['name'] ?? 'No name',
+                        style: TextStyle(
+                          fontWeight: FontWeight.bold,
+                          color: Theme.of(context).colorScheme.surface,
+                        ),
+                      ),
                       subtitle: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(data['email'] ?? 'No email',
-                              style: const TextStyle(color: Colors.blueGrey)),
+                              style: const TextStyle(
+                                color: Color.fromARGB(255, 81, 164, 206),
+                              )),
                           const SizedBox(height: 5.0),
-                          Text(data['message'] ?? 'No message'),
+                          Text(
+                            data['message'] ?? 'No message',
+                            style: TextStyle(
+                              color: Theme.of(context).colorScheme.surface,
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
                         ],
                       ),
                       trailing: Row(
@@ -86,18 +107,25 @@ class _ArchiveMessagesState extends State<ArchiveMessages> {
                                 context: context,
                                 builder: (BuildContext context) {
                                   return AlertDialog(
-                                    title: const Text(
+                                    title: Text(
                                       'Delete Message',
                                       style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 24,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
                                       ),
                                     ),
-                                    content: const Text(
+                                    content: Text(
                                       'Do you want to Delete this Message?',
                                       style: TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 20),
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Theme.of(context)
+                                            .colorScheme
+                                            .surface,
+                                      ),
                                     ),
                                     actions: <Widget>[
                                       SizedBox(
@@ -109,7 +137,7 @@ class _ArchiveMessagesState extends State<ArchiveMessages> {
                                                 .inversePrimary,
                                             foregroundColor: Theme.of(context)
                                                 .colorScheme
-                                                .background,
+                                                .primary,
                                           ),
                                           child: const Text(
                                             'No',
@@ -131,21 +159,37 @@ class _ArchiveMessagesState extends State<ArchiveMessages> {
                                           style: TextButton.styleFrom(
                                             foregroundColor: Theme.of(context)
                                                 .colorScheme
-                                                .background,
+                                                .primary,
                                             backgroundColor: Theme.of(context)
                                                 .colorScheme
                                                 .inversePrimary,
                                           ),
-                                          child: const Text(
+                                          child: Text(
                                             'Yes',
                                             style: TextStyle(
                                               fontWeight: FontWeight.bold,
+                                              color: Theme.of(context)
+                                                  .colorScheme
+                                                  .primary,
                                             ),
                                           ),
                                           onPressed: () async {
-                                            await messageService
-                                                .deleteMessage(document.id);
-                                            Navigator.pop(context);
+                                            try {
+                                              await messageService
+                                                  .deleteMessage(document.id);
+                                              Navigator.pop(context);
+                                            } catch (e) {
+                                              showDialogBox(
+                                                context,
+                                                Icons.error,
+                                                Colors.red,
+                                                Colors.red,
+                                                'Error',
+                                                e.toString(),
+                                                () =>
+                                                    Navigator.of(context).pop(),
+                                              );
+                                            }
                                           },
                                         ),
                                       ),

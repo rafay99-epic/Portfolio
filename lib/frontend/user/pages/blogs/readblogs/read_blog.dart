@@ -7,7 +7,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/constants/widgets/errorAndLanding/error.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/readblogs/widgets/blog_content/blog_content.dart';
-import 'package:rafay_portfolio/frontend/user/pages/blogs/readblogs/widgets/loading/loading.dart';
+import 'package:rafay_portfolio/constants/widgets/errorAndLanding/loading.dart';
 import 'package:rafay_portfolio/frontend/user/pages/blogs/readblogs/widgets/appbar/appbar.dart';
 import 'package:scroll_to_index/scroll_to_index.dart';
 import 'package:rafay_portfolio/backend/model/BlogModel.dart';
@@ -17,10 +17,10 @@ class ReadMeBlogs extends StatefulWidget {
   final String? url;
 
   const ReadMeBlogs({
-    Key? key,
+    super.key,
     this.id,
     this.url,
-  }) : super(key: key);
+  });
 
   @override
   _ReadMeBlogsState createState() => _ReadMeBlogsState();
@@ -74,7 +74,7 @@ class _ReadMeBlogsState extends State<ReadMeBlogs> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: buildAppBar(context, _progress),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: FutureBuilder<BlogPosModel>(
         future: getBlogPost(url: widget.url),
         builder: (BuildContext context, AsyncSnapshot<BlogPosModel> snapshot) {

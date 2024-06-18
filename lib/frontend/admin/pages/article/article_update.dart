@@ -4,17 +4,19 @@ import 'package:flutter/material.dart';
 import 'dart:html' as html;
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:intl/intl.dart';
-import 'package:html_editor_enhanced/html_editor.dart';
+import 'package:quill_html_editor/quill_html_editor.dart';
+
 import 'package:rafay_portfolio/backend/article_functionality/article_functionality.dart';
 
 import 'package:rafay_portfolio/backend/model/BlogModel.dart';
+import 'package:rafay_portfolio/constants/widgets/dialogBox/dialogbox.dart';
 import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 import 'package:rafay_portfolio/constants/widgets/textfeild/buildTextField.dart';
 
 class UpdateBlogPost extends StatefulWidget {
   final String id;
 
-  const UpdateBlogPost(this.id, {Key? key}) : super(key: key);
+  const UpdateBlogPost(this.id, {super.key});
 
   @override
   _UpdateBlogPostState createState() => _UpdateBlogPostState();
@@ -27,7 +29,7 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
   final subTitleController = TextEditingController();
   final tagsController = TextEditingController();
   final authorController = TextEditingController();
-  final controller = HtmlEditorController();
+  final QuillEditorController quillEditorcontroller = QuillEditorController();
   final newdateController = TextEditingController();
   bool isEnabled = false;
   String? _imageUrl;
@@ -73,7 +75,7 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
         selectedDateController = blogPost.date;
         // controller.setText(blogPost.content);
         Future.delayed(const Duration(seconds: 1), () {
-          controller.setText(blogPost.content);
+          quillEditorcontroller.setText(blogPost.content);
         });
         // Use blogPost to build your UI
         return Scaffold(
@@ -81,10 +83,10 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
             title: StyledText(
               text: 'Update Article',
               fontSize: 22,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.primaryFixed,
               textAlign: TextAlign.left,
             ),
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.onSurface,
             actions: <Widget>[
               Row(
                 children: [
@@ -93,7 +95,7 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
                     child: TextButton(
                       style: TextButton.styleFrom(
                         foregroundColor:
-                            Theme.of(context).colorScheme.background,
+                            Theme.of(context).colorScheme.onSurface,
                         backgroundColor:
                             Theme.of(context).colorScheme.inversePrimary,
                         shape: RoundedRectangleBorder(
@@ -113,7 +115,7 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
                               isEnabled: isEnabled,
                               tags: tagsController.text.split(','),
                               author: authorController.text,
-                              content: await controller.getText(),
+                              content: await quillEditorcontroller.getText(),
                               imageFile: _image!,
                               date: selectedDateController,
                               id: widget.id,
@@ -124,7 +126,6 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
                             tagsController.clear();
                             authorController.clear();
                             isEnabled = false;
-                            controller.clear();
 
                             showDialog(
                               context: context,
@@ -230,7 +231,8 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
                         width: MediaQuery.of(context).size.width * 0.8,
                         decoration: BoxDecoration(
                           border: Border.all(
-                              color: Theme.of(context).colorScheme.primary),
+                              color:
+                                  Theme.of(context).colorScheme.primaryFixed),
                           borderRadius: BorderRadius.circular(10),
                         ),
                         child: ClipRRect(
@@ -248,7 +250,7 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
                   padding: const EdgeInsets.only(left: 15.0),
                   child: ElevatedButton(
                     onPressed: () => _selectDate(context),
-                    child: Text('Select date'),
+                    child: const Text('Select date'),
                   ),
                 ),
                 const SizedBox(height: 10),
@@ -297,14 +299,21 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
                 ),
                 const SizedBox(height: 20),
 
-                HtmlEditor(
-                  controller: controller,
-                  htmlEditorOptions: const HtmlEditorOptions(
-                    hint: "Write your Blog here...",
-                    autoAdjustHeight: true,
-                    spellCheck: true,
-                    darkMode: false,
-                  ),
+                QuillHtmlEditor(
+                  hintText: 'Start From Here...',
+                  controller: quillEditorcontroller,
+                  isEnabled: true,
+                  minHeight: 500,
+                  hintTextAlign: TextAlign.start,
+                  padding: const EdgeInsets.only(left: 10, top: 5),
+                  hintTextPadding: EdgeInsets.zero,
+                ),
+                ToolBar(
+                  toolBarColor: Colors.cyan.shade50,
+                  activeIconColor: Colors.green,
+                  padding: const EdgeInsets.all(8),
+                  iconSize: 20,
+                  controller: quillEditorcontroller,
                 ),
               ],
             ),
@@ -330,7 +339,15 @@ class _UpdateBlogPostState extends State<UpdateBlogPost> {
         });
       }
     } catch (e) {
-      print('An error occurred: $e');
+      showDialogBox(
+        context,
+        Icons.error,
+        Colors.red,
+        Colors.red,
+        'Error',
+        'Sorrry Error while setting date. Please try again.',
+        () => Navigator.of(context).pop(),
+      );
     }
   }
 }

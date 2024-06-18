@@ -14,11 +14,16 @@ class MessagesDashboard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       drawer: const MyDrawerAdmin(),
       appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.background,
-        title: const Text("Message Dashboard"),
+        backgroundColor: Theme.of(context).colorScheme.surface,
+        title: Text(
+          "Message Dashboard",
+          style: TextStyle(
+            color: Theme.of(context).colorScheme.primary,
+          ),
+        ),
       ),
       body: Center(
         child: Column(
@@ -75,10 +80,11 @@ class MessagesDashboard extends StatelessWidget {
                           );
                         },
                         child: Card(
+                          color: Theme.of(context).colorScheme.primary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                             side: BorderSide(
-                              color: Theme.of(context).colorScheme.primary,
+                              color: Theme.of(context).colorScheme.surface,
                             ),
                           ),
                           child: Column(
@@ -94,7 +100,7 @@ class MessagesDashboard extends StatelessWidget {
                                 style: GoogleFonts.playfair(
                                   fontSize: 32,
                                   fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: Theme.of(context).colorScheme.surface,
                                 ),
                               ),
                             ],
@@ -119,6 +125,7 @@ class MessagesDashboard extends StatelessWidget {
                           );
                         },
                         child: Card(
+                          color: Theme.of(context).colorScheme.primary,
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(20),
                             side: BorderSide(
@@ -138,7 +145,7 @@ class MessagesDashboard extends StatelessWidget {
                                 style: GoogleFonts.playfair(
                                   fontSize: 32,
                                   fontWeight: FontWeight.bold,
-                                  color: Theme.of(context).colorScheme.primary,
+                                  color: Theme.of(context).colorScheme.surface,
                                 ),
                               ),
                             ],
@@ -153,10 +160,6 @@ class MessagesDashboard extends StatelessWidget {
                 ),
               ),
             )
-
-            // Card number 2: Blog page
-
-            //Card Numbner 3: Logout
           ],
         ),
       ),

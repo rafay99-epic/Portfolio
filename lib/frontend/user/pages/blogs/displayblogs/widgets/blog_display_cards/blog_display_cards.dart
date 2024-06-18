@@ -12,9 +12,12 @@ class BlogCard extends StatelessWidget {
     return Card(
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(15.0),
-        side: BorderSide(color: Theme.of(context).colorScheme.primary),
+        side: BorderSide(
+          color: Theme.of(context).colorScheme.inversePrimary,
+          width: 3,
+        ),
       ),
-      color: Theme.of(context).colorScheme.background,
+      color: Theme.of(context).colorScheme.primary,
       child: SingleChildScrollView(
         child: Column(
           children: [
@@ -74,7 +77,7 @@ class BlogCard extends StatelessWidget {
               text: label,
               style: TextStyle(
                 fontSize: 17,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
                 fontWeight: FontWeight.bold,
                 fontFamily: "roboto",
               ),
@@ -83,7 +86,7 @@ class BlogCard extends StatelessWidget {
               text: value,
               style: TextStyle(
                 fontSize: 17,
-                color: Theme.of(context).colorScheme.primary,
+                color: Theme.of(context).colorScheme.surface,
                 fontFamily: "roboto",
                 fontWeight: FontWeight.w400,
               ),

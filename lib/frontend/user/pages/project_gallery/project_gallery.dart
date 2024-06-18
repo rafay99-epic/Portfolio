@@ -2,21 +2,18 @@
 
 import 'package:flutter/material.dart';
 import 'package:rafay_portfolio/constants/screensSize/screentype.dart';
-import 'package:rafay_portfolio/constants/scrollAnimation/button_scroll.dart';
 import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
-import 'package:rafay_portfolio/constants/widgets/ultis/floating_button.dart';
 import 'package:rafay_portfolio/frontend/user/pages/project_gallery/components/project_card.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
 
 class ProjectGridView extends StatefulWidget {
-  const ProjectGridView({Key? key}) : super(key: key);
+  const ProjectGridView({super.key});
 
   @override
   _ProjectGridViewState createState() => _ProjectGridViewState();
 }
 
-class _ProjectGridViewState extends State<ProjectGridView>
-    with ScrollControllerMixin {
+class _ProjectGridViewState extends State<ProjectGridView> {
   //----------------------
   // Main Build Widget
   //----------------------
@@ -34,7 +31,7 @@ class _ProjectGridViewState extends State<ProjectGridView>
     final screenType = ScreenType(MediaQuery.of(context).size.width);
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 15),
         child: Column(
@@ -51,12 +48,6 @@ class _ProjectGridViewState extends State<ProjectGridView>
           ],
         ),
       ),
-      //----------------------
-      // Floating Button
-      //----------------------
-      floatingActionButton: screenType.isMobile
-          ? null
-          : buildFloatingButton(context, smoothScrollToTop, smoothScrollDown),
     );
   }
 
@@ -96,7 +87,6 @@ class _ProjectGridViewState extends State<ProjectGridView>
               _calculateChildAspectRatio(constraints, crossAxisCount);
 
           return GridView.builder(
-            controller: scrollController,
             gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: crossAxisCount,
               childAspectRatio: childAspectRatio,

@@ -14,7 +14,7 @@ AppBar buildAppBar(BuildContext context, ValueNotifier<double> progress) {
             },
           )
         : null,
-    backgroundColor: Theme.of(context).colorScheme.background,
+    backgroundColor: Theme.of(context).colorScheme.surface,
     bottom: PreferredSize(
       preferredSize: const Size.fromHeight(2.0),
       child: ValueListenableBuilder<double>(
@@ -22,7 +22,7 @@ AppBar buildAppBar(BuildContext context, ValueNotifier<double> progress) {
         builder: (context, value, child) {
           return LinearProgressIndicator(
             value: value,
-            backgroundColor: Theme.of(context).colorScheme.background,
+            backgroundColor: Theme.of(context).colorScheme.surface,
             color: Theme.of(context).colorScheme.inversePrimary,
             minHeight: 3.0,
           );

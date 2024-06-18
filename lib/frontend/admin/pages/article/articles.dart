@@ -11,7 +11,7 @@ import 'package:rafay_portfolio/constants/widgets/ultis/admin_drawer.dart';
 import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 
 class BlogPostAdmin extends StatefulWidget {
-  const BlogPostAdmin({Key? key}) : super(key: key);
+  const BlogPostAdmin({super.key});
 
   @override
   State<BlogPostAdmin> createState() => _BlogPostState();
@@ -38,7 +38,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
       // Drawer Menu
       // ----------------------
       drawer: const MyDrawerAdmin(),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       // ----------------------
       // Floating Button
       // ----------------------
@@ -55,9 +55,15 @@ class _BlogPostState extends State<BlogPostAdmin> {
   // ----------------------
   AppBar _buildAppBar(BuildContext context) {
     return AppBar(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       title: Row(
         children: [
-          const Text('Blog Posts'),
+          Text(
+            'Blog Posts',
+            style: TextStyle(
+              color: Theme.of(context).colorScheme.primary,
+            ),
+          ),
           const Spacer(),
           // ----------------------
           // Add Blog Button
@@ -68,7 +74,8 @@ class _BlogPostState extends State<BlogPostAdmin> {
           // ----------------------
           _buildSearchBar(context),
           IconButton(
-            icon: const Icon(Icons.search),
+            icon: Icon(Icons.search,
+                color: Theme.of(context).colorScheme.primary),
             onPressed: () {
               setState(() {
                 isSearchBarVisible = !isSearchBarVisible;
@@ -77,7 +84,6 @@ class _BlogPostState extends State<BlogPostAdmin> {
           ),
         ],
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
     );
   }
 
@@ -87,7 +93,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
   Widget _buildElvatedButtonArticleAdd(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-        foregroundColor: Theme.of(context).colorScheme.background,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -126,7 +132,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
                 decoration: InputDecoration(
                   hintText: 'Search blog posts...',
                   filled: true,
-                  fillColor: Theme.of(context).colorScheme.background,
+                  fillColor: Theme.of(context).colorScheme.onSurface,
                   border: OutlineInputBorder(
                     borderRadius: BorderRadius.circular(30.0),
                     borderSide: BorderSide.none,
@@ -144,7 +150,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
   FloatingActionButton _buildFloatingActionButton(BuildContext context) {
     return FloatingActionButton(
       backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-      foregroundColor: Theme.of(context).colorScheme.background,
+      foregroundColor: Theme.of(context).colorScheme.onSurface,
       onPressed: () {
         Navigator.push(
           context,
@@ -215,7 +221,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
             StyledText(
               text: "Sorry!! No search results found. ",
               fontSize: 20,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.primaryFixed,
               textAlign: TextAlign.center,
               bold: true,
             )
@@ -257,6 +263,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
   Card _buildBlogPostCard(
       BuildContext context, DocumentSnapshot document, BlogPosModel blogPost) {
     return Card(
+      color: Theme.of(context).colorScheme.primary,
       child: ListTile(
         // ----------------------
         // Title
@@ -285,6 +292,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
         fontSize: 18,
         bold: false,
         boldWords: const ["Title:"],
+        color: Theme.of(context).colorScheme.surface,
       ),
     );
   }
@@ -339,6 +347,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
         fontSize: 15,
         bold: false,
         boldWords: const ["Blog Description:"],
+        color: Theme.of(context).colorScheme.surface,
       ),
     );
   }
@@ -354,6 +363,7 @@ class _BlogPostState extends State<BlogPostAdmin> {
         fontSize: 15,
         bold: false,
         boldWords: const ["Author:"],
+        color: Theme.of(context).colorScheme.surface,
       ),
     );
   }
@@ -452,20 +462,20 @@ class _BlogPostState extends State<BlogPostAdmin> {
               text: '${document['title']} is about to be deleted.',
               fontSize: 20,
               bold: true,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.primaryFixed,
             ),
             content: StyledText(
               text:
                   '\n${document['title']} is about to be Deleted \n\nAre you sure you want to delete this blog post? ',
               fontSize: 18,
-              color: Theme.of(context).colorScheme.primary,
+              color: Theme.of(context).colorScheme.primaryFixed,
             ),
             actions: <Widget>[
               TextButton(
                 child: StyledText(
                   text: 'Cancel',
                   fontSize: 14,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.primaryFixed,
                 ),
                 onPressed: () {
                   Navigator.of(context).pop();

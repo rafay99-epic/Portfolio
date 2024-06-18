@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:lottie/lottie.dart';
 import 'package:page_transition/page_transition.dart';
-
-import 'home_page.dart';
+import 'package:rafay_portfolio/frontend/user/pages/home/home.dart';
 
 class SplashScreen extends StatefulWidget {
   static const _animation = 'assets/animation/jar-loading.json';
@@ -47,12 +46,21 @@ class _SplashScreenState extends State<SplashScreen>
   }
 
   @override
+  void dispose() {
+    controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
-      statusBarColor: Theme.of(context).colorScheme.background,
-    ));
     bool isMobile = MediaQuery.of(context).size.width < 600;
+    if (isMobile) {
+      SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle(
+        statusBarColor: Theme.of(context).colorScheme.surface,
+      ));
+    }
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       body: Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
@@ -75,6 +83,7 @@ class _SplashScreenState extends State<SplashScreen>
               child: LinearProgressIndicator(
                 value: progress.value,
                 color: Theme.of(context).colorScheme.inversePrimary,
+                backgroundColor: Theme.of(context).colorScheme.primary,
               ),
             ),
           ],

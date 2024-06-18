@@ -60,7 +60,7 @@ class _OtpPageState extends State<OtpPage> {
     }
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.onSurface,
       body: Container(
         margin: const EdgeInsets.all(15.0),
         child: Row(

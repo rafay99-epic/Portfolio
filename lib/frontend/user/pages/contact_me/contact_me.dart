@@ -11,7 +11,7 @@ import 'package:rafay_portfolio/constants/widgets/dialogBox/dialogbox.dart';
 import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
 
 class ContactMe extends StatefulWidget {
-  const ContactMe({Key? key}) : super(key: key);
+  const ContactMe({super.key});
 
   @override
   State<ContactMe> createState() => _ContactMeState();
@@ -24,6 +24,11 @@ final messageController = TextEditingController();
 final MessageService messageService = MessageService();
 
 final class _ContactMeState extends State<ContactMe> {
+  @override
+  void dispose() {
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
     bool isMobile = MediaQuery.of(context).size.width < 600;

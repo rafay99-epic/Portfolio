@@ -7,9 +7,9 @@ class BlogImage extends StatelessWidget {
   final BlogPosModel data;
 
   const BlogImage({
-    Key? key,
+    super.key,
     required this.data,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {

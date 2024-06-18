@@ -1,9 +1,10 @@
 // ignore_for_file: use_build_context_synchronously
 
-import 'dart:html' as html;
-import 'package:flutter/material.dart';
 
-import 'package:html_editor_enhanced/html_editor.dart';
+
+import 'package:flutter/material.dart';
+import 'dart:html' as html if (dart.library.html) 'dart:io';
+import 'package:quill_html_editor/quill_html_editor.dart';
 import 'package:rafay_portfolio/backend/article_functionality/article_functionality.dart';
 import 'package:rafay_portfolio/constants/widgets/dialogBox/dialogbox.dart';
 import 'package:rafay_portfolio/constants/widgets/text/textstyle.dart';
@@ -11,7 +12,7 @@ import 'package:rafay_portfolio/constants/widgets/textfeild/buildTextField.dart'
 import 'package:rafay_portfolio/frontend/admin/pages/article/article_preview.dart';
 
 class AddBlogPost extends StatefulWidget {
-  const AddBlogPost({Key? key}) : super(key: key);
+  const AddBlogPost({super.key});
 
   @override
   State<AddBlogPost> createState() => _AddBlogPostState();
@@ -29,13 +30,13 @@ class _AddBlogPostState extends State<AddBlogPost> {
   final authorController = TextEditingController();
   final dateController = TextEditingController();
   DateTime selectedDateController = DateTime.now();
-  HtmlEditorController controller = HtmlEditorController();
   final urlController = TextEditingController();
   final ArticleFunctionality articleFunctionality = ArticleFunctionality();
   bool isEnabled = false;
-  html.File? _image;
+   html.File? _image;
   final scrollController = ScrollController();
   String? _imageUrl;
+  final QuillEditorController quillEditorcontroller = QuillEditorController();
 
   // --------------------------
   // Init & Dispoase Functions
@@ -47,6 +48,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
     tagsController.dispose();
     authorController.dispose();
     dateController.dispose();
+    quillEditorcontroller.dispose();
     _image = null;
     _imageUrl = null;
     super.dispose();
@@ -76,6 +78,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).colorScheme.surface,
       appBar: buildAppBar(context),
       body: buildBody(),
     );
@@ -92,7 +95,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
         color: Theme.of(context).colorScheme.primary,
         textAlign: TextAlign.left,
       ),
-      backgroundColor: Theme.of(context).colorScheme.background,
+      backgroundColor: Theme.of(context).colorScheme.surface,
       actions: <Widget>[
         const SizedBox(width: 15),
         // --------------------------
@@ -115,7 +118,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
   TextButton buildPreviewButton(BuildContext context) {
     return TextButton(
       style: TextButton.styleFrom(
-        foregroundColor: Theme.of(context).colorScheme.background,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -123,7 +126,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
         padding: const EdgeInsets.symmetric(horizontal: 26, vertical: 16),
       ),
       onPressed: () async {
-        final text = await controller.getText();
+        final text = await quillEditorcontroller.getText();
         Navigator.push(
           context,
           MaterialPageRoute(
@@ -150,7 +153,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
   TextButton buildSaveButton() {
     return TextButton(
       style: TextButton.styleFrom(
-        foregroundColor: Theme.of(context).colorScheme.background,
+        foregroundColor: Theme.of(context).colorScheme.onSurface,
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20),
@@ -166,11 +169,12 @@ class _AddBlogPostState extends State<AddBlogPost> {
               isEnabled: isEnabled,
               tags: tagsController.text.split(','),
               author: authorController.text,
-              content: await controller.getText(),
+              content: await quillEditorcontroller.getText(),
               imageFile: _image!,
               date: selectedDateController,
               url: urlController.text,
             );
+
             // --------------------------
             // Clear All Form
             // --------------------------
@@ -178,38 +182,30 @@ class _AddBlogPostState extends State<AddBlogPost> {
             // --------------------------
             // Dialog Box
             // --------------------------
-            showDialog(
-              context: context,
-              builder: (context) => buildDialog(
-                  'Blog Added', 'The blog post has been successfully added.'),
+
+            showDialogBox(
+              context,
+              Icons.check_circle,
+              Colors.green,
+              Colors.green,
+              'Blog Added',
+              'The blog post has been successfully added.',
+              () => Navigator.of(context).pop(),
             );
           } catch (e) {
-            showDialog(
-              context: context,
-              builder: (context) => buildDialog('Error', e.toString()),
+            showDialogBox(
+              context,
+              Icons.error,
+              Colors.red,
+              Colors.red,
+              'Error',
+              e.toString(),
+              () => Navigator.of(context).pop(),
             );
           }
         }
       },
       child: const Text('Save Blog Post'),
-    );
-  }
-
-  // ---------------------------------------
-  // Alert Box for Showing Casing Messages
-  // ---------------------------------------
-  AlertDialog buildDialog(String title, String content) {
-    return AlertDialog(
-      title: Text(title),
-      content: Text(content),
-      actions: <Widget>[
-        TextButton(
-          child: const Text('OK'),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
-        ),
-      ],
     );
   }
 
@@ -222,8 +218,8 @@ class _AddBlogPostState extends State<AddBlogPost> {
     tagsController.clear();
     authorController.clear();
     urlController.clear();
+    quillEditorcontroller.clear();
     isEnabled = false;
-    controller.clear();
     _image = null;
     _imageUrl = null;
   }
@@ -237,51 +233,94 @@ class _AddBlogPostState extends State<AddBlogPost> {
       child: ListView(
         padding: const EdgeInsets.all(16.0),
         children: <Widget>[
-          buildTextField(
-            'Article Title',
-            'Enter Article Title',
-            Icons.title,
-            titleController,
+          CustomTextField(
+            labelText: 'Article Title',
+            hintText: 'Enter Article Title',
+            prefixIcon: Icons.title,
+            controller: titleController,
           ),
           const SizedBox(height: 20),
-          buildTextField(
-            'Article Description',
-            'Article Description',
-            Icons.description,
-            subTitleController,
+          CustomTextField(
+            labelText: 'Article Description',
+            hintText: 'Enter Article Description',
+            prefixIcon: Icons.description,
+            controller: subTitleController,
           ),
-          const SizedBox(height: 20),
-          buildImageUpload(),
           const SizedBox(height: 20),
           buildDateSelector(),
           const SizedBox(height: 20),
           buildEnabledCheckbox(),
           const SizedBox(height: 20),
-          buildTextField('Categories (comma separated)', 'Article Categories',
-              Icons.category_outlined, tagsController),
+          buildImageUpload(),
           const SizedBox(height: 20),
-          buildTextField('Author Article', 'Name of the Author Article',
-              Icons.person_2_outlined, authorController),
+          CustomTextField(
+            labelText: "Categories (comma separated)'",
+            hintText: "Article Categories",
+            prefixIcon: Icons.category_outlined,
+            controller: tagsController,
+          ),
           const SizedBox(height: 20),
-          buildTextField('Website URL', 'Website URL of the Article',
-              Icons.share, urlController),
+          CustomTextField(
+              labelText: "Author Article",
+              hintText: "Name of the Author",
+              prefixIcon: Icons.person_2_outlined,
+              controller: authorController),
           const SizedBox(height: 20),
-          buildHtmlEditor(),
+          CustomTextField(
+              labelText: "Website URL",
+              hintText: "Website URL of the Article",
+              prefixIcon: Icons.share,
+              controller: urlController),
+          const SizedBox(height: 20),
+         
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: StyledText(text: "Editior For Articles", fontSize: 32, 
+            color: Theme.of(context).colorScheme.primary,),
+          ),
+         const SizedBox(height: 20),
+         
+          Container(
+             decoration: BoxDecoration(
+                border: Border.all(
+                 color: Theme.of(context).colorScheme.primary, 
+                  width: 2, 
+                ),
+              borderRadius: BorderRadius.circular(10), 
+              ),
+            child: QuillHtmlEditor(
+              hintText: 'Write Article here....',
+              controller: quillEditorcontroller,
+              isEnabled: true,
+              minHeight: 500,
+              hintTextAlign: TextAlign.start,
+              padding: const EdgeInsets.only(left: 10, top: 5),
+              hintTextPadding: EdgeInsets.zero,
+              backgroundColor: Theme.of(context).colorScheme.surface,
+              textStyle: TextStyle(
+                color: Theme.of(context).colorScheme.primary,
+              ),
+            ),
+          ),
+          Container(
+             decoration: BoxDecoration(
+                border: Border.all(
+                    color: Theme.of(context).colorScheme.primary, 
+                    width: 2,
+                ),
+              borderRadius: BorderRadius.circular(10), 
+              ),
+            child: ToolBar(
+              toolBarColor: Theme.of(context).colorScheme.surface,
+              activeIconColor: Theme.of(context).colorScheme.inversePrimary,
+              iconColor: Theme.of(context).colorScheme.primary,
+              padding: const EdgeInsets.all(10),
+              iconSize: 24,
+              controller: quillEditorcontroller,
+            ),
+          ),
         ],
       ),
-    );
-  }
-
-  // --------------------------
-  // text Feild
-  // --------------------------
-  CustomTextField buildTextField(String labelText, String hintText,
-      IconData prefixIcon, TextEditingController controller) {
-    return CustomTextField(
-      labelText: labelText,
-      hintText: hintText,
-      prefixIcon: prefixIcon,
-      controller: controller,
     );
   }
 
@@ -338,7 +377,7 @@ class _AddBlogPostState extends State<AddBlogPost> {
       height: MediaQuery.of(context).size.height * 0.3,
       width: MediaQuery.of(context).size.width * 0.8,
       decoration: BoxDecoration(
-        border: Border.all(color: Theme.of(context).colorScheme.primary),
+        border: Border.all(color: Theme.of(context).colorScheme.primaryFixed),
         borderRadius: BorderRadius.circular(10),
       ),
       child: ClipRRect(
@@ -359,7 +398,12 @@ class _AddBlogPostState extends State<AddBlogPost> {
       padding: const EdgeInsets.only(left: 15.0),
       child: ElevatedButton(
         onPressed: () => _selectDate(context),
-        child: const Text('Select date'),
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Theme.of(context).colorScheme.primary,
+          foregroundColor: Theme.of(context).colorScheme.surface,
+        ),
+
+        child: const Text('Select date')
       ),
     );
   }
@@ -372,13 +416,15 @@ class _AddBlogPostState extends State<AddBlogPost> {
       padding: const EdgeInsets.only(left: 15.0),
       child: Container(
         decoration: BoxDecoration(
-          border: Border.all(color: Colors.black),
+          border: Border.all(color: Theme.of(context).colorScheme.primary),
           borderRadius: BorderRadius.circular(10),
         ),
         child: ListTile(
-          title: const Text(
+          title:  Text(
             'Enabled Article ',
-            style: TextStyle(fontSize: 18),
+            style: TextStyle(fontSize: 18, 
+            color: Theme.of(context).colorScheme.primary
+            ),
           ),
           trailing: Checkbox(
             value: isEnabled,
@@ -388,23 +434,8 @@ class _AddBlogPostState extends State<AddBlogPost> {
               });
             },
           ),
-          subtitle: isEnabled ? const Text('Blog is enabled on website') : null,
+          subtitle: isEnabled ?  Text('Blog is enabled on website', style: TextStyle(color: Theme.of(context).colorScheme.primary),) : null,
         ),
-      ),
-    );
-  }
-
-  // --------------------------
-  // HTML Editior
-  // --------------------------
-  HtmlEditor buildHtmlEditor() {
-    return HtmlEditor(
-      controller: controller,
-      htmlEditorOptions: const HtmlEditorOptions(
-        hint: "Write your Blog here...",
-        autoAdjustHeight: true,
-        spellCheck: true,
-        darkMode: false,
       ),
     );
   }
@@ -428,7 +459,15 @@ class _AddBlogPostState extends State<AddBlogPost> {
         });
       }
     } catch (e) {
-      print('An error occurred: $e');
+      showDialogBox(
+        context,
+        Icons.error,
+        Colors.red,
+        Colors.red,
+        'Error',
+        'Sorrry Error while setting date. Please try again.',
+        () => Navigator.of(context).pop(),
+      );
     }
   }
 }

@@ -11,7 +11,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:flutter/services.dart' show ByteData, rootBundle;
 
 class AboutMe extends StatefulWidget {
-  const AboutMe({Key? key}) : super(key: key);
+  const AboutMe({super.key});
 
   @override
   State<AboutMe> createState() => _AboutMeState();
@@ -20,20 +20,17 @@ class AboutMe extends StatefulWidget {
 class _AboutMeState extends State<AboutMe> {
   @override
   Widget build(BuildContext context) {
-    bool isMobile =
-        MediaQuery.of(context).size.width < 600; // Adjust the value as needed
+    bool isMobile = MediaQuery.of(context).size.width < 600;
 
     return Scaffold(
-      backgroundColor: Theme.of(context).colorScheme.background,
-      body: SingleChildScrollView(
-        child: ConstrainedBox(
-          constraints: BoxConstraints(
-            maxHeight: MediaQuery.of(context).size.height,
-          ),
-          child: Container(
-            margin: const EdgeInsets.all(15.0),
-            child: isMobile ? _buildMobileLayout() : _buildWebLayout(),
-          ),
+      backgroundColor: Theme.of(context).colorScheme.surface,
+      body: ConstrainedBox(
+        constraints: BoxConstraints(
+          maxHeight: MediaQuery.of(context).size.height,
+        ),
+        child: Container(
+          margin: const EdgeInsets.all(15.0),
+          child: isMobile ? _buildMobileLayout() : _buildWebLayout(),
         ),
       ),
     );
@@ -90,37 +87,40 @@ class _AboutMeState extends State<AboutMe> {
               const SizedBox(
                 height: 15.0,
               ),
-              const StyledText(
+              StyledText(
                 textAlign: TextAlign.justify,
                 text:
                     "I'm a Full Stack Flutter Developer with a year's experience, transitioning from Machine Learning to crafting intuitive web experiences. Currently freelancing on platforms like Upwork, I deliver solutions that exceed client expectations",
                 fontSize: 18.0,
-                boldWords: ['Full', 'Stack', 'Flutter', 'Developer'],
+                boldWords: const ['Full', 'Stack', 'Flutter', 'Developer'],
+                color: Theme.of(context).colorScheme.primary,
               ),
               const SizedBox(
                 height: 25.0,
               ),
-              const StyledText(
+              StyledText(
                 text:
                     "Beyond code, I find joy in life's simple pleasures – sipping coffee, engaging in video game battles, and embracing the challenge of new experiences. This holistic approach recharges my creativity and enriches my problem-solving perspective",
                 fontSize: 18.0,
                 underline: false,
                 bold: false,
                 textAlign: TextAlign.justify,
-                boldWords: [],
+                boldWords: const [],
+                color: Theme.of(context).colorScheme.primary,
               ),
               const SizedBox(
                 height: 25.0,
               ),
               if (!isMobile)
-                const StyledText(
+                StyledText(
                   text:
                       "In my free time, I'm passionate about continuous learning. Thriving on the tech industry's dynamic challenges, I expand my skill set, always seeking growth. Let's collaborate and create something extraordinary!",
                   fontSize: 18.0,
                   underline: false,
                   bold: false,
                   textAlign: TextAlign.justify,
-                  boldWords: [],
+                  boldWords: const [],
+                  color: Theme.of(context).colorScheme.primary,
                 ),
               const SizedBox(height: 15),
               Center(
