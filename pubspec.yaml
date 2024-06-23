@@ -68,6 +68,7 @@ flutter:
     - assets/animation/
     - assets/image/
     - assets/pdf/
+    - assets/image/about_me/
 
 # App Icons for application
 flutter_icons:
