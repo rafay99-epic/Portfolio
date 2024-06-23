@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'dart:async';
 
 import 'package:flutter_verification_code/flutter_verification_code.dart';
+import 'package:lottie/lottie.dart';
 import 'package:rafay_portfolio/frontend/admin/view/dashboard.dart';
 
 class OtpEmailVerifyScreen extends StatefulWidget {
@@ -38,6 +39,15 @@ class _OtpEmailVerifyScreenState extends State<OtpEmailVerifyScreen> {
   }
 
   @override
+  void dispose() {
+    otp1Controller.dispose();
+    otp2Controller.dispose();
+    otp3Controller.dispose();
+    otp4Controller.dispose();
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Theme.of(context).colorScheme.surface,
@@ -52,52 +62,7 @@ class _OtpEmailVerifyScreenState extends State<OtpEmailVerifyScreen> {
             children: [
               SizedBox(
                 height: 250,
-                child: Stack(children: [
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: AnimatedOpacity(
-                      opacity: _currentIndex == 0 ? 1 : 0,
-                      duration: const Duration(
-                        seconds: 1,
-                      ),
-                      curve: Curves.linear,
-                      child: Image.network(
-                        'https://ouch-cdn2.icons8.com/eza3-Rq5rqbcGs4EkHTolm43ZXQPGH_R4GugNLGJzuo/rs:fit:784:784/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNjk3/L2YzMDAzMWUzLTcz/MjYtNDg0ZS05MzA3/LTNkYmQ0ZGQ0ODhj/MS5zdmc.png',
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: AnimatedOpacity(
-                      opacity: _currentIndex == 1 ? 1 : 0,
-                      duration: const Duration(seconds: 1),
-                      curve: Curves.linear,
-                      child: Image.network(
-                        'https://ouch-cdn2.icons8.com/pi1hTsTcrgVklEBNOJe2TLKO2LhU6OlMoub6FCRCQ5M/rs:fit:784:666/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvMzAv/MzA3NzBlMGUtZTgx/YS00MTZkLWI0ZTYt/NDU1MWEzNjk4MTlh/LnN2Zw.png',
-                      ),
-                    ),
-                  ),
-                  Positioned(
-                    top: 0,
-                    left: 0,
-                    right: 0,
-                    bottom: 0,
-                    child: AnimatedOpacity(
-                      opacity: _currentIndex == 2 ? 1 : 0,
-                      duration: const Duration(seconds: 1),
-                      curve: Curves.linear,
-                      child: Image.network(
-                        'https://ouch-cdn2.icons8.com/ElwUPINwMmnzk4s2_9O31AWJhH-eRHnP9z8rHUSS5JQ/rs:fit:784:784/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNzkw/Lzg2NDVlNDllLTcx/ZDItNDM1NC04YjM5/LWI0MjZkZWI4M2Zk/MS5zdmc.png',
-                      ),
-                    ),
-                  )
-                ]),
+                child: Lottie.asset("assets/animation/otp.json"),
               ),
               const SizedBox(
                 height: 30,
@@ -175,9 +140,11 @@ class _OtpEmailVerifyScreenState extends State<OtpEmailVerifyScreen> {
                           ),
                         ));
                         Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => const Dashboard()));
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => const Dashboard(),
+                          ),
+                        );
                       } else {
                         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
                           backgroundColor:
@@ -213,3 +180,54 @@ class _OtpEmailVerifyScreenState extends State<OtpEmailVerifyScreen> {
     );
   }
 }
+
+//Old code for stack images 
+
+// child: Stack(
+                //   children: [
+                //     Positioned(
+                //       top: 0,
+                //       left: 0,
+                //       right: 0,
+                //       bottom: 0,
+                //       child: AnimatedOpacity(
+                //         opacity: _currentIndex == 0 ? 1 : 0,
+                //         duration: const Duration(
+                //           seconds: 1,
+                //         ),
+                //         curve: Curves.linear,
+                //         child: Image.network(
+                //           'https://ouch-cdn2.icons8.com/eza3-Rq5rqbcGs4EkHTolm43ZXQPGH_R4GugNLGJzuo/rs:fit:784:784/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNjk3/L2YzMDAzMWUzLTcz/MjYtNDg0ZS05MzA3/LTNkYmQ0ZGQ0ODhj/MS5zdmc.png',
+                //         ),
+                //       ),
+                //     ),
+                //     Positioned(
+                //       top: 0,
+                //       left: 0,
+                //       right: 0,
+                //       bottom: 0,
+                //       child: AnimatedOpacity(
+                //         opacity: _currentIndex == 1 ? 1 : 0,
+                //         duration: const Duration(seconds: 1),
+                //         curve: Curves.linear,
+                //         child: Image.network(
+                //           'https://ouch-cdn2.icons8.com/pi1hTsTcrgVklEBNOJe2TLKO2LhU6OlMoub6FCRCQ5M/rs:fit:784:666/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvMzAv/MzA3NzBlMGUtZTgx/YS00MTZkLWI0ZTYt/NDU1MWEzNjk4MTlh/LnN2Zw.png',
+                //         ),
+                //       ),
+                //     ),
+                //     Positioned(
+                //       top: 0,
+                //       left: 0,
+                //       right: 0,
+                //       bottom: 0,
+                //       child: AnimatedOpacity(
+                //         opacity: _currentIndex == 2 ? 1 : 0,
+                //         duration: const Duration(seconds: 1),
+                //         curve: Curves.linear,
+                //         child: Image.network(
+                //           'https://ouch-cdn2.icons8.com/ElwUPINwMmnzk4s2_9O31AWJhH-eRHnP9z8rHUSS5JQ/rs:fit:784:784/czM6Ly9pY29uczgu/b3VjaC1wcm9kLmFz/c2V0cy9zdmcvNzkw/Lzg2NDVlNDllLTcx/ZDItNDM1NC04YjM5/LWI0MjZkZWI4M2Zk/MS5zdmc.png',
+                //         ),
+                //       ),
+                //     )
+                //   ],
+                // ),

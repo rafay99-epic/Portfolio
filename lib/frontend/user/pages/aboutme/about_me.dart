@@ -1,7 +1,6 @@
 import 'dart:io';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 import 'package:open_file/open_file.dart';
 
 import 'package:rafay_portfolio/constants/widgets/text/animatedtext.dart';
@@ -60,9 +59,12 @@ class _AboutMeState extends State<AboutMe> {
           fit: FlexFit.tight,
           child: Padding(
             padding: const EdgeInsets.all(25.0),
-            child: Lottie.asset(
-              'assets/animation/about_me_animation.json',
-              backgroundLoading: true,
+            child: Padding(
+              padding: const EdgeInsets.all(50.0),
+              child: Image.asset(
+                "assets/image/about_me/about_me.jpg",
+                fit: BoxFit.contain,
+              ),
             ),
           ),
         ),
@@ -81,7 +83,7 @@ class _AboutMeState extends State<AboutMe> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AnimatedTextBuilder(
-                text: "About Me",
+                text: "So, who am I?",
                 size: isMobile ? 36.0 : 72.0,
               ),
               const SizedBox(
